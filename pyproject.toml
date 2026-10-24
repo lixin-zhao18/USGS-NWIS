@@ -31,6 +31,8 @@ forcing = [
   "s3fs>=2025.1",
   "zarr>=3.0",
   "dask>=2024.1",
+  "earthaccess>=0.19",
+  "netCDF4>=1.7",
 ]
 
 [project.scripts]
