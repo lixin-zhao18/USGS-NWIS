@@ -58,7 +58,13 @@ def main() -> None:
     )
     parser.add_argument("--threads", type=int, default=8)
     parser.add_argument("--keep-raw", action="store_true")
+    parser.add_argument("--overwrite", action="store_true")
     args = parser.parse_args()
+
+    out_dir = args.out / f"{args.start}_{args.end}"
+    if (out_dir / "all_stations.parquet").exists() and not args.overwrite:
+        print(f"already complete: {out_dir}; use --overwrite to rerun")
+        return
 
     stations = load_stations(args.stations)
     earthaccess.login(strategy="netrc")
@@ -109,7 +115,6 @@ def main() -> None:
             rows[site].append(row)
         ds.close()
 
-    out_dir = args.out / f"{args.start}_{args.end}"
     out_dir.mkdir(parents=True, exist_ok=True)
     frames = []
     for site, site_rows in rows.items():
