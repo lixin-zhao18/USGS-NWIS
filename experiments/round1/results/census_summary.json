@@ -1,0 +1,42 @@
+{
+  "n_stations": 114,
+  "n_stations_with_events": 109,
+  "n_events_evaluated": 7536,
+  "n_loop_events": 1882,
+  "class_counts": {
+    "C_weak_open": 3923,
+    "A_simple_closed": 1882,
+    "B_complex_loop": 1667,
+    "X_no_usable_sc": 64
+  },
+  "n_reproducible_stations": 31,
+  "reproducible_fraction": 0.2719298245614035,
+  "direction_counts": {
+    "clockwise": 1522,
+    "counterclockwise": 322,
+    "ambiguous": 38
+  },
+  "criteria": {
+    "min_loop_events": 20,
+    "min_direction_fraction": 0.6,
+    "min_median_area": 0.02,
+    "min_station_pass_fraction": 0.6
+  },
+  "finished_at": "2026-10-24T06:37:48+00:00",
+  "n_candidate_stations": 114,
+  "stations_with_min_simple": 35,
+  "stations_with_min_complex": 31,
+  "stations_with_min_weak": 54,
+  "class_fractions": {
+    "C_weak_open": 0.5205679405520169,
+    "A_simple_closed": 0.24973460721868365,
+    "B_complex_loop": 0.2212048832271762,
+    "X_no_usable_sc": 0.008492569002123142
+  },
+  "class_order": [
+    "A_simple_closed",
+    "B_complex_loop",
+    "C_weak_open",
+    "X_no_usable_sc"
+  ]
+}
