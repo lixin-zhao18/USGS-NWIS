@@ -1,0 +1,119 @@
+experiment_id: round1
+seed: 20261023
+
+window:
+  start: '2015-01-01T00:00:00Z'
+  end: '2024-12-31T23:59:59Z'
+
+data_sources:
+  # Legacy WaterServices are still supported until Q1 2027.  The instant-values
+  # endpoint accepts multi-site requests, which keeps the HTTP footprint small.
+  site_service: 'https://waterservices.usgs.gov/nwis/site/'
+  iv_service: 'https://nwis.waterservices.usgs.gov/nwis/iv/'
+  gages2_item: 'https://www.sciencebase.gov/catalog/item/631405bbd34e36012efa304a'
+  gages2_file: 'https://www.sciencebase.gov/catalog/file/get/631405bbd34e36012efa304a?f=__disk__01%2F0a%2Fd2%2F010ad2fb628d42c764b81596fda93f0e86be478c'
+  states: [AL, AZ, AR, CA, CO, CT, DE, DC, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY]
+  batch_sites: 5
+  concurrency: 3
+  request_timeout_s: 300
+  retries: 3
+
+parameters:
+  streamflow: '00060'
+  specific_conductance: '00095'
+
+candidate:
+  area_km2: [10, 1000]
+  preferred_area_km2: [10, 200]
+  max_dev_pct: 20
+  max_dam_density: 5
+  exclude_name_patterns:
+    - TIDAL
+    - ESTUARY
+    - BAY
+    - SOUND
+    - INLET
+    - DELTA
+    - RESERVOIR
+    - ' DAM'
+    - CANAL
+    - DIVERSION
+    - POWER
+    - TREATMENT
+    - WWTP
+    - SEWAGE
+    - IRRIGATION
+
+quality:
+  max_cadence_minutes: 60
+  min_qualifying_years: 3
+  min_paired_completeness: 0.80
+  approved_only_primary: true
+  pairing_tolerance_fraction: 0.5
+  min_sc_median_us_cm: 10
+  max_sc_median_us_cm: 10000
+  max_negative_fraction: 0.01
+
+events:
+  min_count_per_station: 50
+  rolling_baseline_hours: 72
+  min_peak_distance_hours: 24
+  min_event_hours: 6
+  max_event_hours: 336
+  min_limb_points: 4
+  min_event_sc_completeness: 0.80
+  min_event_q_completeness: 0.90
+  peak_prominence_log10: 0.2
+  recession_fraction: 0.1
+
+strata:
+  snow_pct_min: 20
+  aridity_max: 1.0
+  order: [semiarid_flashy, snow_mixed, humid_rainfall]
+
+selection:
+  target_total: 40
+  strata:
+    humid_rainfall: 20
+    snow_mixed: 10
+    semiarid_flashy: 10
+  discovery:
+    humid_rainfall: 15
+    snow_mixed: 8
+    semiarid_flashy: 7
+  validation:
+    humid_rainfall: 5
+    snow_mixed: 2
+    semiarid_flashy: 3
+  reallocation_order: [humid_rainfall, snow_mixed, semiarid_flashy]
+  max_per_huc8: 2
+  rank_weights:
+    reference: 100
+    preferred_area: 30
+    low_disturbance: 20
+    low_dev: 20
+    low_dams: 10
+    completeness: 20
+    events: 10
+    jitter: 5
+
+# Amendments made before any SC–Q hysteresis was inspected (2026-10-24):
+# 1. Candidate attributes come from GAGES-II conterminous gages, not NWIS-only
+#    metadata, so area, climate and disturbance are defined consistently.
+# 2. Semiarid is operationally defined as aridity index < 1.0 (dry sub-humid or
+#    drier).  The USGS continuous-SC network has essentially no true semiarid
+#    small catchments; the shortfall is reported rather than relaxed.
+# 2b. At most two selected stations per 8-digit HUC and no two with the same
+#     first distinctive name token, so nested gauges on the same river do not
+#     inflate the sample (e.g. four Floyds Fork gauges) while independent
+#     tributaries in one HUC remain eligible.
+# 3. Urban development > 20% of basin area and dam density > 5 per 100 km² are
+#    excluded as strongly disturbed.  Sites below those limits are ranked by
+#    reference/low-disturbance status, not hard-filtered.
+# 4. Sensor sanity bounds are 10-10,000 uS/cm for the median SC.  Saline
+#    inland streams in the Paradox Basin reach ~5,000-7,500 uS/cm, so the
+#    original 5,000 upper bound would discard valid semiarid sites; the bound
+#    only guards against order-of-magnitude unit errors.
+# 5. The modern OGC API is not used for bulk values because of its per-IP
+#    limit (1000 requests/hour); the legacy multi-site IV service is used
+#    instead and timestamps are converted to UTC from their explicit offsets.

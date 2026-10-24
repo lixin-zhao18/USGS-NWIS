@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+
+# Local data and API caches
+data/raw/
+data/interim/
+data/processed/
+.cache/
+
+# Generated figures and temporary reports
+experiments/*/*.log
+experiments/*/figures/*.png
+!experiments/*/figures/.gitkeep
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
