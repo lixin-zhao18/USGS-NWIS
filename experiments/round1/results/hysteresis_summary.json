@@ -1,12 +1,16 @@
 {
-  "finished_at": "2026-10-24T03:00:03+00:00",
-  "n_discovery_stations": 30,
+  "n_stations": 30,
   "n_stations_with_events": 30,
   "n_events_evaluated": 3747,
   "n_loop_events": 893,
+  "class_counts": {
+    "C_weak_open": 2120,
+    "A_simple_closed": 893,
+    "B_complex_loop": 710,
+    "X_no_usable_sc": 24
+  },
   "n_reproducible_stations": 18,
   "reproducible_fraction": 0.6,
-  "data_sufficient": true,
   "direction_counts": {
     "clockwise": 717,
     "counterclockwise": 154,
@@ -17,5 +21,8 @@
     "min_direction_fraction": 0.6,
     "min_median_area": 0.02,
     "min_station_pass_fraction": 0.6
-  }
+  },
+  "finished_at": "2026-10-24T08:09:34+00:00",
+  "n_discovery_stations": 30,
+  "data_sufficient": true
 }

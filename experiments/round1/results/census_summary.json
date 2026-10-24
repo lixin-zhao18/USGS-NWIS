@@ -22,7 +22,7 @@
     "min_median_area": 0.02,
     "min_station_pass_fraction": 0.6
   },
-  "finished_at": "2026-10-24T06:40:27+00:00",
+  "finished_at": "2026-10-24T07:38:55+00:00",
   "n_candidate_stations": 114,
   "stations_with_min_simple": 35,
   "stations_with_min_complex": 31,

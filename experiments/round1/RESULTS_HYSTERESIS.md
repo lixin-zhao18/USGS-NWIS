@@ -1,9 +1,10 @@
 # Discovery-set SC–Q hysteresis diagnostics
 
-- Generated: 2026-10-24T03:00:03+00:00
+- Generated: 2026-10-24T08:09:34+00:00
 - Scope: 30 discovery stations only; the 10 validation stations are sealed.
-- Method: Q-only event windows, normalised Q and SC, area between rising
-  and falling limbs, clockwise = falling limb below rising limb at equal Q.
+- Method: Q-only event windows and normalised Q and SC; HI = SC_rise -
+  SC_fall at the median overlapping Q; HI > 0 and positive signed area
+  mean clockwise (rising limb above the falling limb at equal Q).
 
 ## Verdict
 
@@ -14,7 +15,6 @@ The gate is met exactly at its threshold: this supports a pilot model, not a def
 - 3,747 usable discovery events; 893 pass the strict loop-quality filters.
 - Direction is strongly asymmetric: 717 clockwise vs 154 counterclockwise.
 - 24/30 stations are clockwise-dominant; median within-station direction fraction 0.82.
-- Sensitivity without the strict loop-quality filters: 3,350 loops, 25/30 stations reproducible. The direction asymmetry survives; the event count does not.
 
 ## By stratum
 

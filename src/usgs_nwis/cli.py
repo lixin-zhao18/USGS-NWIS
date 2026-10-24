@@ -11,6 +11,7 @@ from .config import load_config
 from .download import download_all
 from .events import run_events
 from .figures import make_figures
+from .forcing import AORC_VARIABLES, CORE_VARIABLES, a_class_events, extract_aorc, extract_nldas
 from .hysteresis import run_census, run_hysteresis
 from .pipeline import run_pipeline
 from .qc import run_qc
@@ -87,6 +88,42 @@ def hysteresis_command(config: Path = typer.Option(Path("configs/round1.yaml")))
     """Diagnose event-scale SC-Q hysteresis on the discovery split."""
     cfg = _config(config)
     typer.echo(run_hysteresis(cfg))
+
+
+@app.command("forcing")
+def forcing_command(
+    config: Path = typer.Option(Path("configs/round1.yaml")),
+    source: str = typer.Option("aorc", help="aorc or nldas"),
+    years: str = typer.Option("2015-2024", help="Inclusive year range."),
+    variables: str = typer.Option("all", help="all or core"),
+    stations: str = typer.Option("a_cohort", help="a_cohort or all"),
+    workers: int = typer.Option(3, help="Concurrent station extractions."),
+    out_name: str = typer.Option("aorc", help="Output directory name."),
+) -> None:
+    """Prepare hourly meteorological forcing for the A-class pilot."""
+    cfg = _config(config)
+    start, end = (int(part) for part in years.split("-"))
+    year_list = list(range(start, end + 1))
+    events = a_class_events(cfg)
+    events_path = cfg.results_dir / "a_class_events.csv"
+    events.to_csv(events_path, index=False)
+    typer.echo(
+        f"A-class events: {len(events)} ({events['site_no'].nunique()} stations) "
+        f"-> {events_path}"
+    )
+    if source == "aorc":
+        chosen = AORC_VARIABLES if variables == "all" else CORE_VARIABLES
+        summary = extract_aorc(
+            cfg,
+            years=year_list,
+            variables=chosen,
+            stations=stations,
+            workers=workers,
+            out_name=out_name,
+        )
+        typer.echo(f"AORC stations: {summary['n_stations']}")
+    else:
+        extract_nldas(cfg)
 
 
 @app.command("census")

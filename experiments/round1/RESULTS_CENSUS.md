@@ -1,6 +1,6 @@
 # Tier-1 census — all 114 candidate stations
 
-- Generated: 2026-10-24T06:40:27+00:00
+- Generated: 2026-10-24T07:38:55+00:00
 - Scope: every `candidate_ok` station (no discovery/validation split); all usable events; geometry classes are assigned before any loop metric.
 
 ## Event classes
