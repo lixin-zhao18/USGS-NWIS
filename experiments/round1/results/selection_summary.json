@@ -1,0 +1,27 @@
+{
+  "finished_at": "2026-10-24T01:54:21+00:00",
+  "target_total": 40,
+  "n_selected": 40,
+  "n_discovery": 30,
+  "n_validation": 10,
+  "by_stratum": {
+    "humid_rainfall": 23,
+    "snow_mixed": 14,
+    "semiarid_flashy": 3
+  },
+  "by_stratum_split": {
+    "humid_rainfall|discovery": 17,
+    "humid_rainfall|validation": 6,
+    "semiarid_flashy|discovery": 2,
+    "semiarid_flashy|validation": 1,
+    "snow_mixed|discovery": 11,
+    "snow_mixed|validation": 3
+  },
+  "shortfall": {
+    "semiarid_flashy": 7,
+    "snow_mixed": 0,
+    "humid_rainfall": 0
+  },
+  "n_eligible": 50,
+  "seed": 20261023
+}

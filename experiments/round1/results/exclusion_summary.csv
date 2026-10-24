@@ -1,0 +1,1266 @@
+site_no,station_name,state,stratum,exclusion_reason,qc_reason,final_status
+01018035,"Meduxnekeag River at Lowery Rd. nr Houlton, Maine",ME,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+010228955,"Outlet Bass Hbr Marsh at Rt 102 at Tremont, Maine",ME,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01036390,"Penobscot River at Eddington, Maine",ME,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01095220,"STILLWATER RIVER NEAR STERLING, MA",MA,snow_mixed,dam_density_exceeds_limit,,not_selected
+01095375,"QUINAPOXET RIVER AT CANADA MILLS NEAR HOLDEN, MA",MA,snow_mixed,dam_density_exceeds_limit,,not_selected
+01095434,"GATES BROOK NEAR WEST BOYLSTON, MA",MA,humid_rainfall,gages2_missing,,not_selected
+01100568,"SHAWSHEEN RIVER AT HANSCOM FIELD NEAR BEDFORD, MA",MA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01104370,"STONY BROOK AT VILES STREET, NEAR WESTON, MA",MA,humid_rainfall,gages2_missing,,not_selected
+01104405,"HOBBS BROOK AT MILL ST NR LINCOLN, MA",MA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01104410,"CAMBRIDGE RES., UNNAMED TRIB 1, NR LEXINGTON, MA",MA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01104415,"CAMBRIDGE RES., UNNAMED TRIB 2, NR LEXINGTON, MA",MA,humid_rainfall,gages2_missing,,not_selected
+01104420,"CAMBRIDGE RES., UNNAMED TRIB 3, NR LEXINGTON, MA",MA,humid_rainfall,gages2_missing,,not_selected
+01104430,"HOBBS BK BELOW CAMBRIDGE RES NR KENDALL GREEN, MA",MA,snow_mixed,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01104433,"HOBBS BROOK, UNNAMED TRIBUTARY 1, NEAR WESTON, MA",MA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01104453,STONY BROOK UNNAMED TRIB 2 NR WESTON STATION,MA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01104455,"STONY BROOK, UNNAMED TRIBUTARY 1, NEAR WALTHAM, MA",MA,humid_rainfall,gages2_missing,,not_selected
+01104460,"STONY BROOK AT RT 20 AT WALTHAM, MA",MA,snow_mixed,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01104475,"STONY BROOK RES., UNNAMED TRIB 1, NEAR WESTON, MA",MA,snow_mixed,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01104480,"STONY BROOK RESERVOIR AT DAM NEAR WALTHAM, MA",MA,humid_rainfall,catalog_ends_before_window_end;gages2_missing;name_flag:RESERVOIR,,not_selected
+01108000,"TAUNTON RIVER NEAR BRIDGEWATER, MA",MA,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01108410,"MILL RIVER AT SPRING STREET AT TAUNTON, MA",MA,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01111230,"BLACKSTONE RIVER AT MILLVILLE, MA",MA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01115098,"PEEPTOAD BROOK AT ELMDALE RD NR NORTH SCITUATE, RI",RI,snow_mixed,dam_density_exceeds_limit,,not_selected
+01115110,"HUNTINGHOUSE BK AT ELMDALE RD AT N SCITUATE, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115114,"RUSH BROOK NEAR ELMDALE RD NEAR NORTH SCITUATE, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115120,"UNNAMED TRIB TO SCITUATE RES NR NORTH SCITUATE, RI",RI,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01115170,"MOSWANSICUT STREAM NR NORTH SCITUATE, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115183,"QUONOPAUG BK AT RT 116 NR NORTH SCITUATE, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115184,"SPRUCE BROOK NR NORTH SCITUATE, RI",RI,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+011151843,"PONAGANSET RIVER AT RSVR OUTLET AT GLOCESTER, RI",RI,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01115185,"WINSOR BROOK AT WINSOR RD NEAR SOUTH FOSTER, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115187,"PONAGANSET RIVER AT SOUTH FOSTER, RI",RI,snow_mixed,dam_density_exceeds_limit,,not_selected
+01115190,"DOLLY COLE BK AT OLD DANIELSON PK AT S FOSTER, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115265,"HEMLOCK BROOK AT KING ROAD NR FOSTER, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115275,"BEAR TREE BROOK NR CLAYVILLE, RI",RI,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01115276,"WESTCONNAUG STREAM AT PLAINFIELD PIKE, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115278,"SWAMP BROOK AT PONAGANSETT ROAD NR CLAYVILLE, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115280,"CORK BK AT ROCKLAND SCITUATE RD NR CLAYVILLE, RI",RI,humid_rainfall,gages2_missing,,not_selected
+01115297,WILBUR HOLLOW BK AT OLD PLAINFIELD PK NR CLAYVILLE,RI,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01118500,"PAWCATUCK RIVER AT WESTERLY, RI",RI,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;dam_density_exceeds_limit,,not_selected
+01124000,"QUINEBAUG RIVER AT QUINEBAUG, CT",CT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;dam_density_exceeds_limit,,not_selected
+01125100,"FRENCH RIVER AT NORTH GROSVENORDALE, CT",CT,snow_mixed,catalog_ends_before_window_end;dam_density_exceeds_limit,,not_selected
+01127500,"YANTIC RIVER AT YANTIC, CT",CT,snow_mixed,catalog_ends_before_window_end,,not_selected
+011277905,"LATIMER BROOK NR I-95N EXIT 75 NR FLANDERS, CT",CT,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01135100,"POPE BROOK TRIBUTARY (W-9), NR NORTH DANVILLE, VT",VT,humid_rainfall,gages2_missing,,not_selected
+01161280,"CONNECTICUT RIVER NEAR NORTHFIELD, MA",MA,humid_rainfall,gages2_missing,,not_selected
+01168250,"COLD RIVER AT FLORIDA, MA",MA,humid_rainfall,gages2_missing,,not_selected
+01184000,"CONNECTICUT RIVER AT THOMPSONVILLE, CT",CT,snow_mixed,area_outside_range,,not_selected
+01184490,"BROAD BROOK AT BROAD BROOK, CT",CT,snow_mixed,catalog_ends_before_window_end;dam_density_exceeds_limit,,not_selected
+01186500,"STILL RIVER AT ROBERTSVILLE, CT",CT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;dam_density_exceeds_limit,,not_selected
+01191000,"NORTH BRANCH PARK RIVER AT HARTFORD, CT",CT,snow_mixed,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01192500,"HOCKANUM RIVER NEAR EAST HARTFORD, CT",CT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01193050,"CONNECTICUT RIVER AT MIDDLE HADDAM, CT",CT,humid_rainfall,gages2_missing,,not_selected
+01193500,"SALMON RIVER NEAR EAST HAMPTON, CT",CT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+01196500,"QUINNIPIAC RIVER AT WALLINGFORD, CT",CT,snow_mixed,catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01200600,"HOUSATONIC RIVER NEAR NEW MILFORD, CT",CT,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01201487,"STILL RIVER AT ROUTE 7 AT BROOKFIELD CENTER, CT",CT,snow_mixed,catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01203000,"SHEPAUG R NR ROXBURY, CT",CT,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01205500,"HOUSATONIC RIVER AT STEVENSON, CT",CT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+01208500,"NAUGATUCK RIVER AT BEACON FALLS, CT",CT,snow_mixed,catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01208873,"ROOSTER RIVER AT FAIRFIELD, CT",CT,snow_mixed,catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01208990,"SAUGATUCK RIVER NEAR REDDING, CT",CT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;dam_density_exceeds_limit,,not_selected
+01302020,BRONX RIVER AT NY BOTANICAL GARDEN AT BRONX NY,NY,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01304000,NISSEQUOGUE RIVER NEAR SMITHTOWN NY,NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01306495,CONNETQUOT RIVER DISTRIBUTARY NEAR OAKDALE NY,NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01308000,SAMPAWAMS CREEK AT BABYLON NY,NY,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+01308500,CARLLS RIVER AT BABYLON NY,NY,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+01349527,MOHAWK R ABOVE STATE HIGHWAY 30A AT FONDA NY,NY,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01357500,MOHAWK RIVER AT COHOES NY,NY,snow_mixed,catalog_overlap_lt_3y;area_outside_range,,not_selected
+01358000,HUDSON RIVER AT GREEN ISLAND NY,NY,snow_mixed,catalog_overlap_lt_3y;area_outside_range,,not_selected
+01363556,ESOPUS CREEK NEAR LOMONTVILLE NY,NY,humid_rainfall,gages2_missing,,not_selected
+01364500,ESOPUS CREEK AT MOUNT MARION NY,NY,snow_mixed,catalog_overlap_lt_3y;area_outside_range,,not_selected
+01388000,Ramapo River at Pompton Lakes NJ,NJ,snow_mixed,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01400500,Raritan River at Manville NJ,NJ,snow_mixed,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01402000,Millstone River at Blackwells Mills NJ,NJ,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01408000,Manasquan River at Squankum NJ,NJ,humid_rainfall,catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+01408029,Manasquan River near Allenwood NJ,NJ,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01408500,Toms River near Toms River NJ,NJ,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+01413500,EAST BRANCH DELAWARE RIVER AT MARGARETVILLE NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01414500,MILL BROOK NEAR DUNRAVEN NY,NY,snow_mixed,,;insufficient_qualifying_years,not_selected
+01415000,TREMPER KILL NEAR ANDES NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01423000,WEST BRANCH DELAWARE RIVER AT WALTON NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01427207,DELAWARE RIVER AT LORDVILLE NY,PA,snow_mixed,area_outside_range,,not_selected
+01427510,DELAWARE RIVER AT CALLICOON NY,PA,snow_mixed,area_outside_range,,not_selected
+01432160,DELAWARE RIVER AT BARRYVILLE NY,PA,humid_rainfall,gages2_missing,,not_selected
+01433005,MONGAUP R BELOW SWINGING BRIDGE RESERVOIR NY,NY,humid_rainfall,gages2_missing;name_flag:RESERVOIR,,not_selected
+01433500,MONGAUP RIVER NEAR MONGAUP NY,NY,snow_mixed,dam_density_exceeds_limit,,not_selected
+01434000,DELAWARE RIVER AT PORT JERVIS NY,PA,snow_mixed,area_outside_range,,not_selected
+0143400680,E BR NEVERSINK R NORTHEAST OF DENNING NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01434017,EAST BRANCH NEVERSINK RIVER NEAR CLARYVILLE NY,NY,snow_mixed,,,selected
+01434021,W BR NEVERSINK R AT WINNISOOK L NR FROST VALLEY NY,NY,snow_mixed,area_outside_range,,not_selected
+01434025,BISCUIT BK ABOVE PIGEON BK AT FROST VALLEY NY,NY,snow_mixed,area_outside_range,,not_selected
+01434498,WEST BRANCH NEVERSINK RIVER AT CLARYVILLE NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01435000,NEVERSINK RIVER NEAR CLARYVILLE NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01436000,NEVERSINK RIVER AT NEVERSINK NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01436655,SHELDRAKE STREAM AT THOMPSONVILLE NY,NY,humid_rainfall,gages2_missing,,not_selected
+01436690,NEVERSINK RIVER AT BRIDGEVILLE NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01437100,GUMAER BROOK NEAR WURTSBORO NY,NY,humid_rainfall,gages2_missing,,not_selected
+01437349,BASHER KILL BLW BASHAKILL MARSH AT WESTBROOKVILLE,NY,humid_rainfall,gages2_missing,,not_selected
+01437400,BASHER KILL AT CUDDEBACKVILLE NY,NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+01437500,NEVERSINK RIVER AT GODEFFROY NY,NY,snow_mixed,,,eligible_but_below_cutoff
+01438500,Delaware River at Montague NJ,PA,snow_mixed,area_outside_range,,not_selected
+01439500,"Bush Kill at Shoemakers, PA",PA,snow_mixed,,,eligible_but_below_cutoff
+01440000,Flat Brook near Flatbrookville NJ,NJ,snow_mixed,dam_density_exceeds_limit,,not_selected
+01440400,"Brodhead Creek near Analomink, PA",PA,snow_mixed,dam_density_exceeds_limit,,not_selected
+01443500,Paulins Kill at Blairstown NJ,NJ,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;dam_density_exceeds_limit,,not_selected
+01445500,Pequest River at Pequest NJ,NJ,snow_mixed,catalog_overlap_lt_3y;dam_density_exceeds_limit,,not_selected
+01446500,Delaware River at Belvidere NJ,NJ,snow_mixed,area_outside_range,,not_selected
+01451380,"Little Lehigh Creek near Trexlertown, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01451400,"Spring Creek at Trexlertown, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01451467,"Leibert Creek at Emmaus, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01451500,"Little Lehigh Creek near Allentown, PA",PA,snow_mixed,urban_dev_exceeds_limit,,not_selected
+01451630,"Cedar Creek at Mouth near Allentown, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01451650,Little Lehigh Creek at Tenth St. Br. at Allentown,PA,snow_mixed,urban_dev_exceeds_limit,,not_selected
+01451800,"Jordan Creek near Schnecksville, PA",PA,snow_mixed,,,selected
+01454700,"Lehigh River at Glendon, PA",PA,snow_mixed,area_outside_range,,not_selected
+01463500,Delaware River at Trenton NJ,NJ,snow_mixed,area_outside_range,,not_selected
+01464290,Crosswicks Ck at Hockamik Rd near Cookstown NJ,NJ,humid_rainfall,gages2_missing,,not_selected
+01464500,Crosswicks Creek at Extonville NJ,NJ,humid_rainfall,,,selected
+01465500,"Neshaminy Creek near Langhorne, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01465798,"Poquessing Creek at Grant Ave. at Philadelphia, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01465850,South Branch Rancocas Creek at Vincentown NJ,NJ,humid_rainfall,,,selected
+0146587310,Haynes C at Tuckerton Rd at Lake Pine NJ,NJ,humid_rainfall,gages2_missing,,not_selected
+01465880,Southwest Branch Rancocas Creek at Medford NJ,NJ,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01466500,McDonalds Branch in Byrne State Forest NJ,NJ,humid_rainfall,area_outside_range,,not_selected
+01466900,Greenwood Branch at New Lisbon NJ,NJ,humid_rainfall,,,eligible_but_below_cutoff
+01467000,North Branch Rancocas Creek at Pemberton NJ,NJ,humid_rainfall,dam_density_exceeds_limit,,not_selected
+01467024,Rancocas Creek at Bridgeboro NJ,NJ,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01467042,"Pennypack Creek at Pine Road, at Philadelphia, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01467048,"Pennypack Cr at Lower Rhawn St Bdg, Phila., PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01467081,South Branch Pennsauken Creek at Cherry Hill NJ,NJ,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01467086,"Tacony Creek ab Adams Avenue, Philadelphia, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01467087,"Frankford Creek at Castor Ave, Philadelphia, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01467150,Cooper River at Haddonfield NJ,NJ,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01467200,"Delaware River at Penn's Landing, Philadelphia, PA",PA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+01468500,"Schuylkill River at Landingville, PA",PA,snow_mixed,,,eligible_but_below_cutoff
+01472157,"French Creek near Phoenixville, PA",PA,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window,,not_selected
+01473000,"Perkiomen Creek at Graterford, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01473169,Valley Creek at PA Turnpike Br near Valley Forge,PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01473500,"Schuylkill River at Norristown, PA",PA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01473900,"Wissahickon Creek at Fort Washington, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01474000,"Wissahickon Creek at Mouth, Philadelphia, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01474500,"Schuylkill River at Philadelphia, PA",PA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01475510,"Darby Creek near Darby, PA",PA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01475530,"Cobbs Cr at U.S. Hghwy No. 1 at Philadelphia, PA",PA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01475548,"Cobbs Creek at Mt. Moriah Cemetery, Philadelphia",PA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01477070,Raccoon Creek at Wrights Mill NJ,NJ,humid_rainfall,gages2_missing,,not_selected
+01477120,Raccoon Creek near Swedesboro NJ,NJ,humid_rainfall,dam_density_exceeds_limit,,not_selected
+01478000,"CHRISTINA RIVER AT COOCHS BRIDGE, DE",DE,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01478100,"EB White Clay Creek Trib near London Grove, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01478120,"East Branch White Clay Creek at Avondale, PA",PA,humid_rainfall,,,selected
+01478137,"Trout Run at Avondale, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01478185,"Middle Branch White Clay Creek near West Grove,PA",PA,humid_rainfall,gages2_missing,,not_selected
+01478220,"West Branch White Clay Creek near Chesterville, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01478245,"White Clay Creek near Strickersville, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01478650,"WHITE CLAY CREEK AT NEWARK, DE",DE,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01478950,"PIKE CREEK NEAR NEWARK, DE",DE,humid_rainfall,gages2_missing,,not_selected
+01479000,"WHITE CLAY CREEK NEAR NEWARK, DE",DE,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01479820,"Red Clay Creek near Kennett Square, PA",PA,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+01480000,"RED CLAY CREEK AT WOODDALE, DE",DE,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01480120,"CHRISTINA RIVER AT WILMINGTON, DE",DE,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01480617,"West Branch Brandywine Creek at Modena, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01480870,"East Branch Brandywine Creek below Downingtown, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01481000,"Brandywine Creek at Chadds Ford, PA",PA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01481500,"BRANDYWINE CREEK AT WILMINGTON, DE",DE,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01482100,DELAWARE RIVER AT DEL MEM BRIDGE AT WILMINGTON DE,DE,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+01482695,"C AND D CANAL NR DELAWARE CITY, DE",DE,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+01483155,"SILVER LAKE TRIBUTARY AT MIDDLETOWN, DE",DE,humid_rainfall,area_outside_range,,not_selected
+01483700,"ST JONES RIVER AT DOVER, DE",DE,humid_rainfall,catalog_overlap_lt_3y;urban_dev_exceeds_limit,,not_selected
+01484080,"MURDERKILL RIVER AT FREDERICA, DE",DE,humid_rainfall,gages2_missing,,not_selected
+01484085,"MURDERKILL RIVER AT BOWERS, DE",DE,humid_rainfall,catalog_ends_before_window_end,,not_selected
+01484100,"BEAVERDAM BRANCH AT HOUSTON, DE",DE,humid_rainfall,area_outside_range,,not_selected
+01484525,"MILLSBORO POND OUTLET AT MILLSBORO, DE",DE,humid_rainfall,,,eligible_but_below_cutoff
+01487150,"BUCKS BRANCH NEAR ATLANTA, DE",DE,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+01491000,"CHOPTANK RIVER NEAR GREENSBORO, MD",MD,humid_rainfall,,;insufficient_qualifying_years,not_selected
+01493112,"CHESTERVILLE BRANCH NEAR CRUMPTON, MD",MD,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01516350,"Tioga River near Mansfield, PA",PA,snow_mixed,,,selected
+01518700,"Tioga River at Tioga Junction, PA",PA,snow_mixed,area_outside_range,,not_selected
+015319015,"N Br Towanda Cr, Clark Rd nr Granville Summit PA",PA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01540500,"Susquehanna River at Danville, PA",PA,snow_mixed,area_outside_range,,not_selected
+01542500,"WB Susquehanna River at Karthaus, PA",PA,snow_mixed,area_outside_range,,not_selected
+01544500,"Kettle Creek at Cross Fork, PA",PA,snow_mixed,,,selected
+01548030,"Fishing Creek near Lamar, PA",PA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01548303,"Straight Run, Site 1, at Marsh Creek, PA",PA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01549700,"Pine Creek bl L Pine Creek near Waterville, PA",PA,snow_mixed,area_outside_range,,not_selected
+01567000,"Juniata River at Newport, PA",PA,snow_mixed,catalog_ends_before_window_end;area_outside_range,,not_selected
+01570500,"Susquehanna River at Harrisburg, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01573208,"Swatara Creek near Palmyra, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01573660,"Fishing Creek at Goldsboro, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01573684,"Little Conewago Crk, Gingrich Rd at Upper Lawn PA",PA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01573695,"Conewago Creek near Bellaire, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01573710,"Conewago Creek near Falmouth, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01573816,"Swift Run at Brickcrafter Rd nr New Oxford, PA",PA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01574000,"West Conewago Creek near Manchester, PA",PA,humid_rainfall,area_outside_range,,not_selected
+01575598,"Codorus Creek near Saginaw, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01575900,"Chiques Creek near Marietta, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01576000,"Susquehanna River at Marietta, PA",PA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+01576007,"Kreutz Creek at Strickler, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01576045,"Fishing Creek at Craley, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01576381,"Hammer Creek at Obie Rd nr Schafferstown, PA",PA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+015765195,"Big Spring Run near Mylin Corners, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01577500,"Muddy Creek at Castle Fin, PA",PA,humid_rainfall,gages2_missing,,not_selected
+01581752,"PLUMTREE RUN NEAR BEL AIR, MD",MD,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01585075,"FOSTER BRANCH NEAR JOPPATOWNE, MD",MD,humid_rainfall,gages2_missing,,not_selected
+01585219,"HERRING RUN AT SINCLAIR LANE AT BALTIMORE, MD",MD,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01589290,"SCOTTS LEVEL BRANCH AT ROCKDALE, MD",MD,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01589485,"JONES FALLS AT MOUTH AT BALTIMORE, MD",MD,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+01595800,"NORTH BRANCH POTOMAC RIVER AT BARNUM, WV",WV,snow_mixed,,,selected
+01608500,"SOUTH BRANCH POTOMAC RIVER NEAR SPRINGFIELD, WV",WV,humid_rainfall,area_outside_range,,not_selected
+01611500,"CACAPON RIVER NEAR GREAT CACAPON, WV",WV,humid_rainfall,area_outside_range,,not_selected
+01616100,"DRY MARSH RUN NEAR BERRYVILLE, VA",VA,humid_rainfall,catalog_ends_before_window_end,,not_selected
+0163287828,"WAR BRANCH BELOW TRIB NEAR TENTH LEGION, VA",VA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01632900,"SMITH CREEK NEAR NEW MARKET, VA",VA,humid_rainfall,,,selected
+01633000,"N F SHENANDOAH RIVER AT MOUNT JACKSON, VA",VA,humid_rainfall,area_outside_range,,not_selected
+01634000,"N F SHENANDOAH RIVER NEAR STRASBURG, VA",VA,humid_rainfall,area_outside_range,,not_selected
+01636316,"SPOUT RUN AT RT 621 NEAR MILLWOOD, VA",VA,humid_rainfall,catalog_ends_before_window_end,,not_selected
+01636845,"LITTLE CATOCTIN CREEK NEAR ROSEMONT, MD",MD,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01636846,"LITTLE CATOCTIN CREEK AT ROSEMONT, MD",MD,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01638500,"POTOMAC RIVER AT POINT OF ROCKS, MD",MD,humid_rainfall,area_outside_range,,not_selected
+01640152,"SAMS CREEK AT MCKINSTRYS MILL, MD",MD,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01642198,"CARROLL CREEK NEAR FREDERICK, MD",MD,humid_rainfall,gages2_missing,,not_selected
+01642199,"CARROLL CREEK ABOVE ROCK CREEK AT FREDERICK, MD",MD,humid_rainfall,gages2_missing,,not_selected
+01643580,"MONOCACY RIVER NEAR DICKERSON, MD",MD,humid_rainfall,gages2_missing,,not_selected
+01645704,"DIFFICULT RUN ABOVE FOX LAKE NEAR FAIRFAX, VA",VA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01645762,"S F LITTLE DIFFICULT RUN ABOVE MOUTH NR VIENNA, VA",VA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+0164578734,"SNAKEDEN BRANCH ABOVE LAKE AUDUBON AT RESTON, VA",VA,humid_rainfall,gages2_missing,,not_selected
+0164579522,"THE GLADE NEAR HOWLAND DRIVE AT RESTON, VA",VA,humid_rainfall,gages2_missing,,not_selected
+01646000,"DIFFICULT RUN NEAR GREAT FALLS, VA",VA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01646305,"DEAD RUN AT WHANN AVENUE NEAR MCLEAN, VA",VA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01646500,"POTOMAC RIVER NEAR WASH, DC LITTLE FALLS PUMP STA",MD,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+01648010,"Rock Creek at Joyce Rd Washington, DC",DC,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01649190,"PAINT BRANCH NEAR COLLEGE PARK, MD",MD,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01649500,"NORTHEAST BRANCH ANACOSTIA RIVER AT RIVERDALE, MD",MD,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01650800,"SLIGO CREEK NEAR TAKOMA PARK, MD",MD,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+01651000,"NORTHWEST BR ANACOSTIA RIVER NR HYATTSVILLE, MD",MD,humid_rainfall,catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+01651003,"NORTHWEST BRANCH ANACOSTIA RIVER AT BRENTWOOD, MD",MD,humid_rainfall,gages2_missing,,not_selected
+01651730,"BEAVERDAM CREEK NEAR CHEVERLY, MD",MD,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+01651760,"ANACOSTIA RIVER AT KENILWORTH AT WASHINGTON, DC",DC,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01651770,"HICKEY RUN AT NATIONAL ARBORETUM AT WASHINGTON, DC",DC,humid_rainfall,gages2_missing,,not_selected
+01651800,"WATTS BRANCH AT WASHINGTON, DC",DC,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+01651827,"Anacostia River nr Buzzard Point at Washington, DC",DC,humid_rainfall,gages2_missing,,not_selected
+01653521,"PISCATAWAY CREEK AT JOINT BASE ANDREWS, MD",MD,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+01653620,"MEETINGHOUSE BRANCH AT CAMP SPRINGS, MD",MD,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01653719,"N BRANCH LITTLE HUNTING CREEK NR GUM SPRINGS, VA",VA,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+0165389205,"ACCOTINK CREEK NEAR RANGER ROAD AT FAIRFAX, VA",VA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01654000,"ACCOTINK CREEK NEAR ANNANDALE, VA",VA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01654107,"LONG BRANCH AT OLLEY LANE NR FAIRFAX, VA",VA,humid_rainfall,gages2_missing,,not_selected
+01654500,"LONG BRANCH NEAR ANNANDALE, VA",VA,humid_rainfall,gages2_missing,,not_selected
+01654670,"ACCOTINK CREEK AT KEENE MILL RD AT SPRINGFIELD, VA",VA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01655794,"TURKEY RUN AT ROUTE 643 NEAR CATLETT, VA",VA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01656903,"FLATLICK BRANCH ABOVE FROG BRANCH AT CHANTILLY, VA",VA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+01658000,"MATTAWOMAN CREEK NEAR POMONKEY, MD",MD,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+01661977,"CARTER RUN AT ROUTE 681 NEAR JEFFERSONTON, VA",VA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+01668000,"RAPPAHANNOCK RIVER NEAR FREDERICKSBURG, VA",VA,humid_rainfall,area_outside_range,,not_selected
+0166818623,"MILL CREEK ABV PEUMANSEND CREEK NR PORT ROYAL, VA",VA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+0166818985,"MILL CREEK BLW PEUMANSEND CREEK NR PORT ROYAL, VA",VA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+01669000,"PISCATAWAY CREEK NEAR TAPPAHANNOCK, VA",VA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window,,not_selected
+016701405,"N ANNA RIVER AT RT 669 NR MONROVIA, VA",VA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01670200,"PAMUNKEY CREEK AT RT 651 NEAR LAHORE, VA",VA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+01671100,"LITTLE RIVER NEAR DOSWELL, VA",VA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window,,not_selected
+01673000,"PAMUNKEY RIVER NEAR HANOVER, VA",VA,humid_rainfall,area_outside_range,,not_selected
+0167300055,"MECHUMPS CREEK AT HILL CARTER PKWY AT ASHLAND, VA",VA,humid_rainfall,gages2_missing,,not_selected
+01674500,"MATTAPONI RIVER NEAR BEULAHVILLE, VA",VA,humid_rainfall,area_outside_range,,not_selected
+02035000,"JAMES RIVER AT CARTERSVILLE, VA",VA,humid_rainfall,area_outside_range,,not_selected
+02041650,"APPOMATTOX RIVER AT MATOACA, VA",VA,humid_rainfall,area_outside_range,,not_selected
+02042222,"JAMES RIVER ABV WEYANOKE POINT NR CHARLES CITY, VA",VA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+02042500,"CHICKAHOMINY RIVER NEAR PROVIDENCE FORGE, VA",VA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+0204309906,"CONVEYANCE CHAN AT RAMSGATE LN NR GREAT BRIDGE, VA",VA,humid_rainfall,gages2_missing,,not_selected
+02055379,"TINKER CREEK UPPER AT COLUMBIA ST AT ROANOKE, VA",VA,humid_rainfall,gages2_missing,,not_selected
+0205551460,"LICK RUN ABOVE PATTON AVENUE AT ROANOKE, VA",VA,humid_rainfall,gages2_missing,,not_selected
+0205551614,"TINKER CREEK ABOVE GLADE CREEK AT ROANOKE, VA",VA,humid_rainfall,gages2_missing,,not_selected
+02081022,"ROANOKE RIVER NEAR OAK CITY, NC",NC,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+0209303205,"NEW RIVER BELOW HWY17 BRIDGE AT JACKSONVILLE, NC",NC,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+02101726,"ROCKY R AT US 64 NEAR SILER CITY, NC",NC,humid_rainfall,dam_density_exceeds_limit,,not_selected
+02102500,"CAPE FEAR RIVER AT LILLINGTON, NC",NC,humid_rainfall,area_outside_range;dam_density_exceeds_limit,,not_selected
+02110400,"BUCK CREEK NEAR LONGS, SC",SC,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+02110500,"WACCAMAW RIVER NEAR LONGS, SC",SC,humid_rainfall,area_outside_range,,not_selected
+02110550,"WACCAMAW RIVER ABOVE CONWAY, SC",SC,humid_rainfall,gages2_missing,,not_selected
+02110701,"CRABTREE SWAMP AT CONWAY, SC",SC,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02110760,"AIW AT MYRTLEWOOD GOLF COURSE AT MYRTLE BEACH, SC",SC,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+02110777,"AIW AT HIGHWAY 9 AT NIXONS CROSSROADS, SC",SC,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+02110815,"WACCAMAW R NR HAGLEY LAND. NR PAWLEYS ISLAND, SC",SC,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+02135000,"LITTLE PEE DEE R. AT GALIVANTS FERRY, SC",SC,humid_rainfall,area_outside_range,,not_selected
+02148315,"WATEREE R. BL EASTOVER, SC",SC,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+02156500,"BROAD RIVER NEAR CARLISLE, SC",SC,humid_rainfall,area_outside_range,,not_selected
+02160105,"TYGER RIVER NEAR DELTA, SC",SC,humid_rainfall,area_outside_range;name_flag:DELTA,,not_selected
+02160700,"ENOREE RIVER AT WHITMIRE, SC",SC,humid_rainfall,area_outside_range;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02169000,"SALUDA RIVER NEAR COLUMBIA, SC",SC,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+02171500,"SANTEE RIVER NEAR PINEVILLE, SC",SC,humid_rainfall,area_outside_range,,not_selected
+02171560,"SANTEE RIVER NEAR RUSSELLVILLE, SC",SC,humid_rainfall,gages2_missing,,not_selected
+02171645,"REDIV CANAL AT SANTEE RIVER NR ST STEPHEN, SC",SC,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+02172040,"BACK RIVER AT DUPONT INTAKE NR KITTREDGE, SC",SC,humid_rainfall,gages2_missing,,not_selected
+021720677,"COOPER R AT FILBIN CREEK AT NORTH CHARLESTON, SC",SC,humid_rainfall,gages2_missing,,not_selected
+021720698,"WANDO RIVER ABOVE MT PLEASANT, SC",SC,humid_rainfall,gages2_missing,,not_selected
+02198810,"ABERCORN CREEK NEAR SAVANNAH,GA",GA,humid_rainfall,gages2_missing,,not_selected
+02198840,"SAVANNAH RIVER I-95 NEAR PORT WENTWORTH, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02198920,"SAVANNAH RIVER AT GA 25, AT PORT WENTWORTH, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02198950,"MIDDLE RIVER AT GA 25 AT PORT WENTWORTH, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02198955,"MIDDLE RIVER AT FISH HOLE AT PORT WENTWORTH, GA",GA,humid_rainfall,gages2_missing,,not_selected
+021989773,"SAVANNAH RIVER AT USACE DOCK, AT SAVANNAH, GA",GA,humid_rainfall,gages2_missing,,not_selected
+021989792,"LITTLE BACK RIVER AT GA 25 AT PORT WENTWORTH, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02198980,"SAVANNAH RIVER AT FORT PULASKI, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02203655,"SOUTH RIVER AT FORREST PARK ROAD, AT ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02203700,"INTRENCHMENT CR AT CONSTITUTION RD, NR ATLANTA, GA",GA,humid_rainfall,catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+02203800,"SOUTH RIVER AT BOULDERCREST ROAD AT ATLANTA, GA",GA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+02203831,"DOOLITTLE CREEK AT FLAT SHOALS RD, NR DECATUR, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02203863,"SHOAL CREEK AT COLUMBIA DRIVE NEAR ATLANTA, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02203873,"COBBS CREEK AT RAINBOW DR, NEAR DECATUR, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02203900,"SOUTH RIVER AT FLAKES MILL ROAD NR ATLANTA, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02203950,"SNAPFINGER CREEK NEAR DECATUR, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02203960,"SNAPFINGER CR AT THOMPSON MILL RD NR LITHONIA, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02204037,"POLE BRIDGE CR AT EVANS MILL RD NEAR LITHONIA, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02205865,"SWEETWATER CREEK AT CLUB DRIVE NEAR LILBURN, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02206500,"YELLOW RIVER NEAR SNELLVILLE, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02207120,"YELLOW RIVER AT GA 124, NEAR LITHONIA, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02207135,"LITTLE STONE MTN CR NEAR STONE MOUNTAIN, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02207160,"STONE MOUNTAIN CREEK AT GA 124, NEAR LITHONIA, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02207185,"NO BUSINESS CREEK AT LEE ROAD, BELOW SNELLVILLE,GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02207385,"BIG HAYNES CREEK AT LENORA ROAD, NR SNELLVILLE, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02207400,"BRUSHY FORK CREEK AT BEAVER ROAD, NR LOGANVILLE,GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02207418,"BIG HAYNES CREEK AT JACK TURNER DAM,NR MILSTEAD GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit;name_flag: DAM,,not_selected
+02207435,LITTLE HAYNES CREEK AT DIAL MILL RD NR MILSTEAD GA,GA,humid_rainfall,dam_density_exceeds_limit,,not_selected
+02207448,"BIG HAYNES CREEK AT BALD ROCK ROAD, NR MILSTEAD GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02208150,"ALCOVY RIVER AT NEW HOPE ROAD, NEAR GRAYSON, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02208450,"ALCOVY RIVER ABOVE COVINGTON, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02208493,"CORNISH CREEK AT HAZELBRAND RD NR COVINGTON, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02217274,"WHEELER CREEK AT BILL CHEEK ROAD, NEAR AUBURN, GA",GA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+02217643,"PARKS CREEK AT LYLE FIELD RD NR JEFFERSON, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02218565,"APALACHEE RIVER AT FENCE ROAD, NEAR DACULA, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02231254,"ST MARY'S RIVER AT I-95, NEAR KINGSLAND, GA",GA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+02231291,"NASSAU RIVER NEAR TISONIA, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+02232400,"ST. JOHNS RIVER NEAR COCOA, FL",FL,humid_rainfall,area_outside_range,,not_selected
+02234000,"ST. JOHNS RIVER ABOVE LAKE HARNEY NEAR GENEVA, FL",FL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+02234500,"ST. JOHNS RIVER NEAR SANFORD, FL",FL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+02236000,"ST. JOHNS RIVER NEAR DE LAND, FL",FL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+02236125,"ST. JOHNS RIVER AT ASTOR, FL",FL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+02239501,"SILVER RIVER NEAR OCALA, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02244040,"ST. JOHNS R AT BUFFALO BLUFF NEAR SATSUMA, FL",FL,humid_rainfall,area_outside_range,,not_selected
+02245260,"DEEP CREEK AT SPUDS, FL",FL,humid_rainfall,catalog_ends_before_window_end,,not_selected
+022462002,"DURBIN CREEK NEAR FRUIT COVE, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02246459,"CEDAR RIVER AT SAN JUAN AVENUE AT JACKSONVILLE, FL",FL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02246500,"ST. JOHNS RIVER AT JACKSONVILLE, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02246518,"POTTSBURG CRK AT US90 NR S. JACKSONVILLE, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02246751,"BROWARD RIVER BL BISCAYNE BLVD NR JACKSONVILLE, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02246804,"DUNN CREEK AT DUNN CREEK RD NR EASTPORT, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02248380,"HAULOVER CANAL NEAR MIMS,FL",FL,humid_rainfall,catalog_ends_before_window_end;gages2_missing;name_flag:CANAL,,not_selected
+02264000,"CYPRESS CREEK AT VINELAND, FL",FL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02264051,"BLACK LK OUTLET AT S-101A, AT LAKE BUENA VISTA, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02264100,"BONNET CREEK NEAR VINELAND, FL",FL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02266200,"WHITTENHORSE CREEK NEAR VINELAND, FL",FL,humid_rainfall,,,eligible_but_below_cutoff
+02266291,"LATERAL 405 AT S-405A, NEAR DOCTOR PHILLIPS, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02266300,"REEDY CREEK NEAR VINELAND, FL",FL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02276877,"ST. LUCIE CANAL BLW S-308, NR PORT MAYACA (AUX) FL",FL,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+02276998,ST LUCIE CANAL ABV S-80 NR STUART FL,FL,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+02288900,"TAMIAMI CANAL OUTLETS, 40-MILE BEND TO MONROE, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing;name_flag:CANAL,,not_selected
+022907085,"BLACK CREEK CANAL WEST OF US1 NR GOULDS, FL",FL,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+0229070854,"BLACK CREEK CANAL EAST OF US1 NR GOULDS, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing;name_flag:CANAL,,not_selected
+022908205,"NORTH RIVER UPSTREAM OF CUTOFF NEAR FLAMINGO, FL",FL,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+022908295,"BOTTLE CREEK AT ROOKERY BRANCH NEAR HOMESTEAD, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02290878,"BROAD RIVER NEAR THE CUTOFF, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+02290947,SWEETWATER STRAND AT LOOP RD. NR MONROE STATION FL,FL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+02292010,CALOOSAHATCHEE CANAL DWS OF S-77 AT MOORE HAVEN FL,FL,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+02292900,"CALOOSAHATCHEE RIVER AT S-79, NR.OLGA, FLA",FL,humid_rainfall,area_outside_range,,not_selected
+02297100,JOSHUA CREEK AT NOCATEE FL,FL,humid_rainfall,catalog_ends_before_window_end,,not_selected
+02297635,SHELL CREEK ON CR 764 NEAR PUNTA GORDA FL,FL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+02298170,PRAIRIE CREEK ON CR 764 NEAR PUNTA GORDA FL,FL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+02298202,SHELL CREEK NEAR PUNTA GORDA FL,FL,humid_rainfall,,,selected
+02298492,LONG CREEK NEAR MYAKKA CITY FL,FL,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+02301500,"ALAFIA RIVER AT LITHIA PINECREST RD AT LITHIA, FL",FL,humid_rainfall,dam_density_exceeds_limit,,not_selected
+02301718,"ALAFIA RIVER AT US 301 AT RIVERVIEW, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02301719,ALAFIA RIVER NEAR GIBSONTON FL,FL,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;area_outside_range;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02304000,HILLSBOROUGH R AT FOWLER AV NEAR TEMPLE TERRACE FL,FL,humid_rainfall,gages2_missing,,not_selected
+02304510,HILLSBOROUGH RIVER AT ROWLETT PK DR NEAR TAMPA FL,FL,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+02310308,PITHLACHASCOTEE R AT MAIN ST AT NEW PORT RICHEY FL,FL,humid_rainfall,gages2_missing,,not_selected
+02310545,WEEKI WACHEE RIVER NR WEEKI WACHEE SPRINGS FL,FL,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+02310650,CHASSAHOWITZKA RIVER NEAR HOMOSASSA FL,FL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02310689,HALLS RIVER AT HOMOSASSA SPRINGS FL,FL,humid_rainfall,gages2_missing,,not_selected
+02310700,HOMOSASSA R AT HOMOSASSA FL,FL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02310740,SARAGASSA CANAL AT CRYSTAL RIVER FL,FL,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+02310750,CRYSTAL RIVER NEAR CRYSTAL RIVER FL,FL,humid_rainfall,gages2_missing,,not_selected
+02313700,"WACCASASSA RIVER NR GULF HAMMOCK, FLA.",FL,humid_rainfall,area_outside_range,,not_selected
+02315550,SUWANNEE RIVER AT SUWANNEE SPRINGS FLA,FL,humid_rainfall,area_outside_range,,not_selected
+02317620,ALAPAHA RIVER NEAR JENNINGS FLA,FL,humid_rainfall,area_outside_range,,not_selected
+02318500,"WITHLACOOCHEE RIVER AT US 84, NEAR QUITMAN, GA",GA,humid_rainfall,area_outside_range,,not_selected
+02319000,"WITHLACOOCHEE RIVER NEAR PINETTA, FLA.",FL,humid_rainfall,area_outside_range,,not_selected
+02319394,"WITHLACOOCHEE RIVER NR LEE, FLA",FL,humid_rainfall,area_outside_range,,not_selected
+02319800,"SUWANNEE RIVER AT DOWLING PARK, FLORIDA",FL,humid_rainfall,area_outside_range,,not_selected
+02320000,"SUWANNEE RIVER AT LURAVILLE, FLA.",FL,humid_rainfall,area_outside_range,,not_selected
+02320500,"SUWANNEE RIVER AT BRANFORD, FLA.",FL,humid_rainfall,area_outside_range,,not_selected
+02321500,"SANTA FE RIVER AT WORTHINGTON SPRINGS, FLA.",FL,humid_rainfall,area_outside_range,,not_selected
+02321958,"SANTA FE RIVER AT RIVER RISE NR HIGH SPRINGS, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02321975,"SANTA FE RIVER AT US HWY 441 NEAR HIGH SPRINGS,FL.",FL,humid_rainfall,gages2_missing,,not_selected
+02322500,"SANTA FE RIVER NEAR FORT WHITE, FLA.",FL,humid_rainfall,area_outside_range,,not_selected
+02322700,"ICHETUCKNEE R @ HWY27 NR HILDRETH, FL",FL,humid_rainfall,,,eligible_but_below_cutoff
+02322800,SANTA FE RIVER NR HILDRETH FLA,FL,humid_rainfall,area_outside_range,,not_selected
+02323000,"SUWANNEE RIVER NEAR BELL, FLORIDA",FL,humid_rainfall,area_outside_range,,not_selected
+02323592,SUWANNEE RIVER AB GOPHER RIVER NR SUWANNEE FL,FL,humid_rainfall,area_outside_range,,not_selected
+02324170,"STEINHATCHEE RIVER AT STEINHATCHEE, FL.",FL,humid_rainfall,gages2_missing,,not_selected
+02325543,"FENHOLLOWAY RIVER NEAR HAMPTON SPRINGS, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02326050,"ECONFINA RV AT ECONFINA RV STATE PARK NR PERRY, FL",FL,humid_rainfall,gages2_missing,,not_selected
+02326526,WACISSA RIVER NR WACISSA FLA,FL,humid_rainfall,gages2_missing,,not_selected
+02326993,"FISHER CREEK NEAR HILLIARDVILLE,FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+02326995,"BLACK CREEK NEAR HILLIARDVILLE, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+02327022,"WAKULLA RIVER NEAR CRAWFORDVILLE, FL",FL,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+02327031,"SPRING CREEK NEAR SPRING CREEK, FL",FL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+02327033,LOST CREEK AT ARRAN FLA,FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+02334430,"CHATTAHOOCHEE RIVER AT BUFORD DAM, NEAR BUFORD, GA",GA,humid_rainfall,area_outside_range;name_flag: DAM,,not_selected
+02334480,"RICHLAND CREEK AT SUWANEE DAM ROAD, NEAR BUFORD,GA",GA,humid_rainfall,urban_dev_exceeds_limit;name_flag: DAM,,not_selected
+02334578,"LEVEL CREEK AT SUWANEE DAM ROAD, NEAR SUWANEE, GA",GA,humid_rainfall,urban_dev_exceeds_limit;name_flag: DAM,,not_selected
+02334885,"SUWANEE CREEK AT SUWANEE, GA",GA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02335000,"CHATTAHOOCHEE RIVER NEAR NORCROSS, GA",GA,humid_rainfall,area_outside_range,,not_selected
+02335350,"CROOKED CREEK NEAR NORCROSS, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02335880,"CHATT R AT POWERS FY AND I-285 NR ATLANTA, GA",GA,humid_rainfall,gages2_missing;name_flag:POWER,,not_selected
+02336000,"CHATTAHOOCHEE RIVER AT ATLANTA, GA",GA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02336030,"N.F. PEACHTREE CREEK AT GRAVES RD, NR DORAVILLE,GA",GA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+02336120,"N.F. PEACHTREE CREEK, BUFORD HWY, NEAR ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02336152,"SOUTH FORK PEACHTREE AT CASA DR, NR CLARKSTON, GA",GA,humid_rainfall,gages2_missing,,not_selected
+023362095,"BURNT FORK CR AT MILLWOOD WAY NEAR CLARKSTON, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02336240,"S.F. PEACHTREE CREEK JOHNSON RD, NEAR ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02336300,"PEACHTREE CREEK AT ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02336313,"WOODALL CREEK AT DEFOORS FERRY RD, AT ATLANTA, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02336340,"NANCY CREEK AT JOHNSON FERRY RD, AT CHAMBLEE, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02336360,"NANCY CREEK AT RICKENBACKER DRIVE, AT ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02336410,"NANCY CREEK AT WEST WESLEY ROAD, AT ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02336526,"PROCTOR CREEK AT JACKSON PARKWAY, AT ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02336728,"UTOY CREEK AT GREAT SOUTHWEST PKWY NR ATLANTA, GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02337170,"CHATTAHOOCHEE RIVER NEAR FAIRBURN, GA",GA,humid_rainfall,area_outside_range;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02337410,"DOG RIVER AT GA 5, NEAR FAIRPLAY, GA",GA,humid_rainfall,dam_density_exceeds_limit,,not_selected
+023432415,"CHATTAHOOCHEE R .36 MI DS WFG DAM NR FT GAINES, GA",AL,humid_rainfall,gages2_missing;name_flag: DAM,,not_selected
+02343805,"CHATTAHOOCHEE RIVER AT MILE 46 NEAR COLUMBIA, ALA",GA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+02344630,"LINE CREEK BLW LAKE MCINTOSH, NR PEACHTREE CITY,GA",GA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+02344655,"FLAT CR DS OF LAKE KEDRON, NR PEACHTREE CITY, GA",GA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+02344673,"FLAT CREEK DS OF LAKE AT PEACHTREE CITY, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02356000,"FLINT RIVER AT BAINBRIDGE, GA",GA,humid_rainfall,area_outside_range,,not_selected
+02357150,"SPRING CREEK NEAR REYNOLDSVILLE, GA",GA,humid_rainfall,area_outside_range,,not_selected
+02358000,APALACHICOLA RIVER AT CHATTAHOOCHEE FLA,FL,humid_rainfall,area_outside_range,,not_selected
+02359170,"APALACHICOLA RIVER NR SUMATRA,FLA.",FL,humid_rainfall,area_outside_range,,not_selected
+02388975,"ETOWAH RIVER AT GA 136, NEAR LANDDRUM, GA",GA,humid_rainfall,,,eligible_but_below_cutoff
+02389150,"ETOWAH RIVER AT GA 9, NEAR DAWSONVILLE, GA",GA,humid_rainfall,,,selected
+02394682,"RICHLAND CREEK AT OLD DALLAS RD, NEAR DALLAS, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02397530,"COOSA RIVER AT STATE LINE, AL/GA",AL,humid_rainfall,gages2_missing,,not_selected
+02413205,"LITTLE TALLAPOOSA R AT REAVESVILLE RD NR BOWDON,GA",GA,humid_rainfall,gages2_missing,,not_selected
+02413210,"LITTLE TALLAPOOSA R AT GA 100, NEAR BOWDON, GA",GA,humid_rainfall,dam_density_exceeds_limit,,not_selected
+02413215,"INDIAN CREEK UPSTREAM OF TEAGUE RD, NR BOWDON, GA",GA,humid_rainfall,gages2_missing,,not_selected
+02419890,TALLAPOOSA RIVER NEAR MONT.-MONT. WATER WORKS,AL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+02423130,"CAHABA RIVER AT TRUSSVILLE, AL.",AL,humid_rainfall,dam_density_exceeds_limit,,not_selected
+02423160,CAHABA RIVER NEAR WHITES CHAPEL AL,AL,humid_rainfall,gages2_missing,,not_selected
+02423380,CAHABA RIVER NEAR MOUNTAIN BROOK AL,AL,humid_rainfall,dam_density_exceeds_limit,,not_selected
+02423397,"LITTLE CAHABA RIVER BELOW LEEDS, AL.",AL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02423496,"CAHABA RIVER NEAR HOOVER, AL",AL,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+0242354650,CAHABA VALLEY CR AT INDIAN TRAIL RD NR INDIAN SPRS,AL,humid_rainfall,gages2_missing,,not_selected
+02423571,SHADES CREEK AT ELDER ST NEAR SPRINGDALE AL,AL,humid_rainfall,gages2_missing,,not_selected
+02423586,"SHADES CREEK NR HOMEWOOD, ALA",AL,humid_rainfall,gages2_missing,,not_selected
+02455980,TURKEY CREEK AT SEWAGE PLANT NEAR PINSON AL,AL,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit;name_flag:SEWAGE,,not_selected
+02457595,"FIVEMILE CREEK NEAR REPUBLIC, AL",AL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02458148,"VILLAGE CREEK AT 86TH ST NORTH AT ROEBUCK, AL.",AL,humid_rainfall,gages2_missing,,not_selected
+02458450,"VILLAGE CREEK AT AVENUE W AT ENSLEY, AL",AL,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+02458502,"VILLAGE CREEK NEAR PRATT CITY, ALABAMA",AL,humid_rainfall,gages2_missing,,not_selected
+02461130,"VALLEY CREEK AT CENTER ST AT BIRMINGHAM, AL",AL,humid_rainfall,gages2_missing,,not_selected
+02461192,"VALLEY CREEK AT AVE W NEAR ENSLEY, AL",AL,humid_rainfall,gages2_missing,,not_selected
+02481960,"WOLF CREEK AT INDUSTRIAL DRIVE NR PEARL RIVER, MS",MS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+02481984,"BEASHA CREEK NEAR COLDWATER, MS",MS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+03007800,"Allegheny River at Port Allegany, PA",PA,snow_mixed,,,eligible_but_below_cutoff
+03012550,"Allegheny River at Kinzua Dam, PA",PA,snow_mixed,catalog_overlap_lt_3y;area_outside_range;name_flag: DAM,,not_selected
+03016000,"Allegheny River at West Hickory, PA",PA,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+03027500,"EB Clarion River at EB Clarion River Dam, PA",PA,snow_mixed,catalog_ends_before_window_end;name_flag: DAM,,not_selected
+03034000,"Mahoning Creek at Punxsutawney, PA",PA,snow_mixed,,,selected
+03036000,"Mahoning Creek at Mahoning Creek Dam, PA",PA,snow_mixed,name_flag: DAM,,not_selected
+03044000,"Conemaugh River at Tunnelton, PA",PA,snow_mixed,area_outside_range,,not_selected
+03056000,"TYGART VALLEY R AT TYGART DAM NR GRAFTON, WV",WV,snow_mixed,area_outside_range;name_flag: DAM,,not_selected
+03057000,"TYGART VALLEY RIVER AT COLFAX, WV",WV,snow_mixed,area_outside_range,,not_selected
+03058000,"WEST FORK R BL STONEWALL JACKSON DAM NR WESTON, WV",WV,humid_rainfall,name_flag: DAM,,not_selected
+03061000,"WEST FORK RIVER AT ENTERPRISE, WV",WV,humid_rainfall,area_outside_range,,not_selected
+03066000,"BLACKWATER RIVER AT DAVIS, WV",WV,snow_mixed,,,selected
+03067510,"SHAVERS FORK NR CHEAT BRIDGE, WV",WV,snow_mixed,,,selected
+03072000,"Dunkard Creek at Shannopin, PA",PA,humid_rainfall,,,selected
+03072655,"Monongahela River near Masontown, PA",PA,humid_rainfall,area_outside_range,,not_selected
+03073000,"South Fork Tenmile Creek at Jefferson, PA",PA,humid_rainfall,,,selected
+03079000,"Casselman River at Markleton, PA",PA,snow_mixed,,,selected
+03081000,"Youghiogheny River below Confluence, PA",PA,snow_mixed,area_outside_range,,not_selected
+03083500,"Youghiogheny River at Sutersville, PA",PA,snow_mixed,area_outside_range,,not_selected
+03098600,Mahoning River above West Ave at Youngstown OH,OH,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+03099500,Mahoning River at Lowellville OH,OH,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+03105500,"Beaver River at Wampum, PA",PA,snow_mixed,area_outside_range,,not_selected
+03106000,"Connoquenessing Creek near Zelienople, PA",PA,humid_rainfall,,,selected
+03145483,Raccoon Creek near Granville OH,OH,humid_rainfall,,;insufficient_qualifying_years,not_selected
+03179000,"BLUESTONE RIVER NEAR PIPESTEM, WV",WV,humid_rainfall,area_outside_range,,not_selected
+03183500,"GREENBRIER RIVER AT ALDERSON, WV",WV,snow_mixed,area_outside_range,,not_selected
+03185400,"NEW RIVER AT THURMOND, WV",WV,humid_rainfall,area_outside_range,,not_selected
+03197950,"ELK RIVER AT CHARLESTON, WV",WV,humid_rainfall,gages2_missing,,not_selected
+03200500,"COAL RIVER AT TORNADO, WV",WV,humid_rainfall,area_outside_range,,not_selected
+03214500,"TUG FORK AT KERMIT, WV",WV,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+03216070,"OHIO RIVER AT IRONTON, OH",OH,humid_rainfall,gages2_missing,,not_selected
+03219500,Scioto River near Prospect OH,OH,humid_rainfall,area_outside_range,,not_selected
+03228300,Big Walnut Creek at Sunbury OH,OH,humid_rainfall,,;insufficient_qualifying_years,not_selected
+03230427,Clover Groff Ditch below Alton OH,OH,humid_rainfall,gages2_missing,,not_selected
+03254480,"CRUISES CREEK AT HWY 17 NR PINER, KY",KY,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+03254520,"LICKING RIVER AT HWY 536 NEAR ALEXANDRIA, KY",KY,humid_rainfall,gages2_missing,,not_selected
+03255349,Mill Creek at East Sharon Rd at Sharonville OH,OH,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+03259757,W Fk Mill Creek at West Fork Road at Cincinnati OH,OH,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03259813,W Fk Mill Creek at Hille Park at Cincinnati OH,OH,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03275500,"EAST FORK WHITEWATER RIVER AT RICHMOND, IN",IN,humid_rainfall,,,selected
+03277200,"OHIO RIVER AT MARKLAND DAM NEAR WARSAW, KY",KY,humid_rainfall,gages2_missing;name_flag: DAM,,not_selected
+03284533,"EAST HICKMAN CR AT TATES CR RD NR EAST HICKMAN, KY",KY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+03284552,"WEST HICKMAN CR AT VETERANS PARK NR LEXINGTON, KY",KY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+03287590,"N ELKHORN CR AT WINCHESTER RD NR LEXINGTON, KY",KY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03287600,"N ELKHORN CR AT BRYAN STATION RD AT MONTROSE, KY",KY,humid_rainfall,catalog_overlap_lt_3y;urban_dev_exceeds_limit,,not_selected
+03288180,"CANE RUN CREEK AT CITATION BLVD NR LEXINGTON, KY",KY,humid_rainfall,gages2_missing,,not_selected
+03289000,"SOUTH ELKHORN CREEK AT FORT SPRING, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03289193,"WOLF RUN AT OLD FRANKFORT PIKE AT LEXINGTON, KY",KY,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+03289200,"TOWN BRANCH AT YARNALLTON ROAD AT YARNALLTON, KY",KY,humid_rainfall,catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+03290500,"KENTUCKY RIVER AT LOCK 2 AT LOCKPORT, KY",KY,humid_rainfall,area_outside_range,,not_selected
+03292470,"HARRODS CREEK AT HIGHWAY 329 NR GOSHEN, KY.",KY,humid_rainfall,,,selected
+03292474,"GOOSE CREEK AT OLD WESTPORT RD NR ST MATTHEWS, KY",KY,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+0329247450,"GOOSE CREEK AT HWY 22 AT SPRING VALLEY, KY",KY,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+03292475,"GOOSE CREEK AT US HWY 42 NEAR GLENVIEW ACRES, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03292480,"LITTLE GOOSE CREEK NEAR HARRODS CREEK, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03292500,"SOUTH FORK BEARGRASS CREEK AT LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03292550,"S FK BEARGRASS CREEK AT E OAK ST AT LOUISVILLE, KY",KY,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+03293000,"M FK BEARGRASS AT OLD CANNONS LN AT LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03293500,"M FK BEARGRASS CR AT LEXINGTON RD AT LOUISVILLE,KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03293510,"BEARGRASS CREEK AT RIVER ROAD AT LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03293530,"MUDDY FK AT MOCKINGBIRD VALLEY RD AT LOUISVILLE,KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03294570,"MILL CREEK AT ORELL ROAD NEAR LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+03297800,"CEDAR CREEK AT HWY 1442 NEAR SHEPHERDSVILLE, KY",KY,humid_rainfall,,,selected
+03297900,"FLOYDS FORK NEAR PEWEE VALLEY, KY",KY,humid_rainfall,,,eligible_but_below_cutoff
+03298000,"FLOYDS FORK AT FISHERVILLE, KY",KY,humid_rainfall,,,eligible_but_below_cutoff
+03298135,"CHENOWETH RUN AT RUCKRIEGAL PARKWAY, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03298150,"CHENOWETH RUN AT GELHAUS LANE NEAR FERN CREEK, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03298200,"FLOYDS FORK NEAR MT WASHINGTON, KY",KY,humid_rainfall,,,eligible_but_below_cutoff
+03298250,"CEDAR CREEK AT THIXTON ROAD NEAR LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03298300,"PENN RUN AT MT WASHINGTON RD NR LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+03301900,"FERN CREEK AT OLD BARDSTOWN RD AT LOUISVILLE, KY",KY,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+03301940,"NORTHERN DITCH AT OKOLONA, KY",KY,humid_rainfall,gages2_missing,,not_selected
+03302000,"POND CREEK NEAR LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03302030,"POND CREEK AT PENDLETON ROAD NEAR LOUISVILLE, KY",KY,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+03302050,"BRIER CREEK AT PENDELTON ROAD NEAR LOUISVILLE, KY",KY,humid_rainfall,,,selected
+03321500,"GREEN RIVER AT LOCK 1 AT SPOTTSVILLE, KY",KY,humid_rainfall,gages2_missing,,not_selected
+03339000,"VERMILION RIVER NEAR DANVILLE, IL",IL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+03340900,"BIG RACCOON CREEK AT FERNDALE, IN",IN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+03346500,"EMBARRAS RIVER AT LAWRENCEVILLE, IL",IL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+03353200,"EAGLE CREEK AT ZIONSVILLE, IN",IN,humid_rainfall,,,selected
+03353415,"SCHOOL BRANCH AT MALONEY ROAD NEAR BROWNSBURG, IN",IN,humid_rainfall,gages2_missing,,not_selected
+03353420,"SCHOOL BRANCH AT CR750N AT BROWNSBURG, IN",IN,humid_rainfall,gages2_missing,,not_selected
+03374100,"WHITE RIVER AT HAZLETON, IN",IN,humid_rainfall,gages2_missing,,not_selected
+03378500,"WABASH RIVER AT NEW HARMONY, IN",IN,humid_rainfall,gages2_missing,,not_selected
+03400800,"MARTINS FORK NEAR SMITH, KY",KY,humid_rainfall,,;insufficient_qualifying_years,not_selected
+03408500,"NEW RIVER AT NEW RIVER, TN",TN,humid_rainfall,catalog_overlap_lt_3y,,not_selected
+03409500,"CLEAR FORK NEAR ROBBINS, TN",TN,humid_rainfall,catalog_overlap_lt_3y,,not_selected
+03410590,"ROCK CREEK NEAR YAMACRAW, KY",KY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+03417500,"CUMBERLAND RIVER AT CELINA, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+03430200,"STONES RIVER AT US HWY 70 NEAR DONELSON, TN",TN,humid_rainfall,gages2_missing,,not_selected
+03432100,"HARPETH RIVER AT MCDANIEL, TN",TN,humid_rainfall,,negative_q_fraction;insufficient_qualifying_years,not_selected
+0343233905,"HARPETH RIVER AT MILE 90.5 NEAR FRANKLIN, TN",TN,humid_rainfall,gages2_missing,,not_selected
+03432350,"HARPETH RIVER AT FRANKLIN, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window,,not_selected
+03432390,"SPENCER CREEK NEAR FRANKLIN, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03433500,"HARPETH RIVER AT BELLEVUE, TN",TN,humid_rainfall,area_outside_range,,not_selected
+03433640,"COPPERAS BRANCH NEAR KINGFIELD, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+03434500,"HARPETH RIVER NEAR KINGSTON SPRINGS, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+03447687,"FRENCH BROAD RIVER NEAR FLETCHER, NC",NC,humid_rainfall,area_outside_range;dam_density_exceeds_limit,,not_selected
+0344878100,"HOMINY CREEK NR WEST ASHEVILLE, NC",NC,humid_rainfall,gages2_missing,,not_selected
+03451500,"FRENCH BROAD RIVER AT ASHEVILLE, NC",NC,humid_rainfall,area_outside_range;dam_density_exceeds_limit,,not_selected
+03501500,"LITTLE TENNESSEE R AT FRANKLIN, NC",NC,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+03512000,"OCONALUFTEE RIVER AT BIRDTOWN, NC",NC,humid_rainfall,,,selected
+03524000,"CLINCH RIVER AT CLEVELAND, VA",VA,humid_rainfall,area_outside_range,,not_selected
+03524500,"GUEST RIVER AT COEBURN, VA",VA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+03527220,"CLINCH RIVER NEAR LOONEYS GAP, TN",TN,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+03538830,"OBED RIVER AT ADAMS BRIDGE NEAR CROSSVILLE, TN",TN,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+03539600,"DADDYS CREEK NEAR HEBBERTSBURG, TN",TN,humid_rainfall,dam_density_exceeds_limit,,not_selected
+03539778,"CLEAR CREEK AT LILLY BRIDGE NEAR LANCING, TN",TN,humid_rainfall,catalog_overlap_lt_3y,,not_selected
+03597860,"DUCK RIVER AT SHELBYVILLE, TN",TN,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+03598000,"DUCK RIVER NEAR SHELBYVILLE, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+03598165,"HURRICANE CREEK NEAR ELBETHEL, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+0359816545,"PARCH CORN CREEK AT MARTIN ROAD NR ELBETHEL, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03598169,"BENFORD CREEK NEAR SHELBYVILLE, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03598173,"FALL CREEK NEAR DEASON, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03598177,"FALL CREEK BLW HURRICANE CREEK NR ELBETHEL, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+03601630,"LOCKE BRANCH NEAR BENDING CHESTNUT, TN",TN,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+03612600,"OHIO RIVER AT OLMSTED, IL",IL,humid_rainfall,gages2_missing,,not_selected
+04015438,"ST. LOUIS RIVER NEAR SKIBO, MN",MN,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+04024000,"ST. LOUIS RIVER AT SCANLON, MN",MN,snow_mixed,area_outside_range,,not_selected
+04026005,"BOIS BRULE RIVER NEAR LAKE SUPERIOR, WI",WI,humid_rainfall,gages2_missing,,not_selected
+04026157,"SISKIWIT RIVER AT CTY HWY C NEAR CORNUCOPIA, WI",WI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+04026160,"SISKIWIT RIVER AT CORNUCOPIA, WI",WI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+04026561,"TYLER FORKS RIVER AT STRICKER ROAD NEAR MELLEN, WI",WI,humid_rainfall,gages2_missing,,not_selected
+04027000,"BAD RIVER NEAR ODANAH, WI",WI,snow_mixed,area_outside_range,,not_selected
+04032150,"PRESQUE ISLE RIVER NEAR CONNORVILLE, MI",MI,humid_rainfall,gages2_missing,,not_selected
+040325155,"MINERAL RIVER DS OF NATIVE CK NR SILVER CITY, MI",MI,humid_rainfall,gages2_missing,,not_selected
+04043016,"PILGRIM RIVER AT PARADISE RD NR DODGEVILLE, MI",MI,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+04043097,"FALLS RIVER NEAR L'ANSE, MI",MI,humid_rainfall,gages2_missing,,not_selected
+04043126,"SILVER RIVER UPSTREAM OF EAST BRANCH NR L'ANSE, MI",MI,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+04043140,"GOMANCHE CREEK AT INDIAN ROAD NEAR L'ANSE, MI",MI,snow_mixed,,empty_series,not_selected
+04043244,"EAST BRANCH SALMON TROUT RIVER NEAR DODGE CITY, MI",MI,snow_mixed,,,selected
+04043275,"YELLOW DOG RIVER NEAR BIG BAY, MI",MI,snow_mixed,catalog_ends_before_window_end;name_flag:BAY,,not_selected
+04057800,"MIDDLE BRANCH ESCANABA RIVER AT HUMBOLDT, MI",MI,snow_mixed,,;insufficient_qualifying_years,not_selected
+04067500,"MENOMINEE RIVER NEAR MC ALLISTER, WI",WI,snow_mixed,area_outside_range,,not_selected
+04067958,"PESHTIGO RIVER NEAR WABENO, WI",WI,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+04071765,"OCONTO RIVER NEAR OCONTO, WI",WI,snow_mixed,catalog_overlap_lt_3y;catalog_outside_window;area_outside_range,,not_selected
+04072150,"DUCK CREEK NEAR HOWARD, WI",WI,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+04080798,"TOMORROW RIVER NEAR NELSONVILLE, WI",WI,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+04081000,"WAUPACA RIVER NEAR WAUPACA, WI",WI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+04085138,"EAST RIVER AT GREEN BAY, WI",WI,humid_rainfall,catalog_overlap_lt_3y;gages2_missing;name_flag:BAY,,not_selected
+040851385,"FOX RIVER AT OIL TANK DEPOT AT GREEN BAY, WI",WI,snow_mixed,area_outside_range;name_flag:BAY,,not_selected
+04085427,"MANITOWOC RIVER AT MANITOWOC, WI",WI,snow_mixed,catalog_ends_before_window_end;area_outside_range,,not_selected
+04087119,"HONEY CREEK AT WAUWATOSA, WI",WI,snow_mixed,catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+04087170,"MILWAUKEE RIVER AT MOUTH AT MILWAUKEE, WI",WI,snow_mixed,area_outside_range;urban_dev_exceeds_limit,,not_selected
+04087234,"ROOT RIVER AT 60TH ST NEAR CALEDONIA, WI",WI,humid_rainfall,gages2_missing,,not_selected
+04092750,"INDIANA HARBOR CANAL AT EAST CHICAGO, IN",IN,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+04095090,"PORTAGE-BURNS WATERWAY AT PORTAGE, IN",IN,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+04101500,"ST. JOSEPH RIVER AT NILES, MI",MI,snow_mixed,area_outside_range,,not_selected
+04108660,"KALAMAZOO RIVER AT NEW RICHMOND, MI",MI,humid_rainfall,gages2_missing,,not_selected
+04119400,"GRAND RIVER NEAR EASTMANVILLE, MI",MI,humid_rainfall,gages2_missing,,not_selected
+04142000,"RIFLE RIVER NEAR STERLING, MI",MI,snow_mixed,,,eligible_but_below_cutoff
+04144032,"THREEMILE CREEK AT PRIOR ROAD NEAR DURAND, MI",MI,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+041482663,"ALGER CREEK AT HILL ROAD NEAR SWARTZ CREEK, MI",MI,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+04157005,"SAGINAW RIVER AT HOLLAND AVENUE AT SAGINAW, MI",MI,humid_rainfall,gages2_missing,,not_selected
+04161820,"CLINTON RIVER AT STERLING HEIGHTS, MI",MI,snow_mixed,urban_dev_exceeds_limit,,not_selected
+04162010,"RED RUN AT RYAN ROAD NEAR WARREN, MI",MI,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+04165500,"CLINTON RIVER AT MORAVIAN DRIVE AT MT. CLEMENS, MI",MI,snow_mixed,area_outside_range;urban_dev_exceeds_limit,,not_selected
+04166100,"RIVER ROUGE AT SOUTHFIELD, MI",MI,snow_mixed,catalog_overlap_lt_3y;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+04166500,"RIVER ROUGE AT DETROIT, MI",MI,snow_mixed,urban_dev_exceeds_limit,,not_selected
+04167150,"MIDDLE RIVER ROUGE AT DEARBORN HEIGHTS, MI",MI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+04167625,"LOWER RIVER ROUGE AT WAYNE, MI",MI,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+04168400,"LOWER RIVER ROUGE AT DEARBORN, MI",MI,humid_rainfall,gages2_missing,,not_selected
+04174500,"HURON RIVER AT ANN ARBOR, MI",MI,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range;urban_dev_exceeds_limit,,not_selected
+04176500,"RIVER RAISIN NEAR MONROE, MI",MI,snow_mixed,area_outside_range,,not_selected
+04183038,"BLACK CREEK NEAR HARLAN, IN",IN,humid_rainfall,gages2_missing,,not_selected
+04183500,Maumee River at Antwerp OH,OH,humid_rainfall,area_outside_range,,not_selected
+04188496,Eagle Creek above Findlay OH,OH,humid_rainfall,,,selected
+04193500,Maumee River at Waterville OH,OH,humid_rainfall,area_outside_range,,not_selected
+04195500,Portage River at Woodville OH,OH,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+04199000,Huron River at Milan OH,OH,humid_rainfall,,,eligible_but_below_cutoff
+04199500,Vermilion River near Vermilion OH,OH,humid_rainfall,,,selected
+04200500,Black River at Elyria OH,OH,humid_rainfall,area_outside_range,,not_selected
+04208000,Cuyahoga River at Independence OH,OH,snow_mixed,area_outside_range;urban_dev_exceeds_limit,,not_selected
+04212100,Grand River near Painesville OH,OH,snow_mixed,area_outside_range,,not_selected
+04212895,"Conneaut Creek at Dickonsburg, PA",PA,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+04213152,"Walnut Creek Upstream Pool, near Erie, PA",PA,humid_rainfall,gages2_missing,,not_selected
+04213500,CATTARAUGUS CREEK AT GOWANDA NY,NY,snow_mixed,area_outside_range,,not_selected
+04218601,ERIE (BARGE) C ABV HALLS WASTE WEIR AT LOCKPORT NY,NY,humid_rainfall,gages2_missing,,not_selected
+04218700,ERIE(BARGE)CANAL(W OF GENESEE R)AT ROCHESTER NY,NY,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+04219768,EIGHTEENMILE CREEK AT BURT NY,NY,humid_rainfall,gages2_missing,,not_selected
+04219915,JOHNSON CREEK AT KUCKVILLE NY,NY,humid_rainfall,gages2_missing,,not_selected
+04220045,OAK ORCHARD CREEK NEAR SHELBY NY,NY,humid_rainfall,gages2_missing,,not_selected
+0422016550,OAK ORCHARD CREEK NEAR KENYONVILLE NY,NY,humid_rainfall,gages2_missing,,not_selected
+0422018610,OAK ORCHARD CREEK AT THE BRIDGES NY,NY,humid_rainfall,gages2_missing,,not_selected
+04220223,SANDY CREEK AT NORTH HAMLIN NY,NY,humid_rainfall,gages2_missing,,not_selected
+04226000,KESHEQUA CR AT CRAIG COLONY AT SONYEA NY,NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+04231600,"GENESEE RIVER AT FORD STREET BRIDGE, ROCHESTER NY",NY,snow_mixed,area_outside_range,,not_selected
+0423205010,IRONDEQUOIT CR ABOVE BLOSSOM RD NEAR ROCHESTER NY,NY,snow_mixed,urban_dev_exceeds_limit,,not_selected
+04249000,"OSWEGO RIVER AT LOCK 7, OSWEGO NY",NY,snow_mixed,area_outside_range,,not_selected
+0427386410,N MEADOW BR TRIB BELOW NY RTE 73 NR NORTH ELBA NY,NY,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+04273996,W BR AUSABLE R TRIB 1 ABV ST HW 86 NR LK PLACID NY,NY,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+04274000,W BR AUSABLE R NR LAKE PLACID NY,NY,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+04274050,W BR AUSABLE R TRIB 2 AB ST HW 86 NR WILMINGTON NY,NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+04274051,W BR AUSABLE R TRIB 2 BL ST HW 86 NR WILMINGTON NY,NY,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05051522,"RED RIVER OF THE NORTH AT HICKSON, ND",ND,semiarid_flashy,area_outside_range,,not_selected
+05054000,"RED RIVER OF THE NORTH AT FARGO, ND",ND,semiarid_flashy,area_outside_range,,not_selected
+05055300,"SHEYENNE R AB DEVILS LK STATE OUTLET NR FLORA, ND",ND,semiarid_flashy,area_outside_range,,not_selected
+05055400,"SHEYENNE R BL DEVILS LK STATE OUTLET NR BREMEN, ND",ND,semiarid_flashy,area_outside_range,,not_selected
+05056678,"TOLNA COULEE NEAR TOLNA, ND",ND,humid_rainfall,gages2_missing,,not_selected
+05057000,"SHEYENNE RIVER NEAR COOPERSTOWN, ND",ND,semiarid_flashy,area_outside_range,,not_selected
+05058000,"SHEYENNE RIVER BELOW BALDHILL DAM, ND",ND,semiarid_flashy,area_outside_range;name_flag: DAM,,not_selected
+05059300,"SHEYENNE R AB SHEYENNE R DIVERSION NR HORACE, ND",ND,humid_rainfall,gages2_missing;name_flag:DIVERSION,,not_selected
+05062130,"RED RIVER OF THE NORTH NEAR GEORGETOWN, MN",ND,humid_rainfall,gages2_missing,,not_selected
+05064500,"RED RIVER OF THE NORTH AT HALSTAD, MN",ND,humid_rainfall,gages2_missing,,not_selected
+05082500,"RED RIVER OF THE NORTH AT GRAND FORKS, ND",ND,humid_rainfall,gages2_missing,,not_selected
+05114000,"SOURIS RIVER NEAR SHERWOOD, ND",ND,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05117500,"SOURIS RIVER ABOVE MINOT, ND",ND,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05124000,"SOURIS RIVER NEAR WESTHOPE, ND",ND,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05128400,"SAND RIVER NEAR BRITT, MN",MN,humid_rainfall,gages2_missing,,not_selected
+05288580,"RICE CREEK BLW OLD HWY. 8 IN MOUNDS VIEW, MN",MN,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+05288705,"SHINGLE CREEK AT QUEEN AVE IN MINNEAPOLIS, MN",MN,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+05289800,"MINNEHAHA CREEK AT HIAWATHA AVE. IN MINNEAPOLIS,MN",MN,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+05357205,"ALLEQUASH CREEK NEAR SAYNER, WI",WI,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05357206,"ALLEQUASH CREEK SITE NO. 3 NR BOULDER JUNCTION, WI",WI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+05364128,"DRYWOOD CREEK AT COVERED FOOTBRIDGE NR CADOTT, WI",WI,humid_rainfall,gages2_missing,,not_selected
+05364422,"COMO CREEK TRIBUTARY NEAR BLOOMER, WI",WI,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+053674962,"TROUT CREEK AT CNTY TRUNK HIGHWAY DD NR BLOOMER,WI",WI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+053674967,"TROUT CREEK AT TENTH STREET NEAR BLOOMER, WI",WI,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05406457,"BLACK EARTH CREEK NR BREWERY RD AT CROSS PLAINS,WI",WI,humid_rainfall,gages2_missing,,not_selected
+05406469,"BREWERY CREEK-UPSTREAM SITE-AT CROSS PLAINS, WI",WI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+05406479,"BLACK EARTH CK NR TREATMENT PLNT @ CROSS PLAINS,WI",WI,humid_rainfall,gages2_missing;name_flag:TREATMENT,,not_selected
+05406497,"BLACK EARTH CREEK @ S. VALLEY RD NR BLACK EARTH,WI",WI,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+05406500,"BLACK EARTH CREEK AT BLACK EARTH, WI",WI,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+05418400,"North Fork Maquoketa River near Fulton, IA",IA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+05420500,"Mississippi River at Clinton, IA",IA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05429369,"SWAN CREEK AT LALOR ROAD NEAR FITCHBURG, WI",WI,humid_rainfall,gages2_missing,,not_selected
+05435943,"BADGER MILL CREEK AT VERONA, WI",WI,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+05435950,"SUGAR RIVER NEAR VERONA, WI",WI,humid_rainfall,gages2_missing,,not_selected
+05446500,"ROCK RIVER NEAR JOSLIN, IL",IL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+05447500,"GREEN RIVER NEAR GENESEO, IL",IL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+05451080,"South Fork Iowa River near Blairsburg, IA",IA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window,,not_selected
+05451210,"South Fork Iowa River NE of New Providence, IA",IA,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+05464420,"Cedar River at Blairs Ferry Road at Palo, IA",IA,humid_rainfall,gages2_missing,,not_selected
+05515500,"KANKAKEE RIVER AT DAVIS, IN",IN,humid_rainfall,area_outside_range,,not_selected
+05517500,"KANKAKEE RIVER AT DUNNS BRIDGE, IN",IN,humid_rainfall,area_outside_range,,not_selected
+05518000,"KANKAKEE RIVER AT SHELBY, IN",IN,humid_rainfall,area_outside_range,,not_selected
+05524500,"IROQUOIS RIVER NEAR FORESMAN, IN",IN,humid_rainfall,area_outside_range,,not_selected
+05536356,"GRAND CALUMET RIVER AT COLUMBIA AV AT HAMMOND, IN",IN,humid_rainfall,gages2_missing,,not_selected
+05537980,"DES PLAINES RIVER AT ROUTE 53 AT JOLIET, IL",IL,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+05545750,"FOX RIVER NEAR NEW MUNSTER, WI",WI,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+05550001,"FOX RIVER (TAILWATER) AT ALGONQUIN, IL",IL,humid_rainfall,gages2_missing,,not_selected
+05551580,"FOX RIVER AT YORKVILLE, IL",IL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05558300,"ILLINOIS RIVER AT HENRY, IL",IL,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+05567500,"MACKINAW RIVER NEAR CONGERVILLE, IL",IL,humid_rainfall,area_outside_range,,not_selected
+05568705,"MASON TAZEWELL DRAINAGE D AT CR2350E NR TOPEKA, IL",IL,humid_rainfall,gages2_missing,,not_selected
+05576100,"LICK CREEK NEAR WOODSIDE, IL",IL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+05576195,"SUGAR CREEK NEAR CHATHAM, IL",IL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+05578100,"SALT CREEK NEAR FARMER CITY, IL",IL,humid_rainfall,gages2_missing,,not_selected
+05578250,"NORTH FORK SALT CREEK NEAR DE WITT, IL",IL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05579610,"KICKAPOO CREEK AT 2100E ROAD NEAR BLOOMINGTON, IL",IL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+05579620,"KICKAPOO CREEK TRIBUTARY NEAR BLOOMINGTON, IL",IL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+05579630,"KICKAPOO CREEK NEAR BLOOMINGTON, IL",IL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+05595000,"KASKASKIA RIVER AT NEW ATHENS, IL",IL,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+05599490,"BIG MUDDY RIVER AT RTE 127 AT MURPHYSBORO, IL",IL,humid_rainfall,gages2_missing,,not_selected
+06036905,Firehole River near West Yellowstone MT,WY,snow_mixed,catalog_ends_before_window_end,,not_selected
+06037100,"Gibbon River at Madison Jct, YNP",WY,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+06037500,"Madison River near West Yellowstone, MT",MT,snow_mixed,catalog_ends_before_window_end;area_outside_range,,not_selected
+06076590,Camas C nr Mouth nr White Sulphur Springs MT,MT,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+06174500,Milk River at Nashua MT,MT,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+06177000,Missouri River near Wolf Point MT,MT,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+06178500,East Poplar River at international boundary,DE,humid_rainfall,gages2_missing,,not_selected
+06191500,Yellowstone River at Corwin Springs MT,MT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+06192978,"Shields River bl SF Shields River nr Wilsall, MT",MT,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+06192980,"Shields River ab Smith Cr, nr Wilsall, MT",MT,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+06299980,"TONGUE RIVER AT MONARCH, WY",WY,snow_mixed,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+06306250,"Prairie Dog Creek near Acme, WY",WY,semiarid_flashy,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+06306300,Tongue River at State Line nr Decker MT,MT,snow_mixed,area_outside_range,,not_selected
+06307500,Tongue River at Tongue R Dam nr Decker MT,MT,semiarid_flashy,area_outside_range;name_flag: DAM,,not_selected
+06307600,Hanging Woman Creek near Birney MT,MT,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+06307616,Tongue R at Birney Day School Br nr Birney MT,MT,semiarid_flashy,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+06307740,Otter Creek at Ashland MT,MT,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+06307830,Tongue R bl Brandenberg bridge nr Ashland MT,MT,humid_rainfall,gages2_missing,,not_selected
+06308500,"Tongue River at Miles City, MT",MT,semiarid_flashy,area_outside_range,,not_selected
+06313500,"POWDER RIVER AT SUSSEX, WY",WY,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+06316400,"CRAZY WOMAN CREEK AT UPPER STA, NEAR ARVADA, WY",WY,semiarid_flashy,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+06324000,"CLEAR CREEK NEAR ARVADA, WY",WY,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+06324500,Powder River at Moorhead MT,MT,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+06329597,"CHARBONNEAU CREEK NR CHARBONNEAU, ND",ND,semiarid_flashy,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+06331000,"LITTLE MUDDY RIVER BL COW CREEK NR WILLISTON, ND",ND,semiarid_flashy,area_outside_range,,not_selected
+06336000,"LITTLE MISSOURI RIVER AT MEDORA, ND",ND,semiarid_flashy,area_outside_range,,not_selected
+06340590,"KNIFE RIVER NR STANTON, ND",ND,humid_rainfall,gages2_missing,,not_selected
+06348300,"HEART RIVER AT STARK BRIDGE NEAR JUDSON, ND",ND,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+06349000,"HEART RIVER NEAR MANDAN, ND",ND,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+06354890,"NORTH FORK GRAND RIVER ABOVE BOWMAN-HALEY LAKE, ND",ND,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+06354980,"SPRING CREEK NEAR HALEY, ND",ND,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+06403700,"CHEYENNE RIVER AT RED SHIRT, SD",SD,semiarid_flashy,catalog_overlap_lt_3y;catalog_outside_window;area_outside_range,,not_selected
+06418800,"RAPID CREEK ABOVE WRF NEAR RAPID CITY,  SD",SD,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+06436760,"HORSE CR ABOVE VALE,SD",SD,semiarid_flashy,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+06449100,"LITTLE WHITE RIVER NEAR VETAL, SD",SD,semiarid_flashy,catalog_overlap_lt_3y;catalog_outside_window;area_outside_range,,not_selected
+06461500,"Niobrara River near Sparks, Nebr.",NE,semiarid_flashy,area_outside_range,,not_selected
+06465500,"Niobrara River near Verdel, Nebr.",NE,semiarid_flashy,area_outside_range,,not_selected
+06467600,"JAMES RIVER NEAR MANFRED, ND",ND,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+06478522,"Bow Creek near Wynot, Nebr.",NE,humid_rainfall,gages2_missing,,not_selected
+06601200,"Missouri River at Decatur, NE",IA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+06670500,"LARAMIE RIVER NEAR FORT LARAMIE, WY",WY,semiarid_flashy,area_outside_range,,not_selected
+06711565,"SOUTH PLATTE RIVER AT ENGLEWOOD, CO.",CO,snow_mixed,area_outside_range,,not_selected
+06714215,"SOUTH PLATTE R AT 64TH AVE. COMMERCE CITY, CO.",CO,snow_mixed,catalog_overlap_lt_3y;area_outside_range,,not_selected
+06784000,"South Loup River at Saint Michael, Nebr.",NE,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+06796500,"Platte River near Leshara, Nebr.",NE,humid_rainfall,gages2_missing,,not_selected
+06800500,"Elkhorn River at Waterloo, Nebr.",NE,semiarid_flashy,area_outside_range,,not_selected
+06801000,"Platte River near Ashland, Nebr.",NE,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+06805500,"Platte River at Louisville, Nebr.",NE,humid_rainfall,gages2_missing,,not_selected
+06807000,"Missouri River at Nebraska City, NE",NE,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+06818000,"Missouri River at St. Joseph, MO",MO,humid_rainfall,gages2_missing,,not_selected
+06819550,"Mozingo Creek near Pickering, MO",MO,humid_rainfall,gages2_missing,,not_selected
+06856600,"REPUBLICAN R AT CLAY CENTER, KS",KS,humid_rainfall,gages2_missing,,not_selected
+06865500,"SMOKY HILL R NR LANGLEY, KS",KS,semiarid_flashy,catalog_overlap_lt_3y;catalog_outside_window;area_outside_range,,not_selected
+06877600,"SMOKY HILL R AT ENTERPRISE, KS",KS,semiarid_flashy,area_outside_range,,not_selected
+06882510,"BIG BLUE R AT MARYSVILLE, KS",KS,semiarid_flashy,catalog_overlap_lt_3y;catalog_outside_window;area_outside_range,,not_selected
+06887000,"BIG BLUE R NR MANHATTAN, KS",KS,humid_rainfall,area_outside_range,,not_selected
+06887500,"KANSAS R AT WAMEGO, KS",KS,humid_rainfall,gages2_missing,,not_selected
+06888990,"KANSAS R AB TOPEKA WEIR AT TOPEKA, KS",KS,humid_rainfall,gages2_missing,,not_selected
+06889110,"SOLDIER CREEK NR CORNING, KS",KS,humid_rainfall,gages2_missing,,not_selected
+06889160,"SOLDIER C NR CIRCLEVILLE, KS",KS,humid_rainfall,,,selected
+06892350,"KANSAS R AT DESOTO, KS",KS,humid_rainfall,gages2_missing,,not_selected
+06892360,"KILL C AT 95TH ST NR DESOTO, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+06892495,"CEDAR C NR DESOTO, KS",KS,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+06892513,"MILL C AT JOHNSON DRIVE, SHAWNEE, KS",KS,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+06892518,"KANSAS R NR LAKE QUIVIRA, KS",KS,humid_rainfall,gages2_missing,,not_selected
+06892900,"TURKEY CREEK AT MISSION, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+06893100,"BLUE R AT KENNETH RD, OVERLAND PARK, KS",KS,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+06893300,"INDIAN C AT OVERLAND PARK, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;urban_dev_exceeds_limit,,not_selected
+06893350,"TOMAHAWK C NR OVERLAND PARK, KS",KS,humid_rainfall,gages2_missing,,not_selected
+06893390,"INDIAN C AT STATE LINE RD, LEAWOOD, KS",KS,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+06893619,"Rock Creek at E Wilson Road in Independence, MO",MO,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+06893620,"Rock Creek at Kentucky Road in Independence, MO",MO,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+06893820,Little Blue R. at Lees Summit Rd in Independence,MO,humid_rainfall,gages2_missing,,not_selected
+06893830,"Adair Creek at Independence, MO",MO,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+06893890,"East Fork Little Blue River near Blue Springs, MO",MO,humid_rainfall,catalog_ends_before_window_end;urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+06893970,"Spring Branch Ck at Holke Rd in Independence, MO",MO,humid_rainfall,catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+06894000,"Little Blue River near Lake City, MO",MO,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+06894650,"Missouri River at Napoleon, MO",MO,humid_rainfall,gages2_missing,,not_selected
+06899900,"Medicine Creek at Lucerne, MO",MO,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+06900050,"Medicine Creek near Laredo, MO",MO,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+06901500,"Locust Creek near Linneus, MO",MO,humid_rainfall,catalog_ends_before_window_end;area_outside_range;dam_density_exceeds_limit,,not_selected
+06902000,"Grand River near Sumner, MO",MO,humid_rainfall,area_outside_range;dam_density_exceeds_limit,,not_selected
+06914950,"BIG BULL C NR EDGERTON, KS",KS,humid_rainfall,catalog_overlap_lt_3y,,not_selected
+06914990,"L BULL C NR SPRING HILL, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+06934500,"Missouri River at Hermann, MO",MO,humid_rainfall,gages2_missing,,not_selected
+07047932,"L'ANGUILLE R NR WHITEHALL, AR",AR,humid_rainfall,gages2_missing,,not_selected
+07047942,"LAnguille River near Colt, AR",AR,humid_rainfall,area_outside_range,,not_selected
+07048493,"Town Br. at S Morningside at Fayetteville, AR",AR,humid_rainfall,gages2_missing,,not_selected
+07048550,"West Fork White River east of Fayetteville, AR",AR,humid_rainfall,,,selected
+07048600,"White River near Fayetteville, AR",AR,humid_rainfall,area_outside_range,,not_selected
+07049000,"War Eagle Creek near Hindsville, AR",AR,humid_rainfall,,,eligible_but_below_cutoff
+07055814,"Big Creek at Carver, AR",AR,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+07061270,"East Fork Black River near Lesterville, MO",MO,humid_rainfall,,,selected
+07061290,E. Fk. Black R. bl Lower Taum Sauk Reservoir,MO,humid_rainfall,name_flag:RESERVOIR,,not_selected
+07075250,"S Fk Lit Red Riv us of Gulf Mt WMA nr Scotland, AR",AR,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+07075270,"South Fork of Little Red River near Scotland, AR",AR,humid_rainfall,gages2_missing,,not_selected
+07077380,"Cache River at Egypt, AR",AR,humid_rainfall,area_outside_range,,not_selected
+07077500,"Cache River at Patterson, AR",AR,humid_rainfall,gages2_missing,,not_selected
+07086000,"ARKANSAS RIVER AT GRANITE, CO.",CO,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+07096000,"ARKANSAS RIVER AT CANON CITY, CO.",CO,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+07097000,"ARKANSAS RIVER AT PORTLAND, CO.",CO,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+07099400,"ARKANSAS RIVER ABOVE PUEBLO, CO",CO,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+07099970,"ARKANSAS RIVER AT MOFFAT STREET AT PUEBLO, CO",CO,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+07105780,"B DITCH DRAIN NEAR SECURITY, CO.",CO,humid_rainfall,gages2_missing,,not_selected
+07105815,"CLOVER DITCH DRAIN AT QUINN ST NR WIDEFIELD, CO",CO,humid_rainfall,gages2_missing,,not_selected
+07105820,"CLOVER DITCH DRAIN NEAR WIDEFIELD, CO.",CO,humid_rainfall,gages2_missing,,not_selected
+07106000,"FOUNTAIN CREEK NEAR FOUNTAIN, CO.",CO,semiarid_flashy,area_outside_range;urban_dev_exceeds_limit,,not_selected
+07106500,"FOUNTAIN CREEK AT PUEBLO, CO.",CO,semiarid_flashy,area_outside_range,,not_selected
+07109500,"ARKANSAS RIVER NEAR AVONDALE, CO.",CO,semiarid_flashy,area_outside_range,,not_selected
+07124000,"ARKANSAS RIVER AT LAS ANIMAS, CO.",CO,semiarid_flashy,area_outside_range,,not_selected
+07126300,"PURGATOIRE RIVER NEAR THATCHER, CO.",CO,semiarid_flashy,area_outside_range,,not_selected
+07126485,"PURGATOIRE RIVER AT ROCK CROSSING NR TIMPAS, CO.",CO,semiarid_flashy,area_outside_range,,not_selected
+07130500,"ARKANSAS RIVER BELOW JOHN MARTIN RESERVOIR, CO.",CO,semiarid_flashy,area_outside_range;name_flag:RESERVOIR,,not_selected
+07137500,"ARKANSAS R NR COOLIDGE, KS",KS,humid_rainfall,gages2_missing,,not_selected
+07143672,"L ARKANSAS R AT HWY 50 NR HALSTEAD, KS",KS,semiarid_flashy,area_outside_range,,not_selected
+07144100,"L ARKANSAS R NR SEDGWICK, KS",KS,semiarid_flashy,area_outside_range,,not_selected
+07144780,"NF NINNESCAH R AB CHENEY RE, KS",KS,semiarid_flashy,area_outside_range,,not_selected
+07160350,"Skeleton Creek at Enid, OK",OK,semiarid_flashy,urban_dev_exceeds_limit,,not_selected
+07177500,"Bird Creek near Sperry, OK",OK,humid_rainfall,area_outside_range,,not_selected
+07178200,"Bird Ck at State Highway 266 near Catoosa, OK",OK,humid_rainfall,area_outside_range,,not_selected
+07179750,"NEOSHO R AT BURLINGAME RD NR EMPORIA, KS",KS,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+07182250,"COTTONWOOD R NR PLYMOUTH, KS",KS,humid_rainfall,catalog_ends_before_window_end;area_outside_range,,not_selected
+07182390,"NEOSHO R AT NEOSHO RAPIDS, KS",KS,humid_rainfall,gages2_missing,,not_selected
+07182510,"NEOSHO R AT BURLINGTON, KS",KS,humid_rainfall,area_outside_range,,not_selected
+07183000,"NEOSHO R NR IOLA, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+07183500,"NEOSHO R NR PARSONS, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+071912213,"Spavinaw Creek near Colcord, OK",OK,humid_rainfall,catalog_ends_before_window_end,,not_selected
+07191222,"Beaty Creek near Jay, OK",OK,humid_rainfall,catalog_ends_before_window_end,,not_selected
+071948095,"Mud Creek near Johnson, AR",AR,humid_rainfall,gages2_missing,,not_selected
+07194880,"Osage Creek near Cave Springs, AR",AR,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+07194933,"Spring Creek at Hwy 112 nr Springdale, AR",AR,humid_rainfall,gages2_missing,,not_selected
+07227500,"Canadian Rv nr Amarillo, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+07239450,"North Canadian River near Calumet, OK",OK,semiarid_flashy,area_outside_range,,not_selected
+07239500,"North Canadian River near El Reno, OK",OK,semiarid_flashy,area_outside_range,,not_selected
+07239700,"North Canadian River near Yukon, OK",OK,semiarid_flashy,area_outside_range,,not_selected
+07241000,"North Canadian River blw Lk Overholser nr OKC, OK",OK,semiarid_flashy,area_outside_range,,not_selected
+07241520,"North Canadian River at Britton Rd at OKC, OK",OK,semiarid_flashy,area_outside_range,,not_selected
+07241550,"North Canadian River near Harrah, OK",OK,semiarid_flashy,area_outside_range,,not_selected
+07257500,"Illinois Bayou near Scottsville, AR",AR,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;name_flag:BAY,,not_selected
+07263296,"Maumelle River near Wye, AR",AR,humid_rainfall,,,selected
+072632966,"Lake Maumelle at State Hwy 10 near Wye, AR",AR,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+07263878,"Salt Bayou Ditch nr Humphrey, AR",AR,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+072638805,"Fish Lake Ditch near Altheimer, AR",AR,humid_rainfall,gages2_missing,,not_selected
+07264000,"Bayou Meto near Lonoke, AR",AR,humid_rainfall,dam_density_exceeds_limit;name_flag:BAY,,not_selected
+07264200,"BAYOU TWO PRAIRIE AT CARLISLE, ARK.",AR,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+07264500,"BAYOU METO NR STUTTGART, AR",AR,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+07288048,"RICHIES BAYOU AT SHERARD, MS",MS,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+07288068,"HARRIS BAYOU AT PALMER RD EAST OF ALLIGATOR, MS",MS,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+07288500,"BIG SUNFLOWER RIVER AT SUNFLOWER, MS",MS,humid_rainfall,area_outside_range,,not_selected
+07288521,"PORTER BAYOU AT STEPHENSVILLE, MS",MS,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+0728875070,"DEER CREEK EAST OF LELAND, MS",MS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window,,not_selected
+07301500,"North Fork Red River near Carter, OK",OK,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+07305000,"North Fork Red River near Headrick, OK",OK,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+07311800,"S Wichita Rv nr Benjamin, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+07312500,"Wichita Rv at Wichita Falls, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+07331000,"Washita River near Dickson, OK",OK,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range;dam_density_exceeds_limit,,not_selected
+07332605,"Bois D'Arc Ck at HWY 56 nr Bonham, TX",TX,humid_rainfall,gages2_missing,,not_selected
+07332620,"Bois D'Arc Ck at FM 1396 nr Honey Grove, TX",TX,humid_rainfall,catalog_ends_before_window_end,,not_selected
+07332622,"Bois D'Arc Ck at FM 409 nr Honey Grove, TX",TX,humid_rainfall,gages2_missing,,not_selected
+07336820,"Red River near De Kalb, TX",TX,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+07355860,"Board Camp Cr nr Wolf Pen Gap Rec nr Nunley, AR",AR,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+07355870,"Gap Cr nr Wolf Pen Gap Rec Area nr Nunley, AR",AR,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+07364130,"Deep Bayou near Star City, AR",AR,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+07364133,"Bayou Bartholomew at Garrett Bridge, AR",AR,humid_rainfall,catalog_ends_before_window_end;area_outside_range;name_flag:BAY,,not_selected
+07374000,"Mississippi River at Baton Rouge, LA",LA,humid_rainfall,gages2_missing,,not_selected
+07381235,"GIWW West of Bayou Lafourche at Larose, LA",LA,humid_rainfall,catalog_ends_before_window_end;gages2_missing;name_flag:BAY,,not_selected
+07381328,"Houma Navigation Canal at Dulac, LA",LA,humid_rainfall,catalog_ends_before_window_end;gages2_missing;name_flag:CANAL,,not_selected
+07381331,"GIWW at Houma, LA",LA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+07381427,"Bayou Grosse Tete S. of I10 at Grosse Tete, LA",LA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing;name_flag:BAY,,not_selected
+073814675,"Bayou Boeuf at Railroad Bridge at Amelia, LA",LA,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+07381600,"Lower Atchafalaya River at Morgan City, LA",LA,humid_rainfall,gages2_missing,,not_selected
+08047050,"Marys Ck at Benbrook, TX",TX,semiarid_flashy,urban_dev_exceeds_limit,,not_selected
+08048000,"W Fk Trinity Rv at Ft Worth, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08049500,"W Fk Trinity Rv at Grand Prairie, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08052700,"Little Elm Ck nr Aubrey, TX",TX,humid_rainfall,dam_density_exceeds_limit,,not_selected
+08052745,"Doe Br at US Hwy 380 nr Prosper, TX",TX,humid_rainfall,,,selected
+08057000,"Trinity Rv at Dallas, TX",TX,semiarid_flashy,area_outside_range;urban_dev_exceeds_limit,,not_selected
+08057410,"Trinity Rv bl Dallas, TX",TX,semiarid_flashy,area_outside_range;urban_dev_exceeds_limit,,not_selected
+08062500,"Trinity Rv nr Rosser, TX",TX,semiarid_flashy,area_outside_range;urban_dev_exceeds_limit,,not_selected
+08065350,"Trinity Rv nr Crockett, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08066850,"Luce Bayou ITP Canal at Capers Ridge nr Hardin, TX",TX,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+08067000,"Trinity Rv at Liberty, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08067250,"Trinity Rv at IH 10 nr Wallisville, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08068000,"W Fk San Jacinto Rv nr Conroe, TX",TX,humid_rainfall,area_outside_range,,not_selected
+08068500,"Spring Ck nr Spring, TX",TX,humid_rainfall,area_outside_range;urban_dev_exceeds_limit,,not_selected
+08069500,"W Fk San Jacinto Rv nr Humble, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08070200,"E Fk San Jacinto Rv nr New Caney, TX",TX,humid_rainfall,,,eligible_but_below_cutoff
+08086212,"Hubbard Ck bl Albany, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08086290,"Big Sandy Ck abv Breckenridge, TX",TX,semiarid_flashy,,,selected
+08108700,"Brazos Rv at SH 21 nr Bryan, TX",TX,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+08110200,"Brazos Rv at Washington, TX",TX,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+08111500,"Brazos Rv nr Hempstead, TX",TX,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+08114000,"Brazos Rv at Richmond, TX",TX,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+08116650,"Brazos Rv nr Rosharon, TX",TX,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+08117300,"Brazos Rv at GIWW Flood Gates nr Freeport, TX",TX,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+08123850,"Colorado Rv abv Silver, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08126380,"Colorado Rv nr Ballinger, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08171290,"Blanco Rv at Halifax Rch nr Kyle, TX",TX,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+08180800,"Medina Rv nr Somerset, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08181500,"Medina Rv at San Antonio, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08181800,"San Antonio Rv nr Elmendorf, TX",TX,semiarid_flashy,area_outside_range;urban_dev_exceeds_limit,,not_selected
+08188060,"San Antonio Rv at SH 72 nr Runge, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08188500,"San Antonio Rv at Goliad, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08195000,"Frio Rv at Concan, TX",TX,semiarid_flashy,area_outside_range,,not_selected
+08211200,"Nueces Rv at Bluntzer, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08211503,"Rincon Bayou Channel nr Calallen, TX",TX,humid_rainfall,catalog_ends_before_window_end;gages2_missing;name_flag:BAY,,not_selected
+08317400,"RIO GRANDE BELOW COCHITI DAM, NM",NM,snow_mixed,area_outside_range;name_flag: DAM,,not_selected
+08330000,"RIO GRANDE AT ALBUQUERQUE, NM",NM,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+08374550,"Rio Grande nr Castolon, TX",TX,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+08375300,"Rio Grande at Rio Grande Village, Big Bnd NP, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08380500,"GALLINAS CREEK NEAR MONTEZUMA, NM",NM,humid_rainfall,,;insufficient_qualifying_years,not_selected
+08405200,"PECOS RIVER BELOW DARK CANYON AT CARLSBAD, NM",NM,humid_rainfall,gages2_missing,,not_selected
+08405400,"BLACK RIVER AT HARKEY CROSSING NR MALAGA, NM",NM,humid_rainfall,gages2_missing,,not_selected
+08406500,"PECOS RIVER NEAR MALAGA, NM",NM,humid_rainfall,gages2_missing,,not_selected
+08407500,"PECOS RIVER AT RED BLUFF, NM",NM,humid_rainfall,gages2_missing,,not_selected
+08412500,"Pecos Rv nr Orla, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08419000,"Pecos Rv at FM 3398 nr Pecos, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08437710,"Pecos Rv at RR 1776 nr Grandfalls, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08446500,"Pecos Rv nr Girvin, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08447000,"Pecos Rv nr Sheffield, TX",TX,humid_rainfall,gages2_missing,,not_selected
+08447300,"Pecos Rv at Brotherton Rh nr Pandale, TX",TX,humid_rainfall,gages2_missing,,not_selected
+09010500,"COLORADO RIVER BELOW BAKER GULCH NR GRAND LAKE, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09014050,"GRAND LAKE OUTLET BLW CHIPMUNK LN AT GRAND LK, CO",CO,humid_rainfall,gages2_missing,,not_selected
+09019500,"COLORADO RIVER NEAR GRANBY, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09022000,"FRASER RIVER AT UPPER STA, NEAR WINTER PARK, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09024000,"FRASER RIVER AT WINTER PARK, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09025000,"VASQUEZ CREEK AT WINTER PARK, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09026500,"ST. LOUIS CREEK NEAR FRASER, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09027100,"FRASER RIVER AT TABERNASH, CO",CO,humid_rainfall,gages2_missing,,not_selected
+09033100,"RANCH CREEK BLW MEADOW CR NR TABERNASH, CO",CO,humid_rainfall,gages2_missing,,not_selected
+09034250,"COLORADO RIVER AT WINDY GAP, NEAR GRANBY, CO.",CO,snow_mixed,area_outside_range,,not_selected
+09037500,"WILLIAMS FORK NEAR PARSHALL, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09040500,"TROUBLESOME CREEK NEAR TROUBLESOME, CO.",CO,humid_rainfall,gages2_missing,,not_selected
+09041090,"MUDDY CREEK ABOVE ANTELOPE CREEK NR. KREMMLING, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09041400,"MUDDY CRK BLW WOLFORD MTN RESER. NR KREMMLING, CO",CO,snow_mixed,,,selected
+09046600,"BLUE RIVER NEAR DILLON, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09050700,"BLUE RIVER BELOW DILLON, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09051050,"STRAIGHT CR BLW LASKEY GULCH NR DILLON, CO",CO,snow_mixed,catalog_overlap_lt_3y;catalog_outside_window,,not_selected
+09058000,"COLORADO RIVER NEAR KREMMLING, CO",CO,snow_mixed,area_outside_range,,not_selected
+09060799,"COLORADO RIVER AT CATAMOUNT BRIDGE, CO",CO,humid_rainfall,gages2_missing,,not_selected
+09063000,"EAGLE RIVER AT RED CLIFF, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09064600,"EAGLE RIVER NEAR MINTURN, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09065500,"GORE CREEK AT UPPER STATION, NEAR MINTURN, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09066000,"BLACK GORE CREEK NEAR MINTURN, CO.",CO,snow_mixed,catalog_overlap_lt_3y;dam_density_exceeds_limit,,not_selected
+09066200,"BOOTH CREEK NEAR MINTURN, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09066300,"MIDDLE CREEK NEAR MINTURN, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09066310,"GORE CREEK, LOWER STATION, AT VAIL, COLORADO",CO,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+09066325,"GORE CREEK ABV RED SANDSTONE CREEK AT VAIL, CO",CO,snow_mixed,catalog_ends_before_window_end,,not_selected
+09066510,"GORE CREEK AT MOUTH NEAR MINTURN, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09070500,"COLORADO RIVER NEAR DOTSERO, CO",CO,snow_mixed,area_outside_range,,not_selected
+09073300,"ROARING FORK RIVER AB DIFFICULT C NR ASPEN, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09076300,"ROARING FORK RIVER BLW MAROON CREEK NR ASPEN, CO",CO,humid_rainfall,gages2_missing,,not_selected
+09081000,"ROARING FORK RIVER NEAR EMMA, CO",CO,snow_mixed,area_outside_range,,not_selected
+09085000,"ROARING FORK RIVER AT GLENWOOD SPRINGS, CO.",CO,snow_mixed,area_outside_range,,not_selected
+09092570,"COLORADO RIVER AT RULISON, CO.",CO,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+09095300,"DRY FORK AT UPPER STATION NEAR DE BEQUE, CO.",CO,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+09095500,"COLORADO RIVER NEAR CAMEO, CO.",CO,snow_mixed,area_outside_range,,not_selected
+09105000,"PLATEAU CREEK NEAR CAMEO, CO",CO,snow_mixed,catalog_ends_before_window_end;area_outside_range,,not_selected
+09106485,"COLORADO R. ABV GUNNISON R. AT GRAND JUNCTION, CO",CO,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+09107000,"TAYLOR RIVER AT TAYLOR PARK, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09110000,"TAYLOR RIVER AT ALMONT, CO.",CO,snow_mixed,area_outside_range,,not_selected
+09112200,"EAST RIVER BELOW CEMENT CREEK NR CRESTED BUTTE, CO",CO,snow_mixed,catalog_overlap_lt_3y,,not_selected
+09112500,"EAST RIVER AT ALMONT, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09114500,"GUNNISON RIVER NEAR GUNNISON, CO.",CO,snow_mixed,area_outside_range,,not_selected
+09119000,"TOMICHI CREEK AT GUNNISON, CO",CO,snow_mixed,area_outside_range,,not_selected
+09124500,"LAKE FORK AT GATEVIEW, CO.",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09127000,"CIMARRON RIVER BLW CIMARRON CREEK AT CIMARRON, CO",CO,humid_rainfall,gages2_missing,,not_selected
+09136100,"NORTH FK GUNNISON RIVER ABOVE MOUTH NR LAZEAR, CO",CO,humid_rainfall,gages2_missing,,not_selected
+09144250,"GUNNISON RIVER AT DELTA, CO",CO,snow_mixed,area_outside_range;name_flag:DELTA,,not_selected
+09147500,"UNCOMPAHGRE RIVER AT COLONA, CO",CO,snow_mixed,area_outside_range,,not_selected
+09149500,"UNCOMPAHGRE RIVER AT DELTA, CO",CO,semiarid_flashy,area_outside_range;name_flag:DELTA,,not_selected
+09152500,"GUNNISON RIVER NEAR GRAND JUNCTION, CO.",CO,snow_mixed,area_outside_range,,not_selected
+09153270,"BIG SALT WASH AT FRUITA, CO.",CO,humid_rainfall,gages2_missing,,not_selected
+09163492,"SALT CREEK NEAR MOUTH NEAR MACK, CO.",CO,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+09163500,COLORADO RIVER NEAR COLORADO-UTAH STATE LINE,CO,snow_mixed,area_outside_range,,not_selected
+09169500,"DOLORES RIVER AT BEDROCK, CO",CO,snow_mixed,area_outside_range,,not_selected
+09171100,"DOLORES RIVER NEAR BEDROCK, CO.",CO,snow_mixed,area_outside_range,,not_selected
+09180000,"DOLORES RIVER NEAR CISCO, UT",UT,snow_mixed,area_outside_range,,not_selected
+09180500,"COLORADO RIVER NEAR CISCO, UT",UT,humid_rainfall,gages2_missing,,not_selected
+09217000,"GREEN RIVER NEAR GREEN RIVER, WY",WY,semiarid_flashy,area_outside_range,,not_selected
+09219200,"Blacks Fork above Smiths Fork, near Lyman, WY",WY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+09230300,"BIRCH SPRING DRAW AT FGNRA BOUNDARY NR MANILA, UT",UT,semiarid_flashy,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+09234500,"GREEN RIVER NEAR GREENDALE, UT",UT,semiarid_flashy,area_outside_range,,not_selected
+09239500,"YAMPA RIVER AT STEAMBOAT SPRINGS, CO",CO,snow_mixed,area_outside_range,,not_selected
+09240020,"YAMPA RIVER BELOW SODA CREEK AT STEAMBOAT SPGS, CO",CO,snow_mixed,catalog_overlap_lt_3y;area_outside_range,,not_selected
+09251000,"YAMPA RIVER NEAR MAYBELL, CO",CO,snow_mixed,area_outside_range,,not_selected
+09258050,"Muddy Creek above Olson Draw, near Dad, WY",WY,humid_rainfall,gages2_missing,,not_selected
+09258980,"MUDDY CREEK BELOW YOUNG DRAW, NEAR BAGGS, WY",WY,semiarid_flashy,area_outside_range,,not_selected
+09261000,"GREEN RIVER NEAR JENSEN, UT",UT,humid_rainfall,gages2_missing,,not_selected
+09277500,"DUCHESNE RIVER NEAR TABIONA, UT",UT,snow_mixed,catalog_ends_before_window_end,,not_selected
+09302000,"DUCHESNE RIVER NEAR RANDLETT, UT",UT,snow_mixed,area_outside_range,,not_selected
+09304800,"WHITE RIVER BELOW MEEKER, CO",CO,snow_mixed,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+09306200,"PICEANCE CREEK BL RYAN GULCH, NR RIO BLANCO, CO.",CO,semiarid_flashy,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+09306222,"PICEANCE CREEK AT WHITE RIVER, CO",CO,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+09306224,"WHITE RIV AB CROOKED WASH NR WHITE RIVER CITY, CO",CO,snow_mixed,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+09306255,"YELLOW CREEK NEAR WHITE RIVER, CO.",CO,semiarid_flashy,catalog_ends_before_window_end,,not_selected
+09306290,"WHITE RIVER BELOW BOISE CREEK, NEAR RANGELY, CO.",CO,snow_mixed,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+09306500,"WHITE RIVER NEAR WATSON, UTAH",UT,semiarid_flashy,catalog_overlap_lt_3y;catalog_outside_window;area_outside_range,,not_selected
+09314280,"DESERT SEEP WASH NEAR WELLINGTON, UTAH",UT,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+09314500,"PRICE RIVER AT WOODSIDE, UT",UT,semiarid_flashy,area_outside_range,,not_selected
+09315000,"GREEN RIVER AT GREEN RIVER, UT",UT,humid_rainfall,gages2_missing,,not_selected
+09328500,"SAN RAFAEL RIVER NEAR GREEN RIVER, UT",UT,semiarid_flashy,area_outside_range,,not_selected
+09328910,"SAN RAFAEL RIVER AT MOUTH NEAR GREEN RIVER, UT",UT,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+09328960,"COLORADO RIVER AT GYPSUM CANYON NEAR HITE, UT",UT,humid_rainfall,gages2_missing,,not_selected
+09358000,"ANIMAS RIVER AT SILVERTON, CO.",CO,snow_mixed,catalog_ends_before_window_end,,not_selected
+09358550,"CEMENT CREEK AT SILVERTON, CO",CO,snow_mixed,catalog_ends_before_window_end,,not_selected
+09359010,"MINERAL CREEK AT SILVERTON, CO",CO,snow_mixed,catalog_ends_before_window_end,,not_selected
+09359020,"ANIMAS RIVER BELOW SILVERTON, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+09361500,"ANIMAS RIVER AT DURANGO, CO",CO,snow_mixed,catalog_ends_before_window_end;area_outside_range,,not_selected
+09363500,"ANIMAS RIVER NEAR CEDAR HILL, NM",CO,snow_mixed,area_outside_range,,not_selected
+09364010,"ANIMAS RIVER BELOW AZTEC, NM",NM,snow_mixed,catalog_ends_before_window_end;area_outside_range,,not_selected
+09365000,"SAN JUAN RIVER AT FARMINGTON, NM",NM,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+09368000,"SAN JUAN RIVER AT SHIPROCK, NM",NM,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+09371010,"SAN JUAN RIVER AT FOUR CORNERS, CO",CO,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+09371492,"MUD CREEK AT STATE HIGHWAY 32, NEAR CORTEZ, CO.",CO,semiarid_flashy,,,selected
+09371520,"MCELMO CREEK ABOVE TRAIL CANYON NEAR CORTEZ, CO",CO,semiarid_flashy,,,selected
+09379500,"SAN JUAN RIVER NEAR BLUFF, UT",UT,humid_rainfall,gages2_missing,,not_selected
+09380000,"COLORADO RIVER AT LEES FERRY, AZ",AZ,humid_rainfall,gages2_missing,,not_selected
+09406000,"VIRGIN RIVER AT VIRGIN, UT",UT,semiarid_flashy,area_outside_range,,not_selected
+09408400,"SANTA CLARA RIVER NEAR PINE VALLEY, UT",UT,snow_mixed,catalog_overlap_lt_3y;catalog_outside_window,,not_selected
+09504350,"WEST FORK OAK CREEK NR SEDONA, AZ",AZ,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+09504950,"VERDE RIVER ABOVE CAMP VERDE, AZ",AZ,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+09510000,"VERDE RIVER BELOW BARTLETT DAM, AZ",AZ,semiarid_flashy,area_outside_range;name_flag: DAM,,not_selected
+09530200,"YUMA MESA OUTLET DRAIN NEAR YUMA, AZ",AZ,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+10126000,"BEAR RIVER NEAR CORINNE, UT",UT,snow_mixed,area_outside_range,,not_selected
+10129900,"SILVER CREEK NEAR SILVER CREEK JUNCTION, UT",UT,snow_mixed,dam_density_exceeds_limit,,not_selected
+10133650,"E CANYON CR BL I-80 REST STOP NR PARK CITY, UT",UT,snow_mixed,,,selected
+10133800,"EAST CANYON CREEK NEAR JEREMY RANCH, UT",UT,snow_mixed,dam_density_exceeds_limit,,not_selected
+10133980,"EAST CANYON CREEK AB EAST CYN RES NR MORGAN, UTAH",UT,snow_mixed,,,eligible_but_below_cutoff
+10136500,"WEBER RIVER AT GATEWAY, UT",UT,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+10141000,"WEBER RIVER NEAR PLAIN CITY, UT",UT,snow_mixed,area_outside_range,,not_selected
+10172630,GOGGIN DRAIN NEAR MAGNA UTAH,UT,humid_rainfall,gages2_missing,,not_selected
+10260500,DEEP C NR HESPERIA CA,CA,semiarid_flashy,,,eligible_but_below_cutoff
+10260950,WF MOJAVE R AB MOJAVE R FORKS RES NR HESPERIA CA,CA,semiarid_flashy,,;insufficient_qualifying_years,not_selected
+10261500,MOJAVE R A LO NARROWS NR VICTORVILLE CA,CA,semiarid_flashy,area_outside_range,,not_selected
+10265150,HOT C A FLUME NR MAMMOTH LAKES CA,CA,snow_mixed,catalog_ends_before_window_end,,not_selected
+10301500,"WALKER RV NR WABUSKA, NV",NV,semiarid_flashy,area_outside_range,,not_selected
+10302002,"WALKER RV AT LATERAL 2-A SIPHON NR SCHURZ, NV",NV,humid_rainfall,gages2_missing,,not_selected
+10302025,"WALKER RV NR MOUTH AT WALKER LAKE, NV",NV,humid_rainfall,gages2_missing,,not_selected
+10336698,"THIRD CK NR CRYSTAL BAY, NV",NV,snow_mixed,catalog_overlap_lt_3y;urban_dev_exceeds_limit;dam_density_exceeds_limit;name_flag:BAY,,not_selected
+10336700,"INCLINE CK NR CRYSTAL BAY, NV",NV,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;name_flag:BAY,,not_selected
+10336730,"GLENBROOK CK AT GLENBROOK, NV",NV,snow_mixed,catalog_overlap_lt_3y,,not_selected
+10343500,SAGEHEN C NR TRUCKEE CA,CA,snow_mixed,catalog_ends_before_window_end,,not_selected
+10348200,"TRUCKEE RV NR SPARKS, NV",NV,snow_mixed,area_outside_range,,not_selected
+10351700,"TRUCKEE RV NR NIXON, NV",NV,snow_mixed,area_outside_range,,not_selected
+11044000,SANTA MARGARITA R NR TEMECULA CA,CA,semiarid_flashy,area_outside_range,,not_selected
+11074000,SANTA ANA R BL PRADO DAM CA,CA,semiarid_flashy,area_outside_range;urban_dev_exceeds_limit;name_flag: DAM,,not_selected
+11125600,HILTON CYN C NR SANTA YNEZ CA,CA,semiarid_flashy,catalog_ends_before_window_end;area_outside_range,,not_selected
+11125605,HILTON CYN C 0.25 MI BL BRADBURY DAM NR SANTA YNEZ,CA,humid_rainfall,gages2_missing;name_flag: DAM,,not_selected
+11126000,SANTA YNEZ R NR SANTA YNEZ CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+11126400,SANTA YNEZ R A HWY 154 NR SANTA YNEZ CA,CA,humid_rainfall,gages2_missing,,not_selected
+11128500,SANTA YNEZ R A SOLVANG CA,CA,humid_rainfall,area_outside_range,,not_selected
+11133000,SANTA YNEZ R A NARROWS NR LOMPOC CA,CA,semiarid_flashy,area_outside_range,,not_selected
+11173200,ARROYO HONDO NR SAN JOSE CA,CA,semiarid_flashy,catalog_overlap_lt_3y;catalog_ends_before_window_end,,not_selected
+11176900,ARROYO DE LA LAGUNA A VERONA CA,CA,semiarid_flashy,area_outside_range;urban_dev_exceeds_limit,,not_selected
+11203580,SF TULE R NR CHOLOLLO CAMPGROUND NR PORTERVILLE CA,CA,snow_mixed,,,eligible_but_below_cutoff
+11204100,SF TULE R NR RESERVATION BNDRY NR PORTERVILLE CA,CA,snow_mixed,,,selected
+11251000,SAN JOAQUIN R BL FRIANT CA,CA,snow_mixed,area_outside_range,,not_selected
+11254000,SAN JOAQUIN R NR MENDOTA CA,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11261100,SALT SLOUGH A HWY 165 NR STEVINSON CA,CA,humid_rainfall,gages2_missing,,not_selected
+11261500,SAN JOAQUIN R A FREMONT FORD BRIDGE CA,CA,semiarid_flashy,area_outside_range,,not_selected
+11262900,MUD SLOUGH NR GUSTINE CA,CA,humid_rainfall,gages2_missing,,not_selected
+11273400,SAN JOAQUIN R AB MERCED R NR NEWMAN CA,CA,humid_rainfall,gages2_missing,,not_selected
+11274500,ORESTIMBA C NR NEWMAN CA,CA,semiarid_flashy,,;insufficient_qualifying_years,not_selected
+11274538,ORESTIMBA CR AT RIVER RD NR CROWS LANDING CA,CA,semiarid_flashy,catalog_ends_before_window_end,,not_selected
+11274550,SAN JOAQUIN R NR CROWS LANDING CA,CA,semiarid_flashy,area_outside_range,,not_selected
+11274790,TUOLUMNE R A GRAND CYN OF TUOLUMNE AB HETCH HETCHY,CA,snow_mixed,,,eligible_but_below_cutoff
+11285500,TUOLUMNE R A WARDS FERRY BR NR GROVELAND CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+11290000,TUOLUMNE R A MODESTO CA,CA,snow_mixed,area_outside_range,,not_selected
+11303000,STANISLAUS R A RIPON CA,CA,snow_mixed,area_outside_range,,not_selected
+11304810,SAN JOAQUIN R BL GARWOOD BRIDGE A STOCKTON CA,CA,humid_rainfall,gages2_missing,,not_selected
+11312676,MIDDLE R AT MIDDLE RIVER CA,CA,humid_rainfall,gages2_missing,,not_selected
+11313315,OLD RIVER NEAR BYRON CA,CA,humid_rainfall,gages2_missing,,not_selected
+11313405,OLD R A BACON ISLAND CA,CA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+11313433,DUTCH SLOUGH BL JERSEY ISLAND RD A JERSEY ISLAND,CA,humid_rainfall,gages2_missing,,not_selected
+11313460,SAN JOAQUIN R A PRISONERS PT NR TERMINOUS CA,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11336600,DELTA CROSS CHANNEL NR WALNUT GROVE,CA,humid_rainfall,gages2_missing;name_flag:DELTA,,not_selected
+11336680,S MOKELUMNE R A NEW HOPE BR NR WALNUT GROVE CA,CA,humid_rainfall,gages2_missing,,not_selected
+11336685,N MOKELUMNE NR WALNUT GROVE CA,CA,humid_rainfall,gages2_missing,,not_selected
+11336790,LITTLE POTATO SLOUGH A TERMINOUS CA,CA,humid_rainfall,gages2_missing,,not_selected
+11337190,SAN JOAQUIN R A JERSEY POINT CA,CA,humid_rainfall,gages2_missing,,not_selected
+11425500,SACRAMENTO R A VERONA CA,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11447650,SACRAMENTO R A FREEPORT CA,CA,humid_rainfall,gages2_missing,,not_selected
+11447830,SUTTER SLOUGH A COURTLAND CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+11447850,STEAMBOAT SLOUGH NR WALNUT GROVE CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+11447890,SACRAMENTO R AB DELTA CROSS CHANNEL CA,CA,humid_rainfall,gages2_missing;name_flag:DELTA,,not_selected
+11447903,GEORGIANA SLOUGH NR SACRAMENTO R,CA,humid_rainfall,gages2_missing,,not_selected
+11447905,SACRAMENTO R BL GEORGIANA SLOUGH CA,CA,humid_rainfall,gages2_missing,,not_selected
+11451800,CACHE C A RUMSEY CA,CA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+11452500,CACHE C A YOLO CA,CA,humid_rainfall,catalog_overlap_lt_3y;area_outside_range,,not_selected
+11452800,CACHE C OVERFLOW WEIR FROM SETTLING BAS NR WOOD'LD,CA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+11452900,CACHE C OUTFLOW FROM SETTLING BASIN NR WOODLAND CA,CA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+11453590,POPE C A WALTER SPRINGS CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+11455095,SACRAMENTO R DEEP WATER SHIP CHANNEL NR FREEPORT,CA,humid_rainfall,gages2_missing,,not_selected
+11455139,TOE DRAIN A MALLARD RD NR COURTLAND CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+11455140,TOE DRAIN A LIBERTY ISLAND NR COURTLAND CA,CA,humid_rainfall,gages2_missing,,not_selected
+11455143,LITTLE HOLLAND TRACT A NORTH BREACH NR COURTLAND C,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+11455146,LIBERTY CUT A LITTLE HOLLAND TRACT NR COURTLAND CA,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11455165,MINER SLOUGH A HWY 84 BRIDGE,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11455276,SHAG SLOUGH A LIBERTY ISLAND NR COURTLAND CA,CA,humid_rainfall,gages2_missing,,not_selected
+11455315,CACHE SLOUGH A S LIBERTY ISLAND NR RIO VISTA CA,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11455335,SACRAMENTO R DEEP WATER SHIP CHANNEL NR RIO VISTA,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11455338,SACRAMENTO R DEEP WATER SHIP CHANNEL MARKER 51 CA,CA,humid_rainfall,gages2_missing,,not_selected
+11455350,CACHE SLOUGH A RYER ISLAND,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11455385,CACHE SLOUGH AB RYER ISLAND FERRY NR RIO VISTA CA,CA,humid_rainfall,gages2_missing,,not_selected
+11455420,SACRAMENTO R A RIO VISTA CA,CA,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+11458433,SONOMA CREEK A KENWOOD CA,CA,humid_rainfall,,;insufficient_qualifying_years,not_selected
+11461500,EF RUSSIAN R NR CALPELLA CA,CA,humid_rainfall,,,eligible_but_below_cutoff
+11462500,RUSSIAN R NR HOPLAND CA,CA,humid_rainfall,,,selected
+11463682,RUSSIAN R A JIMTOWN CA,CA,humid_rainfall,gages2_missing,,not_selected
+11463980,RUSSIAN R A DIGGER BEND NR HEALDSBURG CA,CA,humid_rainfall,area_outside_range,,not_selected
+11465240,DRY C BLW LAMBERT BR NR GEYSERVILLE CA,CA,humid_rainfall,gages2_missing,,not_selected
+11466800,MARK WEST C NR MIRABEL HEIGHTS CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;urban_dev_exceeds_limit,,not_selected
+11467000,RUSSIAN R A HACIENDA BRIDGE NR GUERNEVILLE CA,CA,humid_rainfall,area_outside_range,,not_selected
+11501000,"SPRAGUE RIVER NEAR CHILOQUIN, OR",OR,snow_mixed,area_outside_range,,not_selected
+11502500,"WILLIAMSON RIVER BLW SPRAGUE RIVER NR CHILOQUIN,OR",OR,snow_mixed,area_outside_range,,not_selected
+11504115,"WOOD RIVER NEAR KLAMATH AGENCY, OR",OR,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+11504260,"FOURMILE CANAL NEAR KLAMATH AGENCY, OR",OR,humid_rainfall,catalog_overlap_lt_3y;gages2_missing;name_flag:CANAL,,not_selected
+11509500,"KLAMATH RIVER AT KENO, OR",OR,snow_mixed,area_outside_range,,not_selected
+11510700,"KLAMATH RIVER BLW JOHN C.BOYLE PWRPLNT, NR KENO,OR",OR,snow_mixed,area_outside_range,,not_selected
+12056500,"NF SKOKOMISH R BL STAIRCASE RPDS NR HOODSPORT, WA",WA,snow_mixed,catalog_overlap_lt_3y;catalog_outside_window,,not_selected
+12090400,"NORTH FORK CLOVER CREEK NEAR PARKLAND, WA",WA,humid_rainfall,urban_dev_exceeds_limit;dam_density_exceeds_limit,,not_selected
+12090500,"CLOVER CREEK NEAR TILLICUM, WA",WA,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+12100490,"WHITE RIVER AT R STREET NEAR AUBURN, WA",WA,humid_rainfall,gages2_missing,,not_selected
+12101100,"LAKE TAPPS DIVERSION AT DIERINGER, WA",WA,humid_rainfall,gages2_missing;name_flag:DIVERSION,,not_selected
+12102078,"CLARKS CREEK AT STEWART AVENUE NEAR PUYALLUP, WA",WA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+12170300,"STILLAGUAMISH RIVER NEAR STANWOOD, WA",WA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+12301933,Kootenai River bl Libby Dam nr Libby MT,MT,humid_rainfall,catalog_ends_before_window_end;gages2_missing;name_flag: DAM,,not_selected
+12323233,"Blacktail Creek above Grove Gulch, at Butte, MT",MT,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+12323242,"Silver Bow Creek at Montana Street, at Butte, MT",MT,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+12323800,Clark Fork near Galen MT,MT,snow_mixed,area_outside_range,,not_selected
+12324200,Clark Fork at Deer Lodge MT,MT,snow_mixed,area_outside_range,,not_selected
+12324400,Clark Fork ab Little Blackfoot R nr Garrison MT,MT,humid_rainfall,gages2_missing,,not_selected
+12340500,Clark Fork above Missoula MT,MT,snow_mixed,area_outside_range,,not_selected
+12413360,EF PINE CREEK ABV GILBERT CR NEAR PINEHURST ID,ID,snow_mixed,catalog_ends_before_window_end;catalog_outside_window;area_outside_range,,not_selected
+12413370,EF PINE CREEK ABV NABOB CR NEAR PINEHURST ID,ID,snow_mixed,catalog_ends_before_window_end,,not_selected
+12413445,PINE CREEK BELOW AMY GULCH NEAR PINEHURST ID,ID,snow_mixed,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+12413860,COEUR D ALENE RIVER NR HARRISON ID,ID,snow_mixed,catalog_overlap_lt_3y;catalog_outside_window;area_outside_range,,not_selected
+12442500,"SIMILKAMEEN RIVER NEAR NIGHTHAWK, WA",WA,humid_rainfall,gages2_missing,,not_selected
+12473503,"SCBID WB 5 WASTEWAY NEAR MOUTH NEAR RINGOLD,WA",WA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+12492900,"OAK CREEK ABOVE TIETON RIVER NEAR NACHES, WA",WA,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+12500450,"YAKIMA RIVER ABOVE AHTANUM CREEK AT UNION GAP, WA",WA,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;area_outside_range,,not_selected
+12507573,"YAKIMA RIVER AT RM 73.8 NEAR EMERALD, WA",WA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+12510500,"YAKIMA RIVER AT KIONA, WA",WA,snow_mixed,area_outside_range,,not_selected
+13013650,"SNAKE RIVER AT MOOSE, WY",WY,snow_mixed,area_outside_range,,not_selected
+13016450,"FISH CREEK AT WILSON, WY",WY,snow_mixed,catalog_overlap_lt_3y;catalog_outside_window,,not_selected
+13018750,"SNAKE RIVER BELOW FLAT CREEK, NEAR JACKSON, WY",WY,snow_mixed,area_outside_range,,not_selected
+13093383,"SNAKE RIVER AT PIGEON COVE NR TWIN FALLS, ID",ID,humid_rainfall,gages2_missing,,not_selected
+13173600,SNAKE RIVER NR ADRIAN OR,OR,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+13206400,"EAGLE DRAIN AT EAGLE, ID",ID,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+13207500,DRY CREEK NEAR EAGLE ID,ID,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+13213000,BOISE RIVER NR PARMA ID,ID,snow_mixed,catalog_ends_before_window_end;area_outside_range,,not_selected
+13213100,SNAKE RIVER AT NYSSA OR,ID,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+13310800,"EFSF SALMON R ABV MEADOW CRK NR STIBNITE, ID",ID,humid_rainfall,gages2_missing,,not_selected
+13310850,"MEADOW CREEK NR STIBNITE, ID",ID,humid_rainfall,gages2_missing,,not_selected
+13311000,"EF OF SF SALMON RIVER AT STIBNITE, ID",ID,humid_rainfall,gages2_missing,,not_selected
+13311250,"EFSF SALMON R ABV SUGAR CRK NR STIBNITE, ID",ID,humid_rainfall,gages2_missing,,not_selected
+13311450,"SUGAR CREEK NR STIBNITE, ID",ID,humid_rainfall,gages2_missing,,not_selected
+14078260,"SF CROOKED RIVER NEAR BELL BUTTE, NEAR PAULINA, OR",OR,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+14138720,"BULL RUN RIVER AT LOWER FLUME NR BRIGHTWOOD, OR",OR,snow_mixed,dam_density_exceeds_limit,,not_selected
+14138850,"BULL RUN RIVER NEAR MULTNOMAH FALLS, OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14138870,"FIR CREEK NEAR BRIGHTWOOD, OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14138900,"NORTH FORK BULL RUN RIVER NEAR MULTNOMAH FALLS, OR",OR,snow_mixed,,,selected
+14139800,"SOUTH FORK BULL RUN RIVER NEAR BULL RUN, OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14139940,"BULL RUN RIVER BLW BULL RUN RES 2, NR BULL RUN, OR",OR,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+14158500,"MCKENZIE RIVER AT OUTLET OF CLEAR LAKE, OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14158740,"MCKENZIE RIVER BL PAYNE CR, NR BELKNAP SPRINGS, OR",OR,humid_rainfall,gages2_missing,,not_selected
+14158790,"SMITH RIVER ABV SMITH R RESV,NR BELKNAP SPRNGS,OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14158798,SMITH RIVER ABV TRAIL BRDG RESV NR BELKNAP SPRINGS,OR,humid_rainfall,gages2_missing,,not_selected
+14158850,"MCKENZIE R BLW TRAIL BR DAM NR BELKNAP SPRINGS, OR",OR,snow_mixed,name_flag: DAM,,not_selected
+14159500,"SOUTH FORK MCKENZIE RIVER NEAR RAINBOW, OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14162050,"NF QUARTZ CREEK NEAR BLUE RIVER, OR",OR,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+14162200,"BLUE RIVER AT BLUE RIVER, OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14162440,"QUARTZ CREEK BLW CANE CREEK NEAR FINN ROCK, OR",OR,humid_rainfall,catalog_overlap_lt_3y;catalog_outside_window;gages2_missing,,not_selected
+14162450,"QUARTZ CREEK NEAR FINN ROCK, OR",OR,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+14162500,"MCKENZIE RIVER NEAR VIDA, OR",OR,snow_mixed,area_outside_range,,not_selected
+14163000,"GATE CREEK AT VIDA, OR",OR,humid_rainfall,,,eligible_but_below_cutoff
+14163150,"MCKENZIE RIVER BLW LEABURG DAM, NR LEABURG, OR",OR,snow_mixed,area_outside_range;name_flag: DAM,,not_selected
+14163900,"MCKENZIE RIVER NEAR WALTERVILLE, OR",OR,snow_mixed,area_outside_range,,not_selected
+14164550,"CAMP CRK AT CAMP CRK RD BRIDGE, NR SPRINGFIELD, OR",OR,humid_rainfall,gages2_missing,,not_selected
+14164700,"CEDAR CREEK AT SPRINGFIELD, OR",OR,humid_rainfall,,,eligible_but_below_cutoff
+14164900,"McKENZIE RIVER ABV HAYDEN BR, AT SPRINGFIELD,OR",OR,snow_mixed,area_outside_range,,not_selected
+14181500,"NORTH SANTIAM RIVER AT NIAGARA, OR",OR,snow_mixed,area_outside_range,,not_selected
+14182500,"LITTLE NORTH SANTIAM RIVER NEAR MEHAMA, OR",OR,snow_mixed,,,eligible_but_below_cutoff
+14202650,"WAPATO CREEK AT SW GASTON ROAD, AT GASTON, OR",OR,humid_rainfall,gages2_missing,,not_selected
+14202980,"SCOGGINS CK BLW HENRY HAGG LAKE, NR GASTON, OR",OR,snow_mixed,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window,,not_selected
+14203500,"TUALATIN RIVER NEAR DILLEY, OR",OR,humid_rainfall,,,eligible_but_below_cutoff
+14206241,"TUALATIN RIVER AT HWY 219 NEAR HILLSBORO, OR",OR,humid_rainfall,gages2_missing,,not_selected
+14206752,"CHICKEN CREEK ABV SEASONAL TRAIL, NR SHERWOOD, OR",OR,humid_rainfall,gages2_missing,,not_selected
+14206950,"FANNO CREEK AT DURHAM, OR",OR,humid_rainfall,urban_dev_exceeds_limit,,not_selected
+14209700,"FISH CREEK NEAR THREE LYNX, OR",OR,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+14210000,"CLACKAMAS RIVER AT ESTACADA, OR",OR,snow_mixed,area_outside_range,,not_selected
+14211010,"CLACKAMAS RIVER NEAR OREGON CITY, OR",OR,snow_mixed,area_outside_range,,not_selected
+14211720,"WILLAMETTE RIVER AT PORTLAND, OR",OR,humid_rainfall,area_outside_range,,not_selected
+14301500,"WILSON RIVER NEAR TILLAMOOK, OR",OR,snow_mixed,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+14302480,"TRASK RIVER ABOVE CEDAR CREEK, NEAR TILLAMOOK, OR",OR,snow_mixed,catalog_ends_before_window_end;catalog_outside_window,,not_selected
+14317600,"ROCK CREEK NEAR GLIDE, OR",OR,humid_rainfall,gages2_missing,,not_selected
+14348430,"UNNAMED TRIB TO WBR CARTER CREEK, NEAR ASHLAND, OR",OR,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+250802081035500,"EAST SIDE CREEK NEAR LAKE INGRAHAM, FL",FL,humid_rainfall,gages2_missing,,not_selected
+251003080435500,"MCCORMICK CREEK AT MOUTH NEAR KEY LARGO, FL",FL,humid_rainfall,gages2_missing,,not_selected
+251127080382100,"TAYLOR RIVER AT MOUTH NEAR HOMESTEAD, FL",FL,humid_rainfall,gages2_missing,,not_selected
+251209080350100,"MUD CREEK AT MOUTH NR HOMESTEAD, FL",FL,humid_rainfall,gages2_missing,,not_selected
+251241080385300,"UPSTREAM TAYLOR RIVER NEAR HOMESTEAD, FL",FL,humid_rainfall,gages2_missing,,not_selected
+251253080320100,"TROUT CREEK AT MOUTH NEAR KEY LARGO, FL",FL,humid_rainfall,gages2_missing,,not_selected
+251338080312600,"JOE BAY 1E, NEAR KEY LARGO, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing;name_flag:BAY,,not_selected
+251341080291200,"STILLWATER CREEK NEAR HOMESTEAD, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+251355080312800,"JOE BAY 2E, NEAR KEY LARGO, FL",FL,humid_rainfall,gages2_missing;name_flag:BAY,,not_selected
+251433080265000,"WEST HIGHWAY CREEK NEAR HOMESTEAD, FL",FL,humid_rainfall,gages2_missing,,not_selected
+251549080251200,"MANATEE BAY CREEK NEAR HOMESTEAD, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing;name_flag:BAY,,not_selected
+251816080232200,"CARD SOUND CANAL NEAR HOMESTEAD, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing;name_flag:SOUND,,not_selected
+252019080544800,"UPSTREAM NORTH RIVER, NEAR FLAMINGO, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+252230081021300,"SHARK RIVER BELOW GUNBOAT ISLAND NR FLAMINGO, FL",FL,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+252551081050900,HARNEY RIVER NEAR FLAMINGO FL,FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+253047080555600,UPSTREAM BROAD RIVER NEAR EVERGLADES CITY FL,FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+253357080594100,UPSTREAM LOSTMANS RIVER NEAR EVERGLADES CITY FL,FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+254157080213800,"SNAPPER CREEK NO.5 ABV WATER PIPE NR S. MIAMI, FL",FL,humid_rainfall,gages2_missing,,not_selected
+254543080405401,"TAMIAMI CANAL AT S-12-D NEAR MIAMI, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing;name_flag:CANAL,,not_selected
+255154080371300,"L-67A CANAL AT S-152 NR COOPERTOWN, FL",FL,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing;name_flag:CANAL,,not_selected
+255327081275900,"EAST RIVER NEAR EVERGLADES CITY, FL",FL,humid_rainfall,gages2_missing,,not_selected
+255432081303900,FAKA-UNION RIVER NEAR THE MOUTH,FL,humid_rainfall,gages2_missing,,not_selected
+255534081324000,"PUMPKIN RIVER NEAR GOODLAND, FL",FL,humid_rainfall,gages2_missing,,not_selected
+255654081350200,"BLACKWATER RIVER NEAR GOODLAND, FL",FL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+292859090004000,"Barataria Waterway S of Lafitte, LA",LA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+295124089542100,"Caernarvon Outfall Channel at Caernarvon, LA",LA,humid_rainfall,gages2_missing,,not_selected
+295308085143700,"IWW EAST OF GULF CO CANAL NEAR PORT ST JOE, FL",FL,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+295323085151700,"IWW WEST OF GULF CO CANAL NEAR PORT ST JOE, FL",FL,humid_rainfall,gages2_missing;name_flag:CANAL,,not_selected
+295501090190400,"Davis Pond Freshwater Diversion near Boutte, LA",LA,humid_rainfall,gages2_missing;name_flag:DIVERSION,,not_selected
+301141089320300,"EAST PEARL RIVER AT CSX RAILROAD NR CLAIBORNE, MS",MS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+373947105421101,CLOSED BASIN PROJECT CANAL ABV HWY 150 NR MOSCA CO,CO,humid_rainfall,catalog_ends_before_window_end;catalog_outside_window;gages2_missing;name_flag:CANAL,,not_selected
+375450121331701,WOODWARD CANAL A OLD R NR BRENTWOOD CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing;name_flag:CANAL,,not_selected
+375622121332201,RAILROAD CUT A OLD R NR BRENTWOOD  CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+382006121401601,LIBERTY ISLAND A LIBERTY CUT NR COURTLAND CA,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+382010121402301,LIBERTY ISLAND A UPPER STAIR STEP NR FIVE POINTS C,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+383019121350701,SACRAMENTO R DEEP WATER SHIP CHANNEL NR RIVERVIEW,CA,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+383926107593001,LOUTSENHIZER ARROYO AT HWY 50 NEAR OLATHE CO,CO,humid_rainfall,gages2_missing,,not_selected
+385106106571000,"SLATE R AB BAXTER GL @HWY 135 NR CRESTED BUTTE, CO",CO,snow_mixed,,;insufficient_qualifying_years,not_selected
+385446094430700,"INDIAN C AT 119TH ST, OVERLAND PARK, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+385520094420000,"INDIAN C AT COLLEGE BLVD, JOHNSON CO, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+385608094380300,"INDIAN C AT INDIAN C PKWY, OVERLAND PARK, KS",KS,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;catalog_outside_window;gages2_missing,,not_selected
+391509108433001,"BIG SALT WASH AT GOVT HIGHLINE CANAL NR LOMA, CO",CO,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing;name_flag:CANAL,,not_selected
+391953108130201,"ROAN CREEK AT DE BEQUE, CO.",CO,humid_rainfall,gages2_missing,,not_selected
+394220106431500,"EAGLE RIVER BELOW MILK CREEK NEAR WOLCOTT, CO",CO,snow_mixed,area_outside_range,,not_selected
+401530105475401,NORTH INLET BLW SUMMERLAND PARK AT RMNP,CO,humid_rainfall,gages2_missing;name_flag:INLET,,not_selected
+411955088280601,"HANSON GRAVEL PIT AT CULVERT NEAR MORRIS, IL",IL,humid_rainfall,catalog_ends_before_window_end;gages2_missing,,not_selected
+412122083061400,Sandusky River below Bradys Island at Fremont OH,OH,humid_rainfall,catalog_overlap_lt_3y;gages2_missing,,not_selected
+420425122361700,HIGHWAY RUNOFF SITE NR I5 AND OLD HWY 99,OR,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+441411073544501,"CONTROL, S SIDE RT 73 CATCH BASIN OUTLET NR N ELBA",NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+441729073571801,"ABRASIVES, E SIDE RT 86 CATCH BASIN OUT NR LK PLAC",NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected
+442004073540301,"LOW-SALT, W SIDE RT 86 CATCH BASIN OUT NR LK PLACI",NY,humid_rainfall,catalog_overlap_lt_3y;catalog_ends_before_window_end;gages2_missing,,not_selected

@@ -1,0 +1,107 @@
+{
+  "experiment_id": "round1",
+  "started_at": "2026-10-24T01:53:17+00:00",
+  "finished_at": "2026-10-24T01:54:22+00:00",
+  "config": {
+    "path": "configs/round1.yaml",
+    "sha256": "2c86f645e88cca94e210dc80a24aac071662607932a85d6fc7c49bfe24090908"
+  },
+  "git": {
+    "commit": "172a8e47b073b7086abbc7ff107d6e00812ef9d8",
+    "branch": "feat/round1-screening",
+    "dirty": true
+  },
+  "runtime": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "pandas": "3.1.0"
+  },
+  "catalog": {
+    "n_catalog_sites": 1265,
+    "n_candidate_ok": 114
+  },
+  "download": {
+    "skipped": true,
+    "stations_on_disk": 114,
+    "requests_in_manifest": 230,
+    "rows_in_manifest": 61760035
+  },
+  "qc": {
+    "n_stations": 114,
+    "n_qc_pass": 80
+  },
+  "events": {
+    "n_stations": 114,
+    "n_events": 12480,
+    "n_usable_events": 7536
+  },
+  "selection": {
+    "checks_ok": true,
+    "n_selected": 40,
+    "n_discovery": 30,
+    "n_validation": 10,
+    "by_stratum": {
+      "humid_rainfall": 23,
+      "snow_mixed": 14,
+      "semiarid_flashy": 3
+    }
+  },
+  "outputs": {
+    "experiments/round1/selection.csv": {
+      "bytes": 12591,
+      "sha256": "1de92760165c432dd0c7651124950c7b2aba40ddf7975d79b3bcae7c816e7e2a"
+    },
+    "experiments/round1/RESULTS.md": {
+      "bytes": 8177,
+      "sha256": "8d8889c0172454be41bae9a5e64877b38ac026f0111266d496ed675399311319"
+    },
+    "experiments/round1/results/candidate_reconciliation.csv": {
+      "bytes": 246,
+      "sha256": "9eb5ea6d96bbc240ada15f0f48e2f54ef26cb602f3661b216c6d1b02fcfe709c"
+    },
+    "experiments/round1/results/qc_summary.csv": {
+      "bytes": 106539,
+      "sha256": "a85c5f0f4efc56431e8d2970648a0ec706eed009e1e30bcb7e3f303be3f5fa27"
+    },
+    "experiments/round1/results/qc_station_summary.csv": {
+      "bytes": 10584,
+      "sha256": "051f5fe953b9f1ebd526fbdec6f5f4b27a3430743e7c72d7bdc351bd7004974f"
+    },
+    "experiments/round1/results/event_station_summary.csv": {
+      "bytes": 3130,
+      "sha256": "0e26ebd787f7f219f37e4f182de969f3feef56847f455f68f33a0bf1f553d96b"
+    },
+    "experiments/round1/results/exclusion_summary.csv": {
+      "bytes": 147409,
+      "sha256": "302ec102497002834e3a0493cb70a2deb005168b92be7dceb707376ae0904bdf"
+    },
+    "experiments/round1/results/selection_summary.json": {
+      "bytes": 625,
+      "sha256": "06802e76bb8de13192d5c6715477f4d98259dc52832fcacfb6a4056d8eecc158"
+    },
+    "experiments/round1/results/selection_checks.json": {
+      "bytes": 103,
+      "sha256": "709597789d4f91ae25916aa699dcf5f56650d773fbe141d6cf5ff311f0c33132"
+    },
+    "experiments/round1/results/data_provenance.csv": {
+      "bytes": 102111,
+      "sha256": "0b88d0327e4ae6a1dc04b66c3749a6631f2fecd7ad71e5fab172bd1a5e6ee8b3"
+    },
+    "experiments/round1/figures/fig1_screening_funnel.pdf": {
+      "bytes": 16416,
+      "sha256": "9efdbc081216ff8a4af0c9ecb89ecfaf16bd9d0fccaa270a1ee1223792311553"
+    },
+    "experiments/round1/figures/fig2_selected_map.pdf": {
+      "bytes": 19848,
+      "sha256": "e7159a55d2c266a00b64cf7b089026687a6a2815e68b5c2a282fd9047acf515a"
+    },
+    "experiments/round1/figures/fig3_qc_events.pdf": {
+      "bytes": 21133,
+      "sha256": "67bfb646137daa7c26ff3920357ae07e98aad535b13ac1846b2c342d3a180b2c"
+    },
+    "experiments/round1/figures/fig4_stratum_composition.pdf": {
+      "bytes": 14710,
+      "sha256": "d3dc53393d156d3765b4e7f846b36731900a555192197c5f63bcea0d892a4381"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+step,n_sites
+catalog_sites_both_params,1265
+catalog_overlap_ge_3y,824
+gages2_matched,495
+area_within_range,251
+name_flags_clear,242
+disturbance_limits,114
+candidate_ok,114
+downloaded,114
+qc_pass,80
+usable_events_ge_min,50
+selected,40
