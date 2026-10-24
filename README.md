@@ -37,6 +37,7 @@ uv run usgs-nwis download         # ~114 candidate stations, 2015-2024
 uv run usgs-nwis qc               # cadence, paired completeness, sensor sanity
 uv run usgs-nwis events           # Q-only events, SC completeness screen
 uv run usgs-nwis select           # stratified 40-station selection
+uv run usgs-nwis hysteresis       # discovery-only SC-Q loop diagnostics
 uv run usgs-nwis figures
 uv run usgs-nwis report
 ```

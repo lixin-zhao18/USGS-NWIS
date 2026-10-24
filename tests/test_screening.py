@@ -118,3 +118,35 @@ def test_validation_allocation_keeps_rare_stratum() -> None:
     )
     assert allocation["semiarid_flashy"] >= 1
     assert sum(allocation.values()) == 10
+
+
+def test_event_metrics_direction_and_area() -> None:
+    from types import SimpleNamespace
+
+    from usgs_nwis.hysteresis import event_metrics
+
+    cfg = _cfg()
+    index = pd.date_range("2020-01-01", periods=192, freq="15min", tz="UTC")
+    q = np.ones(len(index))
+    sc = np.full(len(index), 100.0)
+    # 12 h base, 6 h rise to 10, 12 h recession, then base again.
+    q[48:73] = np.linspace(1, 10, 25)
+    q[73:121] = np.linspace(10, 1, 48)
+    sc[48:73] = np.linspace(100, 50, 25)
+    sc[73:121] = np.linspace(50, 95, 48)
+    frame = pd.DataFrame({"time": index, "q_cfs": q, "sc_us_cm": sc})
+    event = SimpleNamespace(
+        site_no="USGS-TEST",
+        event_id="USGS-TEST_2020_001",
+        start=index[48],
+        peak=index[72],
+        end=index[120],
+        duration_h=18.0,
+        peak_q=10.0,
+        base_q=1.0,
+    )
+    record = event_metrics(frame, event, cfg)
+    assert record["loop_ok"] is True
+    assert record["direction"] == "clockwise"
+    assert record["loop_area"] > 0
+    assert record["sc_recovery"] > 0.5

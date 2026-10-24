@@ -167,3 +167,118 @@ def write_report(cfg) -> Path:
     output = ensure_dir(cfg.experiment_dir) / "RESULTS.md"
     output.write_text("\n".join(lines), encoding="utf-8")
     return output
+
+
+def write_hysteresis_report(cfg) -> Path:
+    """Write the discovery-only hysteresis record."""
+    summary_path = cfg.results_dir / "hysteresis_summary.json"
+    if not summary_path.exists():
+        raise RuntimeError("run `hysteresis` before reporting it")
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    stations = pd.read_csv(
+        cfg.results_dir / "discovery_station_summary.csv", dtype={"site_no": str}
+    )
+    loose_path = cfg.results_dir / "sensitivity_loose" / "hysteresis_summary.json"
+    loose = json.loads(loose_path.read_text(encoding="utf-8")) if loose_path.exists() else None
+
+    lines: list[str] = []
+    lines.append("# Discovery-set SC–Q hysteresis diagnostics")
+    lines.append("")
+    lines.append(f"- Generated: {summary.get('finished_at')}")
+    lines.append("- Scope: 30 discovery stations only; the 10 validation stations are sealed.")
+    lines.append("- Method: Q-only event windows, normalised Q and SC, area between rising")
+    lines.append("  and falling limbs, clockwise = falling limb below rising limb at equal Q.")
+    lines.append("")
+    lines.append("## Verdict")
+    lines.append("")
+    fraction = summary["reproducible_fraction"]
+    if not summary["data_sufficient"]:
+        verdict = "FAIL"
+    elif fraction >= 0.75:
+        verdict = "PASS"
+    else:
+        verdict = "MARGINAL PASS"
+    lines.append(
+        f"**{verdict} the frozen data-sufficiency gate** "
+        f"({summary['n_reproducible_stations']}/{summary['n_discovery_stations']} = "
+        f"{summary['reproducible_fraction']:.0%} of stations reproducible; gate "
+        f"{summary['criteria']['min_station_pass_fraction']:.0%})."
+    )
+    lines.append("")
+    lines.append(
+        "The gate is met exactly at its threshold: this supports a pilot model, "
+        "not a definitive claim that the discovery set is representative."
+    )
+    lines.append("")
+    lines.append(
+        f"- {summary['n_events_evaluated']:,} usable discovery events; "
+        f"{summary['n_loop_events']:,} pass the strict loop-quality filters."
+    )
+    lines.append(
+        "- Direction is strongly asymmetric: "
+        f"{summary['direction_counts'].get('clockwise', 0):,} clockwise vs "
+        f"{summary['direction_counts'].get('counterclockwise', 0):,} counterclockwise."
+    )
+    lines.append(
+        f"- {int((stations['dominant_direction'] == 'clockwise').sum())}/30 stations are "
+        f"clockwise-dominant; median within-station direction fraction "
+        f"{stations['direction_fraction'].median():.2f}."
+    )
+    if loose:
+        lines.append(
+            f"- Sensitivity without the strict loop-quality filters: "
+            f"{loose['n_loop_events']:,} loops, "
+            f"{loose['n_reproducible_stations']}/30 stations reproducible. "
+            "The direction asymmetry survives; the event count does not."
+        )
+    lines.append("")
+    lines.append("## By stratum")
+    lines.append("")
+    table = stations.groupby("stratum").agg(
+        stations=("site_no", "size"),
+        reproducible=("reproducible", "sum"),
+        median_loops=("n_loop_events", "median"),
+        median_direction_fraction=("direction_fraction", "median"),
+        median_loop_area=("median_loop_area", "median"),
+    )
+    table = table.reset_index()
+    lines.append(_markdown_table(table.round(3)))
+    lines.append("")
+    lines.append("## Failure modes (strict filter)")
+    lines.append("")
+    failures = stations.loc[~stations["reproducible"], "reproducibility_reason"]
+    lines.append(_markdown_table(failures.value_counts().rename_axis("reason").reset_index(name="stations")))
+    lines.append("")
+    lines.append("## Interpretation")
+    lines.append("")
+    lines.append(
+        "- There is a reproducible clockwise SC–Q loop in humid and snow-influenced "
+        "stations: SC is lower on the recession than on the rising limb at equal Q, "
+        "consistent with dilution followed by slow chemical recovery."
+    )
+    lines.append(
+        "- The semiarid stratum is not usable: 0/2 discovery stations pass. "
+        "No semiarid claim should be made from this round."
+    )
+    lines.append(
+        "- The strict filter retains only a quarter of usable events. Many events are "
+        "multi-peak, SC does not recover, or the SC minimum is misplaced; those are "
+        "excluded from the primary analysis."
+    )
+    lines.append(
+        "- This is a feasibility result, not evidence that SC observes a unique "
+        "connectivity state. Q-only predictability and the AI comparison are still open."
+    )
+    lines.append("")
+    lines.append("## Next decision")
+    lines.append("")
+    lines.append(
+        "Run the Q-only baseline (predict SC or normalised SC within events from Q, "
+        "dQ/dt and recent Q history with station-wise cross-validation). If it already "
+        "explains >85% of SC variance, the hysteresis signal is not strong enough to "
+        "justify the AI model."
+    )
+    lines.append("")
+    output = ensure_dir(cfg.experiment_dir) / "RESULTS_HYSTERESIS.md"
+    output.write_text("\n".join(lines), encoding="utf-8")
+    return output

@@ -85,6 +85,29 @@ class StrataRules:
 
 
 @dataclass(frozen=True)
+class HysteresisRules:
+    grid_points: int
+    min_loop_events: int
+    min_limb_points: int
+    max_interp_gap_steps: int
+    min_sc_amplitude_us_cm: float
+    min_sc_amplitude_fraction: float
+    min_q_range_fraction: float
+    ambiguous_area_threshold: float
+    min_direction_fraction: float
+    min_median_area: float
+    min_station_pass_fraction: float
+    min_limb_monotonic_fraction: float
+    reversal_tolerance_fraction: float
+    min_sc_recovery: float
+    min_sc_min_lag_fraction: float
+    max_sc_min_lag_fraction: float
+    max_secondary_peak_ratio: float
+    min_sc_shape_monotonic: float
+    sc_shape_tolerance_fraction: float
+
+
+@dataclass(frozen=True)
 class SelectionRules:
     target_total: int
     strata: dict[str, int]
@@ -107,6 +130,7 @@ class Config:
     candidate: CandidateRules
     quality: QualityRules
     events: EventRules
+    hysteresis: HysteresisRules
     strata: StrataRules
     selection: SelectionRules
 
@@ -155,6 +179,7 @@ def load_config(path: str | Path) -> Config:
     cand_raw = raw["candidate"]
     qual_raw = raw["quality"]
     ev_raw = raw["events"]
+    hyst_raw = raw["hysteresis"]
     strata_raw = raw["strata"]
     sel_raw = raw["selection"]
 
@@ -208,6 +233,27 @@ def load_config(path: str | Path) -> Config:
             min_event_q_completeness=float(ev_raw["min_event_q_completeness"]),
             peak_prominence_log10=float(ev_raw["peak_prominence_log10"]),
             recession_fraction=float(ev_raw["recession_fraction"]),
+        ),
+        hysteresis=HysteresisRules(
+            grid_points=int(hyst_raw["grid_points"]),
+            min_loop_events=int(hyst_raw["min_loop_events"]),
+            min_limb_points=int(hyst_raw["min_limb_points"]),
+            max_interp_gap_steps=int(hyst_raw["max_interp_gap_steps"]),
+            min_sc_amplitude_us_cm=float(hyst_raw["min_sc_amplitude_us_cm"]),
+            min_sc_amplitude_fraction=float(hyst_raw["min_sc_amplitude_fraction"]),
+            min_q_range_fraction=float(hyst_raw["min_q_range_fraction"]),
+            ambiguous_area_threshold=float(hyst_raw["ambiguous_area_threshold"]),
+            min_direction_fraction=float(hyst_raw["min_direction_fraction"]),
+            min_median_area=float(hyst_raw["min_median_area"]),
+            min_station_pass_fraction=float(hyst_raw["min_station_pass_fraction"]),
+            min_limb_monotonic_fraction=float(hyst_raw["min_limb_monotonic_fraction"]),
+            reversal_tolerance_fraction=float(hyst_raw["reversal_tolerance_fraction"]),
+            min_sc_recovery=float(hyst_raw["min_sc_recovery"]),
+            min_sc_min_lag_fraction=float(hyst_raw["min_sc_min_lag_fraction"]),
+            max_sc_min_lag_fraction=float(hyst_raw["max_sc_min_lag_fraction"]),
+            max_secondary_peak_ratio=float(hyst_raw["max_secondary_peak_ratio"]),
+            min_sc_shape_monotonic=float(hyst_raw["min_sc_shape_monotonic"]),
+            sc_shape_tolerance_fraction=float(hyst_raw["sc_shape_tolerance_fraction"]),
         ),
         strata=StrataRules(
             snow_pct_min=float(strata_raw["snow_pct_min"]),

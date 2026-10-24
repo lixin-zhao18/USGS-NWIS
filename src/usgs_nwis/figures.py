@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
+from .hysteresis import event_trajectory  # noqa: E402
 from .io import ensure_dir, read_parquet  # noqa: E402
 
 COLORS = {
@@ -168,4 +169,200 @@ def make_figures(cfg) -> list[str]:
         _map(cfg, selection, directory)
         _composition(cfg, selection, directory)
     _qc_scatter(cfg, directory)
+    _loop_examples(cfg, directory)
+    _direction_composition(cfg, directory)
+    _area_distribution(cfg, directory)
+    _reproducibility(cfg, directory)
     return sorted(path.name for path in directory.glob("*.pdf"))
+
+
+def _loop_examples(cfg, directory: Path) -> None:
+    events_path = cfg.results_dir / "discovery_event_metrics.csv"
+    stations_path = cfg.results_dir / "discovery_station_summary.csv"
+    if not events_path.exists() or not stations_path.exists():
+        return
+    events = pd.read_csv(events_path, dtype={"site_no": str})
+    selection = pd.read_csv(cfg.experiment_dir / "selection.csv", dtype={"site_no": str})
+    strata = selection.set_index("site_no")["stratum"].to_dict()
+    events["stratum"] = events["site_no"].map(strata)
+    loop = events[events["loop_ok"]].copy()
+    if loop.empty:
+        return
+    chosen: list[pd.Series] = []
+    for stratum in cfg.strata.order:
+        pool = loop[(loop["stratum"] == stratum) & (loop["direction"] != "ambiguous")]
+        if pool.empty:
+            continue
+        quality = pool[["rise_monotonic", "fall_monotonic", "sc_shape_monotonic"]].min(axis=1)
+        pool = pool.assign(quality=quality - 0.5 * pool["secondary_peak_ratio"].clip(0, 1))
+        chosen.append(pool.nlargest(1, "quality").iloc[0])
+        median_area = pool["loop_area"].median()
+        closest = pool.assign(
+            distance=(pool["loop_area"] - median_area).abs()
+        ).nsmallest(1, "distance")
+        chosen.append(closest.iloc[0])
+    if not chosen:
+        return
+    chosen = chosen[:6]
+    rows = int(np.ceil(len(chosen) / 2))
+    fig, axes = plt.subplots(
+        rows, 2, figsize=(8.6, 3.4 * rows), squeeze=False, constrained_layout=True
+    )
+    for ax, event in zip(axes.ravel(), chosen, strict=False):
+        station_path = cfg.data_dir / "interim" / "stations" / f"{event['site_no']}.parquet"
+        frame = read_parquet(station_path)
+        grid, qn, sn = event_trajectory(
+            frame,
+            pd.Timestamp(event["start"]),
+            pd.Timestamp(event["end"]),
+            cfg,
+        )
+        color = np.linspace(0, 1, len(grid))
+        ax.scatter(qn, sn, c=color, cmap="viridis", s=6, zorder=2)
+        ax.plot(qn, sn, color="#cccccc", linewidth=0.5, zorder=1)
+        peak_index = int(np.argmin(np.abs(grid - pd.Timestamp(event["peak"]))))
+        ax.scatter(
+            [qn[0], qn[peak_index], qn[-1]],
+            [sn[0], sn[peak_index], sn[-1]],
+            color=["#009E73", "#D55E00", "#0072B2"],
+            s=28,
+            zorder=3,
+            edgecolor="white",
+            linewidth=0.5,
+        )
+        ax.set_xlabel("Normalized Q")
+        ax.set_ylabel("Normalized SC")
+        ax.set_title(
+            f"{event['site_no']} {event['start'][:10]}\n"
+            f"{event['direction']}, area={event['loop_area']:.2f}",
+            fontsize=8,
+        )
+        ax.spines[["top", "right"]].set_visible(False)
+    for ax in axes.ravel()[len(chosen) :]:
+        ax.axis("off")
+    fig.suptitle(
+        "Discovery loops: best-quality (left) and median-area (right) examples per stratum",
+        fontsize=9,
+    )
+    _save(fig, directory, "fig5_loop_examples")
+
+
+def _direction_composition(cfg, directory: Path) -> None:
+    path = cfg.results_dir / "discovery_station_summary.csv"
+    if not path.exists():
+        return
+    stations = pd.read_csv(path, dtype={"site_no": str})
+    stations = stations.sort_values(["direction_fraction", "site_no"])
+    fig, ax = plt.subplots(figsize=(7.2, max(4.0, 0.18 * len(stations) + 1.5)))
+    y = np.arange(len(stations))
+    ax.barh(y, stations["n_clockwise"], color="#0072B2", label="Clockwise")
+    ax.barh(
+        y,
+        stations["n_counterclockwise"],
+        left=stations["n_clockwise"],
+        color="#D55E00",
+        label="Counterclockwise",
+    )
+    ax.barh(
+        y,
+        stations["n_ambiguous"],
+        left=stations["n_clockwise"] + stations["n_counterclockwise"],
+        color="#999999",
+        label="Ambiguous",
+    )
+    labels = [
+        f"{row.site_no}{' *' if row.reproducible else ''}"
+        for row in stations.itertuples()
+    ]
+    ax.set_yticks(y)
+    ax.set_yticklabels(labels, fontsize=7)
+    ax.set_xlabel("Loop-usable events")
+    ax.legend(fontsize=8, frameon=False, loc="lower right")
+    ax.set_title(
+        "Direction composition per discovery station (* reproducible)",
+        fontsize=10,
+        loc="left",
+    )
+    ax.spines[["top", "right"]].set_visible(False)
+    _save(fig, directory, "fig6_direction_composition")
+
+
+def _area_distribution(cfg, directory: Path) -> None:
+    events_path = cfg.results_dir / "discovery_event_metrics.csv"
+    selection_path = cfg.experiment_dir / "selection.csv"
+    if not events_path.exists() or not selection_path.exists():
+        return
+    events = pd.read_csv(events_path, dtype={"site_no": str})
+    selection = pd.read_csv(selection_path, dtype={"site_no": str})
+    events["stratum"] = events["site_no"].map(selection.set_index("site_no")["stratum"])
+    loop = events[events["loop_ok"]]
+    if loop.empty:
+        return
+    strata = [s for s in cfg.strata.order if (loop["stratum"] == s).any()]
+    data = [loop.loc[loop["stratum"] == s, "loop_area"].to_numpy() for s in strata]
+    fig, ax = plt.subplots(figsize=(6.4, 3.4))
+    box = ax.boxplot(
+        data,
+        tick_labels=[LABELS.get(s, s) for s in strata],
+        showfliers=False,
+        patch_artist=True,
+        widths=0.5,
+    )
+    for patch, stratum in zip(box["boxes"], strata, strict=False):
+        patch.set_facecolor(COLORS.get(stratum, "grey"))
+        patch.set_alpha(0.5)
+    rng = np.random.default_rng(cfg.seed)
+    for index, values in enumerate(data, start=1):
+        ax.scatter(
+            index + rng.uniform(-0.12, 0.12, len(values)),
+            values,
+            s=8,
+            color=COLORS.get(strata[index - 1], "grey"),
+            alpha=0.5,
+        )
+    ax.set_ylabel("Normalized loop area")
+    ax.set_title("Loop area by stratum (discovery events)", fontsize=10, loc="left")
+    ax.spines[["top", "right"]].set_visible(False)
+    _save(fig, directory, "fig7_loop_area")
+
+
+def _reproducibility(cfg, directory: Path) -> None:
+    path = cfg.results_dir / "discovery_station_summary.csv"
+    if not path.exists():
+        return
+    stations = pd.read_csv(path, dtype={"site_no": str})
+    stations = stations.dropna(
+        subset=["first_half_median_area", "second_half_median_area"]
+    )
+    stations = stations[
+        (stations["first_half_median_area"] > 0)
+        & (stations["second_half_median_area"] > 0)
+    ]
+    if stations.empty:
+        return
+    fig, ax = plt.subplots(figsize=(5.2, 4.4))
+    for reproducible, group in stations.groupby("reproducible"):
+        ax.scatter(
+            group["first_half_median_area"],
+            group["second_half_median_area"],
+            s=36 if reproducible else 24,
+            marker="o" if reproducible else "x",
+            color="#009E73" if reproducible else "#999999",
+            label="Reproducible" if reproducible else "Not reproducible",
+        )
+    limit = (
+        max(
+            stations["first_half_median_area"].max(),
+            stations["second_half_median_area"].max(),
+        )
+        * 1.15
+    )
+    ax.plot([0, limit], [0, limit], color="#666666", linewidth=0.8, linestyle="--")
+    ax.set_xlim(0, limit)
+    ax.set_ylim(0, limit)
+    ax.set_xlabel("Median loop area, first half")
+    ax.set_ylabel("Median loop area, second half")
+    ax.set_title("Split-half reproducibility of loop area", fontsize=10, loc="left")
+    ax.legend(fontsize=8, frameon=False)
+    ax.spines[["top", "right"]].set_visible(False)
+    _save(fig, directory, "fig8_split_half")

@@ -65,6 +65,25 @@ documented properties of the candidate pool, not to hysteresis outcomes.
    5,000–7,500 µS/cm, and a 5,000 bound would have discarded a valid semiarid
    candidate.
 
+## Hysteresis loop criteria (frozen before inspection)
+
+The discovery-only diagnostic uses only the 30 discovery stations. A usable
+event enters the loop analysis only if it is single-peaked and closed enough to
+be interpreted as one loop:
+
+- at least 20 loop-usable events per station;
+- rising and falling Q limbs at least 80% monotonic (2% tolerance);
+- SC amplitude at least max(2 µS/cm, 5% of the median SC);
+- SC recovers to at least 50% of its pre-event level;
+- the SC minimum lies between −10% and +50% of event duration around the Q peak;
+- no secondary Q peak above 85% of the main peak;
+- SC follows one dominant excursion (80% monotonic with 5% tolerance).
+
+A station is called reproducible when its dominant direction fraction is at
+least 60%, its median normalized loop area is at least 0.02, and the same
+direction dominates both halves of its events. The dataset passes when at least
+60% of the 30 discovery stations are reproducible.
+
 ## Selection score
 
 Within each stratum, eligible stations are ranked by a fixed score (weights in
@@ -85,10 +104,18 @@ No hysteresis metric enters the score.
 - `results/event_station_summary.csv`
 - `results/exclusion_summary.csv`
 - `results/selection_summary.json`
+- `results/selection_checks.json`
+- `results/discovery_event_metrics.csv`
+- `results/discovery_station_summary.csv`
+- `results/hysteresis_summary.json`
+- `results/sensitivity_loose/`
+- `RESULTS_HYSTERESIS.md`
 - `selection.csv`
 - `run.json`
 - `figures/`
 
-`results/discovery_event_metrics.csv` and `results/discovery_station_summary.csv`
-belong to the next step (event-geometry diagnostics on the discovery split) and
-are intentionally not produced by the screening run.
+Run the discovery-only hysteresis stage with `uv run usgs-nwis hysteresis`.
+
+`results/sensitivity_loose/` keeps the first-pass loop metrics without the
+strict loop-quality filters, as a sensitivity check. The primary analysis is the
+strict one.

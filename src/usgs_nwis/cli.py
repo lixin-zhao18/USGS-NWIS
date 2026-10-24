@@ -11,6 +11,7 @@ from .config import load_config
 from .download import download_all
 from .events import run_events
 from .figures import make_figures
+from .hysteresis import run_hysteresis
 from .pipeline import run_pipeline
 from .qc import run_qc
 from .report import write_report
@@ -79,6 +80,13 @@ def validate_command(config: Path = typer.Option(Path("configs/round1.yaml"))) -
     """Check the selection against the preregistered independence rules."""
     cfg = _config(config)
     typer.echo(validate_selection(cfg))
+
+
+@app.command("hysteresis")
+def hysteresis_command(config: Path = typer.Option(Path("configs/round1.yaml"))) -> None:
+    """Diagnose event-scale SC-Q hysteresis on the discovery split."""
+    cfg = _config(config)
+    typer.echo(run_hysteresis(cfg))
 
 
 @app.command("figures")

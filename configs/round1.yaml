@@ -66,6 +66,29 @@ events:
   peak_prominence_log10: 0.2
   recession_fraction: 0.1
 
+hysteresis:
+  # Frozen before the discovery-set loop metrics were computed.
+  grid_points: 101
+  min_loop_events: 20
+  min_limb_points: 6
+  max_interp_gap_steps: 4
+  min_sc_amplitude_us_cm: 2.0
+  min_sc_amplitude_fraction: 0.05
+  min_q_range_fraction: 0.10
+  ambiguous_area_threshold: 0.01
+  min_direction_fraction: 0.60
+  min_median_area: 0.02
+  min_station_pass_fraction: 0.60
+  # Loop-quality filters: single-peak hydrograph, monotonic limbs, SC recovery.
+  min_limb_monotonic_fraction: 0.80
+  reversal_tolerance_fraction: 0.02
+  min_sc_recovery: 0.50
+  min_sc_min_lag_fraction: -0.10
+  max_sc_min_lag_fraction: 0.50
+  max_secondary_peak_ratio: 0.85
+  min_sc_shape_monotonic: 0.80
+  sc_shape_tolerance_fraction: 0.05
+
 strata:
   snow_pct_min: 20
   aridity_max: 1.0
