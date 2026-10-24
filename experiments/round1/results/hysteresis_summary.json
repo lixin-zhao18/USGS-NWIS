@@ -1,0 +1,21 @@
+{
+  "finished_at": "2026-10-24T03:00:03+00:00",
+  "n_discovery_stations": 30,
+  "n_stations_with_events": 30,
+  "n_events_evaluated": 3747,
+  "n_loop_events": 893,
+  "n_reproducible_stations": 18,
+  "reproducible_fraction": 0.6,
+  "data_sufficient": true,
+  "direction_counts": {
+    "clockwise": 717,
+    "counterclockwise": 154,
+    "ambiguous": 22
+  },
+  "criteria": {
+    "min_loop_events": 20,
+    "min_direction_fraction": 0.6,
+    "min_median_area": 0.02,
+    "min_station_pass_fraction": 0.6
+  }
+}
