@@ -11,7 +11,7 @@ from .config import load_config
 from .download import download_all
 from .events import run_events
 from .figures import make_figures
-from .hysteresis import run_hysteresis
+from .hysteresis import run_census, run_hysteresis
 from .pipeline import run_pipeline
 from .qc import run_qc
 from .report import write_report
@@ -87,6 +87,13 @@ def hysteresis_command(config: Path = typer.Option(Path("configs/round1.yaml")))
     """Diagnose event-scale SC-Q hysteresis on the discovery split."""
     cfg = _config(config)
     typer.echo(run_hysteresis(cfg))
+
+
+@app.command("census")
+def census_command(config: Path = typer.Option(Path("configs/round1.yaml"))) -> None:
+    """Run the full Tier-1 census: all candidate stations and A/B/C/X classes."""
+    cfg = _config(config)
+    typer.echo(run_census(cfg))
 
 
 @app.command("figures")

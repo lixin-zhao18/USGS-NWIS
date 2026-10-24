@@ -8,6 +8,21 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+
+plt.rcParams.update(
+    {
+        "font.family": "Arial",
+        "font.size": 7,
+        "axes.labelsize": 7,
+        "axes.titlesize": 8,
+        "xtick.labelsize": 6.5,
+        "ytick.labelsize": 6.5,
+        "legend.fontsize": 6,
+        "axes.linewidth": 0.6,
+        "xtick.major.width": 0.6,
+        "ytick.major.width": 0.6,
+    }
+)
 import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
@@ -28,7 +43,7 @@ LABELS = {
 
 def _save(fig, directory: Path, stem: str) -> None:
     fig.savefig(directory / f"{stem}.pdf", bbox_inches="tight")
-    fig.savefig(directory / f"{stem}.png", dpi=300, bbox_inches="tight")
+    fig.savefig(directory / f"{stem}.png", dpi=600, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -173,6 +188,7 @@ def make_figures(cfg) -> list[str]:
     _direction_composition(cfg, directory)
     _area_distribution(cfg, directory)
     _reproducibility(cfg, directory)
+    _census_overview(cfg, directory)
     return sorted(path.name for path in directory.glob("*.pdf"))
 
 
@@ -366,3 +382,134 @@ def _reproducibility(cfg, directory: Path) -> None:
     ax.legend(fontsize=8, frameon=False)
     ax.spines[["top", "right"]].set_visible(False)
     _save(fig, directory, "fig8_split_half")
+
+
+CENSUS_CLASSES = ["A_simple_closed", "B_complex_loop", "C_weak_open", "X_no_usable_sc"]
+CENSUS_COLORS = {
+    "A_simple_closed": "#0072B2",
+    "B_complex_loop": "#E69F00",
+    "C_weak_open": "#999999",
+    "X_no_usable_sc": "#D55E00",
+}
+CENSUS_LABELS = {
+    "A_simple_closed": "A simple closed",
+    "B_complex_loop": "B complex",
+    "C_weak_open": "C weak / open",
+    "X_no_usable_sc": "X no usable SC",
+}
+
+
+def _census_overview(cfg, directory: Path) -> None:
+    event_path = cfg.results_dir / "census_event_metrics.csv"
+    station_path = cfg.results_dir / "census_station_summary.csv"
+    if not event_path.exists() or not station_path.exists():
+        return
+    events = pd.read_csv(event_path, dtype={"site_no": str})
+    stations = pd.read_csv(station_path, dtype={"site_no": str})
+    candidates = read_parquet(cfg.data_dir / "interim" / "candidates.parquet")
+    candidates["site_no"] = candidates["site_no"].astype(str)
+    events["stratum"] = events["site_no"].map(
+        candidates.set_index("site_no")["stratum"]
+    )
+    fig, axes = plt.subplots(2, 2, figsize=(7.4, 6.0), constrained_layout=True)
+
+    counts = events["class"].value_counts().reindex(CENSUS_CLASSES, fill_value=0)
+    ax = axes[0, 0]
+    ax.bar(
+        [CENSUS_LABELS[key] for key in CENSUS_CLASSES],
+        counts.to_numpy(),
+        color=[CENSUS_COLORS[key] for key in CENSUS_CLASSES],
+    )
+    for index, value in enumerate(counts.to_numpy()):
+        ax.text(index, value, f"{value:,}", ha="center", va="bottom", fontsize=7)
+    ax.set_ylabel("Usable events")
+    ax.set_title("Event classes", fontsize=9, loc="left")
+    ax.tick_params(axis="x", labelrotation=20, labelsize=7)
+    ax.spines[["top", "right"]].set_visible(False)
+
+    ax = axes[0, 1]
+    crosstab = pd.crosstab(events["stratum"], events["class"]).reindex(
+        columns=CENSUS_CLASSES, fill_value=0
+    )
+    crosstab = crosstab.reindex(
+        [s for s in cfg.strata.order if s in crosstab.index]
+    )
+    bottom = np.zeros(len(crosstab))
+    for key in CENSUS_CLASSES:
+        ax.bar(
+            [s.replace("_", " ") for s in crosstab.index],
+            crosstab[key].to_numpy(),
+            bottom=bottom,
+            color=CENSUS_COLORS[key],
+            label=CENSUS_LABELS[key],
+        )
+        bottom += crosstab[key].to_numpy()
+    ax.set_ylabel("Usable events")
+    ax.set_title("Classes by stratum", fontsize=9, loc="left")
+    ax.tick_params(axis="x", labelrotation=15, labelsize=7)
+    ax.legend(fontsize=6, frameon=False, loc="upper right")
+    ax.spines[["top", "right"]].set_visible(False)
+
+    ax = axes[1, 0]
+    data = [
+        events.loc[events["class"] == key, "event_size"].dropna().to_numpy()
+        for key in CENSUS_CLASSES
+    ]
+    box = ax.boxplot(
+        data,
+        tick_labels=[CENSUS_LABELS[key] for key in CENSUS_CLASSES],
+        showfliers=False,
+        patch_artist=True,
+        widths=0.55,
+    )
+    for patch, key in zip(box["boxes"], CENSUS_CLASSES, strict=False):
+        patch.set_facecolor(CENSUS_COLORS[key])
+        patch.set_alpha(0.45)
+    rng = np.random.default_rng(cfg.seed)
+    for index, values in enumerate(data, start=1):
+        ax.scatter(
+            index + rng.uniform(-0.12, 0.12, len(values)),
+            values,
+            s=3,
+            color=CENSUS_COLORS[CENSUS_CLASSES[index - 1]],
+            alpha=0.25,
+        )
+    ax.set_yscale("log")
+    ax.set_ylabel("Event size (peak − base Q, cfs)")
+    ax.set_title("Event size by class", fontsize=9, loc="left")
+    ax.tick_params(axis="x", labelrotation=20, labelsize=7)
+    ax.spines[["top", "right"]].set_visible(False)
+
+    ax = axes[1, 1]
+    for reproducible, group in stations.groupby("reproducible"):
+        ax.scatter(
+            group["n_simple"].clip(lower=0.5),
+            group["n_weak"].clip(lower=0.5),
+            s=22,
+            marker="o" if reproducible else "x",
+            color="#009E73" if reproducible else "#999999",
+            label="Reproducible" if reproducible else "Not reproducible",
+        )
+    ax.axvline(20, color="#666666", linestyle="--", linewidth=0.7)
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("Simple loops per station")
+    ax.set_ylabel("Weak / open events per station")
+    ax.set_title("Station data sufficiency", fontsize=9, loc="left")
+    ax.legend(fontsize=6, frameon=False)
+    ax.spines[["top", "right"]].set_visible(False)
+
+    _save(fig, directory, "fig9_census_overview")
+
+    source = ensure_dir(cfg.experiment_dir / "descriptive" / "source_data")
+    counts.rename_axis("class").reset_index(name="events").to_csv(
+        source / "fig9_panel_a.csv", index=False
+    )
+    crosstab.reset_index().to_csv(source / "fig9_panel_b.csv", index=False)
+    events.loc[
+        events["class"].isin(CENSUS_CLASSES),
+        ["site_no", "event_id", "class", "event_size"],
+    ].to_csv(source / "fig9_panel_c.csv", index=False)
+    stations[["site_no", "stratum", "n_simple", "n_weak", "reproducible"]].to_csv(
+        source / "fig9_panel_d.csv", index=False
+    )

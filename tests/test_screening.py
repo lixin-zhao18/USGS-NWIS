@@ -150,3 +150,21 @@ def test_event_metrics_direction_and_area() -> None:
     assert record["direction"] == "clockwise"
     assert record["loop_area"] > 0
     assert record["sc_recovery"] > 0.5
+
+
+def test_event_class_mapping() -> None:
+    from usgs_nwis.hysteresis import classify_event
+
+    assert classify_event({"loop_ok": True}) == "A_simple_closed"
+    assert (
+        classify_event({"loop_ok": False, "skip_reason": "insufficient_valid_pairing"})
+        == "X_no_usable_sc"
+    )
+    assert (
+        classify_event({"loop_ok": False, "skip_reason": "sc_not_recovered"})
+        == "C_weak_open"
+    )
+    assert (
+        classify_event({"loop_ok": False, "skip_reason": "secondary_peak_too_large"})
+        == "B_complex_loop"
+    )

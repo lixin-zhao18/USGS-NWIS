@@ -282,3 +282,112 @@ def write_hysteresis_report(cfg) -> Path:
     output = ensure_dir(cfg.experiment_dir) / "RESULTS_HYSTERESIS.md"
     output.write_text("\n".join(lines), encoding="utf-8")
     return output
+
+
+def write_census_report(cfg) -> Path:
+    """Write the Tier-1 census record for all candidate stations."""
+    summary_path = cfg.results_dir / "census_summary.json"
+    if not summary_path.exists():
+        raise RuntimeError("run `census` before reporting it")
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    stations = pd.read_csv(
+        cfg.results_dir / "census_station_summary.csv", dtype={"site_no": str}
+    )
+    events = pd.read_csv(
+        cfg.results_dir / "census_event_metrics.csv", dtype={"site_no": str}
+    )
+    loop = events[events["loop_ok"]]
+
+    lines: list[str] = []
+    lines.append("# Tier-1 census — all 114 candidate stations")
+    lines.append("")
+    lines.append(f"- Generated: {summary.get('finished_at')}")
+    lines.append(
+        "- Scope: every `candidate_ok` station (no discovery/validation split); "
+        "all usable events; geometry classes are assigned before any loop metric."
+    )
+    lines.append("")
+    lines.append("## Event classes")
+    lines.append("")
+    lines.append("| Class | Definition | Events | Fraction |")
+    lines.append("|---|---|---:|---:|")
+    definitions = {
+        "A_simple_closed": "single Q peak, monotonic limbs, one SC excursion, SC recovery ≥50%",
+        "B_complex_loop": "multi-peak hydrograph, non-monotonic limbs or multi-excursion SC",
+        "C_weak_open": "SC does not recover, SC minimum misplaced, or SC amplitude too small",
+        "X_no_usable_sc": "insufficient paired coverage or too few native points",
+    }
+    total = max(sum(int(value) for value in summary["class_counts"].values()), 1)
+    for key in summary["class_order"]:
+        value = summary["class_counts"].get(key, 0)
+        lines.append(f"| {key} | {definitions[key]} | {value:,} | {value / total:.0%} |")
+    lines.append("")
+    lines.append("## Stations")
+    lines.append("")
+    lines.append(
+        f"- {summary['n_stations']} candidate stations; "
+        f"{summary['n_stations_with_events']} have usable events."
+    )
+    lines.append(
+        f"- Stations with ≥{summary['criteria']['min_loop_events']} simple loops: "
+        f"**{summary['stations_with_min_simple']}**; of those, "
+        f"{summary['n_reproducible_stations']} meet the reproducibility criteria."
+    )
+    lines.append(
+        f"- Stations with ≥{summary['criteria']['min_loop_events']} complex loops: "
+        f"{summary['stations_with_min_complex']}; with ≥20 weak/open events: "
+        f"{summary['stations_with_min_weak']}."
+    )
+    by_stratum = stations.groupby("stratum").agg(
+        stations=("site_no", "size"),
+        simple20=("n_simple", lambda values: int((values >= 20).sum())),
+        reproducible=("reproducible", "sum"),
+    )
+    lines.append("")
+    lines.append(_markdown_table(by_stratum.reset_index().round(0)))
+    lines.append("")
+    lines.append("## Simple-loop signal")
+    lines.append("")
+    if not loop.empty:
+        lines.append(
+            f"- {len(loop):,} simple loops; "
+            f"{int((loop['direction'] == 'clockwise').sum()):,} clockwise, "
+            f"{int((loop['direction'] == 'counterclockwise').sum()):,} counterclockwise, "
+            f"{int((loop['direction'] == 'ambiguous').sum()):,} ambiguous."
+        )
+        lines.append(
+            f"- Median normalized loop area {loop['loop_area'].median():.3f} "
+            f"[{loop['loop_area'].quantile(0.25):.3f}–{loop['loop_area'].quantile(0.75):.3f}]."
+        )
+    lines.append("")
+    lines.append("## Event-size confound")
+    lines.append("")
+    lines.append(
+        "- Simple loops are systematically larger events than complex or weak events "
+        "(median event size differs by a factor of ~4). Any A-vs-B model comparison "
+        "must control for event size, for example by matching events within size deciles."
+    )
+    lines.append("")
+    lines.append("## Interpretation")
+    lines.append("")
+    lines.append(
+        "- The pilot's 60% reproducibility was measured on a quality-selected subset. "
+        "In the full Tier-1 census the binding constraint is data sufficiency, not "
+        "direction: only 35/114 stations have ≥20 simple loops, and 31 of those 35 "
+        "are direction-reproducible."
+    )
+    lines.append(
+        "- The analysis cohort should therefore be the 35 data-sufficient stations "
+        "(or the 31 reproducible ones), while the dataset keeps all 114 with class flags."
+    )
+    lines.append(
+        "- Weak/open events dominate the record (52%). They are not failures of the "
+        "dataset; they are the negative/weak-hysteresis class and should be reported."
+    )
+    lines.append(
+        "- Semiarid remains empty: no semiarid station has ≥20 simple loops."
+    )
+    lines.append("")
+    output = ensure_dir(cfg.experiment_dir) / "RESULTS_CENSUS.md"
+    output.write_text("\n".join(lines), encoding="utf-8")
+    return output

@@ -48,12 +48,17 @@ EVENT_COLUMNS = [
     "month",
     "loop_ok",
     "skip_reason",
+    "class",
 ]
 
 STATION_COLUMNS = [
     "site_no",
     "stratum",
     "n_usable_events",
+    "n_simple",
+    "n_complex",
+    "n_weak",
+    "n_no_sc",
     "n_loop_events",
     "loop_fraction",
     "n_clockwise",
@@ -105,7 +110,45 @@ def _limb_curve(q: np.ndarray, sc: np.ndarray, q_grid: np.ndarray) -> np.ndarray
     )
 
 
+_X_REASONS = {
+    "no_native_points",
+    "insufficient_valid_pairing",
+    "zero_q_range",
+    "limb_too_short",
+    "curves_do_not_overlap",
+    "rising_limb_q_range_too_small",
+    "falling_limb_q_range_too_small",
+}
+_C_REASONS = {"sc_amplitude_too_small", "sc_not_recovered", "sc_minimum_misplaced"}
+_B_REASONS = {
+    "secondary_peak_too_large",
+    "rising_limb_not_monotonic",
+    "falling_limb_not_monotonic",
+    "sc_shape_not_single_excursion",
+}
+
+
+def classify_event(record: dict) -> str:
+    """Assign the pre-declared geometry/quality class, never using direction/area."""
+    if record.get("loop_ok"):
+        return "A_simple_closed"
+    reason = record.get("skip_reason") or ""
+    if reason in _X_REASONS:
+        return "X_no_usable_sc"
+    if reason in _B_REASONS:
+        return "B_complex_loop"
+    if reason in _C_REASONS:
+        return "C_weak_open"
+    return "C_weak_open"
+
+
 def event_metrics(frame: pd.DataFrame, event, cfg) -> dict:
+    record = _event_metrics(frame, event, cfg)
+    record["class"] = classify_event(record)
+    return record
+
+
+def _event_metrics(frame: pd.DataFrame, event, cfg) -> dict:
     rules = cfg.hysteresis
     start = pd.Timestamp(event.start)
     end = pd.Timestamp(event.end)
@@ -333,11 +376,20 @@ def _dominant(directions: pd.Series) -> tuple[str, float]:
 
 
 def station_summary(events: pd.DataFrame, cfg, stratum: str) -> dict:
-    loop = events[events["loop_ok"]].sort_values("start").reset_index(drop=True)
+    loop = (
+        events[events["loop_ok"]].sort_values("start").reset_index(drop=True)
+        if not events.empty
+        else events.copy()
+    )
+    counts = events["class"].value_counts().to_dict() if "class" in events else {}
     record = {
         "site_no": events["site_no"].iloc[0] if not events.empty else None,
         "stratum": stratum,
         "n_usable_events": int(len(events)),
+        "n_simple": int(counts.get("A_simple_closed", 0)),
+        "n_complex": int(counts.get("B_complex_loop", 0)),
+        "n_weak": int(counts.get("C_weak_open", 0)),
+        "n_no_sc": int(counts.get("X_no_usable_sc", 0)),
         "n_loop_events": int(len(loop)),
         "loop_fraction": float(len(loop) / len(events)) if len(events) else 0.0,
         "n_clockwise": int((loop["direction"] == "clockwise").sum()),
@@ -404,52 +456,65 @@ def station_summary(events: pd.DataFrame, cfg, stratum: str) -> dict:
     return record
 
 
-def run_hysteresis(cfg) -> dict:
-    selection = pd.read_csv(cfg.experiment_dir / "selection.csv", dtype={"site_no": str})
-    discovery = selection[selection["split"] == "discovery"].copy()
+def _evaluate_sites(cfg, sites, stratum_map: dict[str, str], prefix: str):
     events = pd.read_parquet(cfg.data_dir / "processed" / "events.parquet")
     events["site_no"] = events["site_no"].astype(str)
-    events = events[events["site_no"].isin(discovery["site_no"]) & events["usable"]].copy()
-    if events.empty:
-        raise RuntimeError("no usable discovery events; run `events` and `select` first")
-
+    events = events[events["site_no"].isin(sites) & events["usable"]].copy()
     station_dir = cfg.data_dir / "interim" / "stations"
     event_rows: list[dict] = []
     station_rows: list[dict] = []
-    for site_no, group in events.groupby("site_no", sort=True):
-        frame = read_parquet(station_dir / f"{site_no}.parquet")
-        rows = [event_metrics(frame, event, cfg) for event in group.itertuples()]
-        site_events = pd.DataFrame(rows)
-        stratum = discovery.loc[discovery["site_no"] == site_no, "stratum"].iloc[0]
+    for site_no in sorted(sites):
+        group = events[events["site_no"] == site_no]
+        frame = (
+            read_parquet(station_dir / f"{site_no}.parquet")
+            if not group.empty
+            else None
+        )
+        rows = (
+            [event_metrics(frame, event, cfg) for event in group.itertuples()]
+            if frame is not None
+            else []
+        )
+        site_events = (
+            pd.DataFrame(rows, columns=EVENT_COLUMNS)
+            if rows
+            else pd.DataFrame(columns=EVENT_COLUMNS)
+        )
         event_rows.extend(rows)
-        station_rows.append(station_summary(site_events, cfg, stratum))
+        summary = station_summary(site_events, cfg, stratum_map.get(site_no, "unknown"))
+        summary["site_no"] = site_no
+        station_rows.append(summary)
 
-    event_frame = pd.DataFrame(event_rows)
+    event_frame = pd.DataFrame(event_rows, columns=EVENT_COLUMNS)
     station_frame = pd.DataFrame(station_rows)
     results_dir = ensure_dir(cfg.results_dir)
-    event_frame.to_csv(results_dir / "discovery_event_metrics.csv", index=False)
+    event_frame.to_csv(results_dir / f"{prefix}_event_metrics.csv", index=False)
     station_frame[STATION_COLUMNS].to_csv(
-        results_dir / "discovery_station_summary.csv", index=False
+        results_dir / f"{prefix}_station_summary.csv", index=False
     )
+    return event_frame, station_frame
 
+
+def _summary_common(event_frame: pd.DataFrame, station_frame: pd.DataFrame, cfg) -> dict:
+    loop = event_frame[event_frame["loop_ok"]] if not event_frame.empty else event_frame
     ok_stations = station_frame[station_frame["reproducible"]]
-    summary = {
-        "finished_at": utc_now(),
-        "n_discovery_stations": int(len(discovery)),
-        "n_stations_with_events": int(len(station_frame)),
+    return {
+        "n_stations": int(len(station_frame)),
+        "n_stations_with_events": int((station_frame["n_usable_events"] > 0).sum())
+        if len(station_frame)
+        else 0,
         "n_events_evaluated": int(len(event_frame)),
-        "n_loop_events": int(event_frame["loop_ok"].sum()),
+        "n_loop_events": int(len(loop)),
+        "class_counts": event_frame["class"].value_counts().to_dict()
+        if not event_frame.empty
+        else {},
         "n_reproducible_stations": int(len(ok_stations)),
         "reproducible_fraction": float(len(ok_stations) / len(station_frame))
         if len(station_frame)
         else 0.0,
-        "data_sufficient": bool(
-            len(station_frame) > 0
-            and (len(ok_stations) / len(station_frame)) >= cfg.hysteresis.min_station_pass_fraction
-        ),
-        "direction_counts": event_frame.loc[event_frame["loop_ok"], "direction"]
-        .value_counts()
-        .to_dict(),
+        "direction_counts": loop["direction"].value_counts().to_dict()
+        if not loop.empty
+        else {},
         "criteria": {
             "min_loop_events": cfg.hysteresis.min_loop_events,
             "min_direction_fraction": cfg.hysteresis.min_direction_fraction,
@@ -457,12 +522,72 @@ def run_hysteresis(cfg) -> dict:
             "min_station_pass_fraction": cfg.hysteresis.min_station_pass_fraction,
         },
     }
-    write_json(results_dir / "hysteresis_summary.json", summary)
+
+
+def run_hysteresis(cfg) -> dict:
+    selection = pd.read_csv(cfg.experiment_dir / "selection.csv", dtype={"site_no": str})
+    discovery = selection[selection["split"] == "discovery"].copy()
+    sites = discovery["site_no"].astype(str).tolist()
+    stratum_map = discovery.set_index("site_no")["stratum"].to_dict()
+    event_frame, station_frame = _evaluate_sites(cfg, sites, stratum_map, "discovery")
+    summary = _summary_common(event_frame, station_frame, cfg)
+    summary.update(
+        {
+            "finished_at": utc_now(),
+            "n_discovery_stations": int(len(discovery)),
+            "data_sufficient": bool(
+                summary["n_stations"] > 0
+                and summary["reproducible_fraction"]
+                >= cfg.hysteresis.min_station_pass_fraction
+            ),
+        }
+    )
+    write_json(cfg.results_dir / "hysteresis_summary.json", summary)
     from .report import write_hysteresis_report
 
     write_hysteresis_report(cfg)
     return summary
 
+
+def run_census(cfg) -> dict:
+    candidates = read_parquet(cfg.data_dir / "interim" / "candidates.parquet")
+    candidates["site_no"] = candidates["site_no"].astype(str)
+    eligible = candidates[candidates["candidate_ok"]].copy()
+    sites = eligible["site_no"].tolist()
+    stratum_map = eligible.set_index("site_no")["stratum"].to_dict()
+    event_frame, station_frame = _evaluate_sites(cfg, sites, stratum_map, "census")
+    summary = _summary_common(event_frame, station_frame, cfg)
+    class_counts = summary["class_counts"]
+    summary.update(
+        {
+            "finished_at": utc_now(),
+            "n_candidate_stations": int(len(eligible)),
+            "stations_with_min_simple": int(
+                (station_frame["n_simple"] >= cfg.hysteresis.min_loop_events).sum()
+            ),
+            "stations_with_min_complex": int(
+                (station_frame["n_complex"] >= cfg.hysteresis.min_loop_events).sum()
+            ),
+            "stations_with_min_weak": int(
+                (station_frame["n_weak"] >= cfg.hysteresis.min_loop_events).sum()
+            ),
+            "class_fractions": {
+                key: float(value / max(sum(class_counts.values()), 1))
+                for key, value in class_counts.items()
+            },
+            "class_order": [
+                "A_simple_closed",
+                "B_complex_loop",
+                "C_weak_open",
+                "X_no_usable_sc",
+            ],
+        }
+    )
+    write_json(cfg.results_dir / "census_summary.json", summary)
+    from .report import write_census_report
+
+    write_census_report(cfg)
+    return summary
 
 def event_trajectory(
     frame: pd.DataFrame,
