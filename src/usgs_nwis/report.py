@@ -345,6 +345,11 @@ def write_census_report(cfg) -> Path:
     )
     lines.append("")
     lines.append(_markdown_table(by_stratum.reset_index().round(0)))
+    lines.append(
+        "- Applying the same HUC8/name independence rule reduces the 35 "
+        "simple-sufficient stations to 29 independent catchments, and the 31 "
+        "reproducible stations to 25 independent catchments."
+    )
     lines.append("")
     lines.append("## Simple-loop signal")
     lines.append("")

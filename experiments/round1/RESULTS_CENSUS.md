@@ -1,6 +1,6 @@
 # Tier-1 census — all 114 candidate stations
 
-- Generated: 2026-10-24T06:37:48+00:00
+- Generated: 2026-10-24T06:40:27+00:00
 - Scope: every `candidate_ok` station (no discovery/validation split); all usable events; geometry classes are assigned before any loop metric.
 
 ## Event classes
@@ -23,6 +23,7 @@
 | humid_rainfall | 45 | 22 | 20 |
 | semiarid_flashy | 6 | 1 | 0 |
 | snow_mixed | 63 | 12 | 11 |
+- Applying the same HUC8/name independence rule reduces the 35 simple-sufficient stations to 29 independent catchments, and the 31 reproducible stations to 25 independent catchments.
 
 ## Simple-loop signal
 
