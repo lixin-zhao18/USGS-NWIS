@@ -340,16 +340,18 @@ def _event_metrics(frame: pd.DataFrame, event, cfg) -> dict:
     if both.sum() < 10:
         record["skip_reason"] = "curves_do_not_overlap"
         return record
-    diff = fall_curve - rise_curve
+    # Positive HI and positive signed area mean clockwise (rising limb above
+    # the falling limb at equal Q), matching Husic et al. (2022, WRR).
+    diff = rise_curve - fall_curve
     signed_area = float(np.trapezoid(diff[both], q_grid[both]))
     loop_area = float(np.trapezoid(np.abs(diff[both]), q_grid[both]))
     q_mid = float(np.median(q_grid[both]))
     hi_mid = float(np.interp(q_mid, q_grid[both], diff[both]))
     direction = "ambiguous"
     if signed_area > rules.ambiguous_area_threshold:
-        direction = "counterclockwise"
-    elif signed_area < -rules.ambiguous_area_threshold:
         direction = "clockwise"
+    elif signed_area < -rules.ambiguous_area_threshold:
+        direction = "counterclockwise"
 
     record.update(
         {

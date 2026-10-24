@@ -148,6 +148,7 @@ def test_event_metrics_direction_and_area() -> None:
     record = event_metrics(frame, event, cfg)
     assert record["loop_ok"] is True
     assert record["direction"] == "clockwise"
+    assert record["hi_mid"] > 0
     assert record["loop_area"] > 0
     assert record["sc_recovery"] > 0.5
 
