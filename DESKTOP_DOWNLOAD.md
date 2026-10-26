@@ -107,10 +107,16 @@ uv run python scripts/nldas_fora_extract.py --start 2015-01-01 --end 2015-01-01
 | `PSurf` | Pa | surface pressure |
 | `Wind_E`, `Wind_N` | m s⁻¹ | 10-m wind components |
 | `LWdown`, `SWdown` | W m⁻² | long/short-wave radiation |
-| `Rainf` | kg m⁻² s⁻¹ | multiply by 3600 for mm h⁻¹ |
-| `CRainf_frac` | — | convective precipitation fraction |
+| `Rainf` | kg m⁻² (hourly total) | numerically mm h⁻¹; **do not** multiply by 3600 |
+| `CRainf_frac` | fraction | convective precipitation fraction |
 | `CAPE` | J kg⁻¹ | convective available potential energy |
-| `PotEvap` | kg m⁻² s⁻¹ | potential evaporation |
+| `PotEvap` | kg m⁻² (hourly total) | potential evaporation; same handling as `Rainf` |
+
+`Rainf` and `PotEvap` are stored as **hourly totals**, not rates. The netCDF
+attribute is `units = "kg m-2"` with no `s-1`. Checked against the raw files on
+2026-10-26: a 2015 station-day summed from `Rainf` gives 49 mm while the same
+day under AORC gives 72 mm, and the desktop 2016–2024 run reports 788–2,183 mm.
+Treating the values as kg m⁻² s⁻¹ would imply 0.3 mm/year, which is impossible.
 
 **There is no soil moisture in FORA.** For the first model version use an
 antecedent precipitation index (API) from `Rainf`. Soil moisture requires
