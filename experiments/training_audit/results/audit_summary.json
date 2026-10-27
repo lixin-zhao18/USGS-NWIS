@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-10-27T08:53:47+00:00",
+  "config_sha256": "44dce1c892b94b84c4fd43882759c75eed4f1f3a46217f8c26129df3d00179ef",
+  "git": {
+    "commit": "a6c499b614ffb49249ff982ade9719388ee69f4d",
+    "branch": "feat/training-data-audit",
+    "dirty": true
+  },
+  "scope": "CONUS states configured; 2015-2024; IV Q=00060 and SC=00095",
+  "counts": {
+    "catalog_q": 13193,
+    "catalog_sc": 1837,
+    "catalog_paired": 1265,
+    "window_overlap": 1122,
+    "actual_overlap": 4,
+    "hourly_usable": 4,
+    "forcing_ready": 2,
+    "diagnostic_quality": 0
+  },
+  "training_tiers": {
+    "T0_catalog_only": 13761,
+    "T2_hourly_partial": 4
+  },
+  "downloaded_hourly_files": 5,
+  "local_download_execution": {
+    "requests": 0,
+    "rows": 0,
+    "site_years_completed": 0,
+    "cached": 5,
+    "sites_selected": 5,
+    "years": [
+      2024
+    ],
+    "finished_at": "2026-10-27T08:52:01+00:00"
+  },
+  "legacy_114_found_in_new_catalog": 114,
+  "legacy_diagnostic_data_sufficient_found": 35,
+  "limitations": [
+    "actual-overlap and hourly tiers only reflect station files downloaded locally",
+    "basin boundaries and nationwide forcings were not downloaded by this stage",
+    "same-HUC flags do not prove nested catchments or correlation"
+  ]
+}
