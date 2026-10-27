@@ -10,6 +10,7 @@ data/raw/
 data/interim/
 data/processed/
 .cache/
+graphify-out/
 
 # Generated figures and temporary reports
 experiments/*/*.log

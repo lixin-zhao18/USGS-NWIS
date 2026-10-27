@@ -42,6 +42,26 @@ uv run usgs-nwis figures
 uv run usgs-nwis report
 ```
 
+## Training-data audit
+
+The independent training audit starts from the full Q/SC catalog union and does
+not inherit the Round 1 area, GAGES-II, completeness, disturbance, or event-loop
+filters:
+
+```bash
+uv run usgs-nwis training-audit catalog
+uv run usgs-nwis training-audit download
+uv run usgs-nwis training-audit hourly
+uv run usgs-nwis training-audit report
+```
+
+The stages resume from catalog caches and per-site-year completion markers.
+Raw observations and per-station hourly Parquet files stay under ignored
+`data/` paths; compact availability, funnel, provenance and checksum manifests
+are written to `experiments/training_audit/results/`. See
+`experiments/training_audit/REPRODUCIBILITY.md` and
+`experiments/training_audit/DATA_DICTIONARY.md`.
+
 `run.json` records the config hash, git revision, request provenance and
 checksums of every committed output. See
 [`experiments/round1/README.md`](experiments/round1/README.md) for the

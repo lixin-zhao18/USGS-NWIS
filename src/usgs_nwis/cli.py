@@ -17,12 +17,76 @@ from .pipeline import run_pipeline
 from .qc import run_qc
 from .report import write_report
 from .selection import run_selection, validate_selection
+from .training_audit import (
+    build_hourly,
+    build_training_catalog,
+    download_training,
+)
+from .training_audit import (
+    build_report as build_training_audit_report,
+)
 
 app = typer.Typer(add_completion=False, help="Reproducible USGS Q–SC catchment screening.")
+training_audit_app = typer.Typer(
+    add_completion=False,
+    help="Audit and build UTC-hourly paired Q–SC training data.",
+)
+app.add_typer(training_audit_app, name="training-audit")
 
 
 def _config(path: Path):
     return load_config(path)
+
+
+@training_audit_app.command("catalog")
+def training_catalog_command(
+    config: Path = typer.Option(Path("configs/training_audit.yaml")),
+    refresh: bool = typer.Option(False, help="Re-download state catalogs."),
+) -> None:
+    """Build the unfiltered Q/SC catalog population and catalog-overlap layer."""
+    frame = build_training_catalog(_config(config), refresh=refresh)
+    typer.echo(
+        f"union={len(frame)} q={int(frame['catalog_q'].sum())} "
+        f"sc={int(frame['catalog_sc'].sum())} paired={int(frame['catalog_paired'].sum())} "
+        f"window_overlap={int(frame['window_overlap'].sum())}"
+    )
+
+
+@training_audit_app.command("download")
+def training_download_command(
+    config: Path = typer.Option(Path("configs/training_audit.yaml")),
+    refresh: bool = typer.Option(False, help="Re-download completed site-years."),
+    sites_limit: int | None = typer.Option(None, help="Limit sites for a smoke run."),
+    years: str | None = typer.Option(None, help="Inclusive range, e.g. 2023-2024."),
+) -> None:
+    """Download raw observations while preserving all USGS quality qualifiers."""
+    chosen_years = None
+    if years:
+        start, end = (int(value) for value in years.split("-"))
+        chosen_years = list(range(start, end + 1))
+    typer.echo(
+        download_training(
+            _config(config), refresh=refresh, site_limit=sites_limit, years=chosen_years
+        )
+    )
+
+
+@training_audit_app.command("hourly")
+def training_hourly_command(
+    config: Path = typer.Option(Path("configs/training_audit.yaml")),
+    refresh: bool = typer.Option(False),
+    sites_limit: int | None = typer.Option(None),
+) -> None:
+    """Create per-station UTC-hourly values and explicit quality masks."""
+    typer.echo(build_hourly(_config(config), site_limit=sites_limit, refresh=refresh))
+
+
+@training_audit_app.command("report")
+def training_report_command(
+    config: Path = typer.Option(Path("configs/training_audit.yaml")),
+) -> None:
+    """Create availability, funnel, sensitivity, manifest and audit reports."""
+    typer.echo(build_training_audit_report(_config(config)))
 
 
 @app.command("catalog")

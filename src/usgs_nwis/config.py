@@ -133,6 +133,7 @@ class Config:
     hysteresis: HysteresisRules
     strata: StrataRules
     selection: SelectionRules
+    audit: dict[str, Any]
 
     @property
     def root(self) -> Path:
@@ -269,4 +270,5 @@ def load_config(path: str | Path) -> Config:
             rank_weights={k: float(v) for k, v in sel_raw["rank_weights"].items()},
             max_per_huc8=int(sel_raw.get("max_per_huc8", 1)),
         ),
+        audit=dict(raw.get("audit", {})),
     )
