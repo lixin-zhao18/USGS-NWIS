@@ -944,6 +944,12 @@ def build_report(cfg) -> dict[str, Any]:
                 }
             )
     pd.DataFrame(sensitivity).to_csv(results / "threshold_sensitivity.csv", index=False)
+    download_summary_path = results / "download_summary.json"
+    download_execution = (
+        json.loads(download_summary_path.read_text(encoding="utf-8"))
+        if download_summary_path.exists()
+        else {}
+    )
     summary = {
         "generated_at": utc_now(),
         "config_sha256": _config_hash(cfg),
@@ -952,6 +958,7 @@ def build_report(cfg) -> dict[str, Any]:
         "counts": dict(zip(funnel["layer"], funnel["station_count"], strict=True)),
         "training_tiers": availability["training_tier"].value_counts().to_dict(),
         "downloaded_hourly_files": len(manifest),
+        "local_download_execution": download_execution,
         "legacy_114_found_in_new_catalog": int(availability["legacy_114_member"].sum()),
         "legacy_diagnostic_data_sufficient_found": int(
             availability["legacy_diagnostic_data_sufficient_member"].sum()
@@ -1012,6 +1019,10 @@ def _write_audit_report(
     tiers = markdown(tier_frame)
     legacy_count = summary["legacy_114_found_in_new_catalog"]
     diagnostic_count = summary["legacy_diagnostic_data_sufficient_found"]
+    execution = summary.get("local_download_execution", {})
+    execution_text = (
+        f"{execution.get('sites_selected', 0)} sites; years {execution.get('years', [])}"
+    )
     text = f"""# Training-data audit report
 
 Generated: {summary["generated_at"]}
@@ -1027,6 +1038,7 @@ coverage, or hysteresis geometry as pre-catalog exclusion rules.
 `window_overlap` is catalog evidence only. `actual_overlap` requires at least
 one paired valid UTC hour from downloaded observations. Therefore incomplete
 remote execution lowers the latter count and is not interpreted as absence.
+The committed smoke-run scope was {execution_text}.
 
 ## Training tiers
 
