@@ -134,6 +134,7 @@ class Config:
     strata: StrataRules
     selection: SelectionRules
     audit: dict[str, Any]
+    screening: dict[str, Any]
 
     @property
     def root(self) -> Path:
@@ -209,9 +210,7 @@ def load_config(path: str | Path) -> Config:
             preferred_area_max_km2=float(cand_raw["preferred_area_km2"][1]),
             max_dev_pct=float(cand_raw["max_dev_pct"]),
             max_dam_density=float(cand_raw["max_dam_density"]),
-            exclude_name_patterns=tuple(
-                str(p) for p in cand_raw["exclude_name_patterns"]
-            ),
+            exclude_name_patterns=tuple(str(p) for p in cand_raw["exclude_name_patterns"]),
         ),
         quality=QualityRules(
             max_cadence_minutes=float(qual_raw["max_cadence_minutes"]),
@@ -271,4 +270,5 @@ def load_config(path: str | Path) -> Config:
             max_per_huc8=int(sel_raw.get("max_per_huc8", 1)),
         ),
         audit=dict(raw.get("audit", {})),
+        screening=dict(raw.get("screening", raw.get("audit", {}))),
     )

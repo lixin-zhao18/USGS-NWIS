@@ -103,3 +103,55 @@ audit:
   sc_constant_run_hours: 72
   sensor_regime_cadence_ratio: 2.0
   conus_bounds: {lat_min: 24.0, lat_max: 50.0, lon_min: -125.0, lon_max: -66.0}
+
+# Training suitability is independent of the legacy round-1 quality/event rules
+# and of diagnostic anomaly flags. Catalog `window_overlap` remains the frozen
+# nationwide candidate-pool definition.
+screening:
+  qualifier_tokens:
+    approved: A
+    estimated: e
+    rejected: [P]
+  hourly_min_unique_timestamp_coverage: 0.75
+  q_valid_range: [0, 10000000]
+  sc_valid_range_us_cm: [0, 100000]
+  valid_day_min_paired_hours: 12
+  valid_year_min_valid_days:
+    cold: 60
+    warm: 60
+  splits:
+    train: ['2015-01-01T00:00:00Z', '2019-12-31T23:59:59Z']
+    validation: ['2020-01-01T00:00:00Z', '2021-12-31T23:59:59Z']
+    test: ['2022-01-01T00:00:00Z', '2024-12-31T23:59:59Z']
+  tiers:
+    core:
+      train: {min_valid_years: 3, min_paired_hours: 10000, min_years_q_coverage: 3, q_coverage_threshold: 0.80}
+      validation: {min_valid_years: 1, min_years_q_coverage: 1, q_coverage_threshold: 0.70}
+      test: {min_valid_years: 2, min_years_q_coverage: 2, q_coverage_threshold: 0.70}
+      min_state_paired_hours: 200
+      min_state_fraction_of_paired: 0.10
+      min_phase_paired_hours: 200
+    extended:
+      train: {min_valid_years: 3, min_paired_hours: 5000}
+      validation: {min_valid_years: 1}
+      test: {min_valid_years: 1}
+  flow_state_quantiles: [0.30, 0.70]
+  phase_smoothing_hours: 3
+  phase_change_fraction: 0.01
+  gap_threshold_hours: [6, 12, 24, 72, 168]
+  partial_min_paired_hours: 168
+  sensitivity_coverages: [0.20, 0.40, 0.60, 0.80]
+  sensitivity_years: [1, 2, 3, 5]
+  sc_jump_absolute_us_cm: 500
+  sc_jump_relative_fraction: 0.50
+  sc_constant_run_hours: 720
+  sc_spike_absolute_us_cm: 500
+  sc_spike_min_events: 3
+  sc_year_median_ratio: 1.5
+  sc_year_min_valid_hours: 720
+  sc_trend_min_years: 6
+  sc_trend_sign_consistency: 0.9
+  sc_trend_min_relative_change: 0.50
+  min_free_disk_gb: 20
+  prune_new_verified_raw: false
+  conus_bounds: {lat_min: 24.0, lat_max: 50.0, lon_min: -125.0, lon_max: -66.0}

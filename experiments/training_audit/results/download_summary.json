@@ -1,11 +1,29 @@
 {
-  "requests": 0,
-  "rows": 0,
-  "site_years_completed": 0,
-  "cached": 5,
-  "sites_selected": 5,
+  "requests": 9,
+  "rows": 4496088,
+  "site_years_completed": 87,
+  "cached": 11130,
+  "no_data": 3,
+  "failed": 0,
+  "skipped": 0,
+  "candidate_pool_window_overlap": 1122,
+  "sites_selected": 1122,
   "years": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
     2024
   ],
-  "finished_at": "2026-10-27T08:52:01+00:00"
+  "batch_sites": 10,
+  "resume": true,
+  "cache_only": false,
+  "min_free_disk_gb": 20.0,
+  "prune_new_verified_raw": false,
+  "finished_at": "2026-10-28T07:23:40+00:00"
 }

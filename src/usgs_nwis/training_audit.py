@@ -11,7 +11,10 @@ import asyncio
 import gzip
 import hashlib
 import json
-from collections import Counter
+import re
+import shutil
+from collections.abc import Callable
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from typing import Any
 
@@ -19,7 +22,7 @@ import httpx
 import numpy as np
 import pandas as pd
 
-from .api import ApiError, fetch_iv_batch
+from .api import fetch_iv_batch
 from .catalog import fetch_catalogs
 from .gages import prepare_gages2
 from .io import (
@@ -37,9 +40,15 @@ from .rdb import parse_rdb
 
 
 def _audit(cfg) -> dict[str, Any]:
-    if not cfg.audit:
-        raise ValueError("configuration has no `audit` section")
-    return cfg.audit
+    """Return the independent training-screening rules.
+
+    ``audit`` remains a compatibility field for configurations created before
+    the nationwide screening protocol was separated from round-1 QC.
+    """
+    rules = getattr(cfg, "screening", None) or cfg.audit
+    if not rules:
+        raise ValueError("configuration has no `screening` section")
+    return rules
 
 
 def _site(value: Any) -> str:
@@ -259,22 +268,160 @@ def build_training_catalog(cfg, *, refresh: bool = False) -> pd.DataFrame:
     return sites
 
 
-def _chunks(values: list[str], size: int) -> list[list[str]]:
+def _chunks(values: list[Any], size: int) -> list[list[Any]]:
+    if size < 1:
+        raise ValueError("batch size must be at least one")
     return [values[i : i + size] for i in range(0, len(values), size)]
 
 
+_DOWNLOAD_COLUMNS = [
+    "site_no",
+    "year",
+    "status",
+    "rows",
+    "raw_relative_path",
+    "raw_sha256",
+    "request_sha256",
+    "request_url",
+    "attempted_at",
+    "completed_at",
+    "retries_configured",
+    "message",
+]
+_FAILED_COLUMNS = [
+    "site_no",
+    "year",
+    "status",
+    "request_sites",
+    "attempted_at",
+    "retries_configured",
+    "error",
+]
+
+
+def _atomic_csv(frame: pd.DataFrame, path: Path) -> None:
+    ensure_dir(path.parent)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    frame.to_csv(temporary, index=False)
+    temporary.replace(path)
+
+
+def _upsert_download_manifest(path: Path, rows: list[dict[str, Any]]) -> pd.DataFrame:
+    previous = pd.read_csv(path, dtype={"site_no": str}) if path.exists() else pd.DataFrame()
+    update = pd.DataFrame(rows)
+    combined = pd.concat([previous, update], ignore_index=True) if not previous.empty else update
+    for column in _DOWNLOAD_COLUMNS:
+        if column not in combined:
+            combined[column] = pd.NA
+    combined["site_no"] = combined["site_no"].map(_site)
+    combined = combined[_DOWNLOAD_COLUMNS].drop_duplicates(["site_no", "year"], keep="last")
+    # A resume hit must not erase how the site-year was originally obtained:
+    # `cached` documents this run, while success/no_data document the data.
+    if not previous.empty:
+        original = (
+            previous.assign(site_no=previous["site_no"].map(_site))
+            .drop_duplicates(["site_no", "year"], keep="last")
+            .set_index(["site_no", "year"])["status"]
+        )
+        keys = pd.MultiIndex.from_frame(combined[["site_no", "year"]])
+        prior = original.reindex(keys).to_numpy()
+        reused = combined["status"].eq("cached") & pd.Series(
+            np.isin(prior, ["success", "no_data"]), index=combined.index
+        )
+        combined.loc[reused, "status"] = prior[reused.to_numpy()]
+        combined.loc[reused, "message"] = "verified completion marker reused"
+    combined = combined.sort_values(["site_no", "year"]).reset_index(drop=True)
+    _atomic_csv(combined, path)
+    return combined
+
+
+def _append_failed_requests(path: Path, rows: list[dict[str, Any]]) -> pd.DataFrame:
+    previous = pd.read_csv(path, dtype={"site_no": str}) if path.exists() else pd.DataFrame()
+    update = pd.DataFrame(rows)
+    combined = pd.concat([previous, update], ignore_index=True) if not previous.empty else update
+    for column in _FAILED_COLUMNS:
+        if column not in combined:
+            combined[column] = pd.NA
+    combined = combined[_FAILED_COLUMNS]
+    _atomic_csv(combined, path)
+    return combined
+
+
+def _has_resumable_marker(marker: Path, raw_path: Path) -> bool:
+    if not marker.exists():
+        return False
+    try:
+        metadata = json.loads(marker.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    rows = int(metadata.get("n_rows", -1))
+    if rows == 0:
+        return True
+    if metadata.get("raw_pruned"):
+        return True
+    if rows < 0 or not raw_path.exists():
+        return False
+    expected = metadata.get("raw_sha256")
+    return not expected or sha256_file(raw_path) == expected
+
+
 async def _download_training_async(
-    cfg, *, refresh: bool = False, site_limit: int | None = None, years: list[int] | None = None
+    cfg,
+    *,
+    refresh: bool = False,
+    resume: bool = True,
+    cache_only: bool = False,
+    site_limit: int | None = None,
+    site_offset: int = 0,
+    site_numbers: list[str] | None = None,
+    years: list[int] | None = None,
+    batch_sites: int | None = None,
+    raw_root: Path | None = None,
+    results_dir: Path | None = None,
+    min_free_disk_gb: float | None = None,
+    prune_new_verified_raw: bool | None = None,
+    on_progress: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     catalog = read_parquet(cfg.data_dir / "interim" / "training_audit" / "catalog.parquet")
+    # This predicate is the frozen nationwide candidate-pool contract.
     sites = catalog[catalog["window_overlap"]].sort_values("site_no")["site_no"].map(_site).tolist()
+    candidate_pool_size = len(sites)
+    if site_numbers is not None:
+        requested = [_site(site_no) for site_no in site_numbers]
+        outside_pool = sorted(set(requested) - set(sites))
+        if outside_pool:
+            raise ValueError(f"sites outside frozen window_overlap pool: {outside_pool}")
+        sites = requested
+    elif site_offset:
+        sites = sites[int(site_offset) :]
     if site_limit is not None:
         sites = sites[:site_limit]
     years = years or list(cfg.window.years)
-    raw_root = ensure_dir(cfg.data_dir / "raw" / "training_audit" / "iv")
-    provenance = ensure_dir(cfg.results_dir) / "data_provenance.jsonl"
-    errors = cfg.results_dir / "errors.jsonl"
-    progress = {"requests": 0, "rows": 0, "site_years_completed": 0, "cached": 0}
+    rules = _audit(cfg)
+    raw_root = ensure_dir(raw_root or cfg.data_dir / "raw" / "training_audit" / "iv")
+    results_dir = ensure_dir(results_dir or cfg.results_dir)
+    manifest_path = results_dir / "download_manifest.csv"
+    failed_path = results_dir / "failed_requests.csv"
+    if not failed_path.exists():
+        _append_failed_requests(failed_path, [])
+    batch_size = int(batch_sites or cfg.data.batch_sites)
+    disk_minimum = float(
+        rules.get("min_free_disk_gb", 0) if min_free_disk_gb is None else min_free_disk_gb
+    )
+    prune = bool(
+        rules.get("prune_new_verified_raw", False)
+        if prune_new_verified_raw is None
+        else prune_new_verified_raw
+    )
+    progress = {
+        "requests": 0,
+        "rows": 0,
+        "site_years_completed": 0,
+        "cached": 0,
+        "no_data": 0,
+        "failed": 0,
+        "skipped": 0,
+    }
     limits = httpx.Limits(max_connections=max(2, cfg.data.concurrency))
     async with httpx.AsyncClient(
         timeout=cfg.data.request_timeout_s,
@@ -282,77 +429,241 @@ async def _download_training_async(
         headers={"User-Agent": "usgs-nwis-training-audit/0.1"},
     ) as client:
         for year in years:
-            pending = []
+            pending: list[str] = []
+            manifest_rows: list[dict[str, Any]] = []
             for site_no in sites:
-                marker = raw_root / site_no / f"{year}.complete.json"
-                if marker.exists() and not refresh:
+                directory = raw_root / site_no
+                marker = directory / f"{year}.complete.json"
+                raw_path = directory / f"{year}.parquet"
+                if resume and not refresh and _has_resumable_marker(marker, raw_path):
+                    metadata = json.loads(marker.read_text(encoding="utf-8"))
+                    manifest_rows.append(
+                        {
+                            "site_no": site_no,
+                            "year": year,
+                            "status": "cached",
+                            "rows": int(metadata.get("n_rows", 0)),
+                            "raw_relative_path": str(raw_path),
+                            "raw_sha256": metadata.get("raw_sha256", ""),
+                            "request_sha256": metadata.get("request_sha256", ""),
+                            "attempted_at": utc_now(),
+                            "completed_at": metadata.get("completed_at", ""),
+                            "retries_configured": cfg.data.retries,
+                            "message": "verified completion marker reused",
+                        }
+                    )
                     progress["cached"] += 1
+                elif cache_only:
+                    manifest_rows.append(
+                        {
+                            "site_no": site_no,
+                            "year": year,
+                            "status": "skipped",
+                            "rows": 0,
+                            "attempted_at": utc_now(),
+                            "retries_configured": cfg.data.retries,
+                            "message": "cache_only and no resumable cache",
+                        }
+                    )
+                    progress["skipped"] += 1
                 else:
                     pending.append(site_no)
-            for batch in _chunks(pending, cfg.data.batch_sites):
-                try:
-                    result = await fetch_iv_batch(
-                        client,
-                        cfg.data.iv_service,
-                        batch,
-                        list(cfg.params.values()),
-                        f"{year}-01-01",
-                        f"{year}-12-31",
-                        retries=cfg.data.retries,
-                    )
-                except ApiError as exc:
+            if manifest_rows:
+                _upsert_download_manifest(manifest_path, manifest_rows)
+
+            batches = _chunks(pending, batch_size)
+            wave_size = max(1, int(cfg.data.concurrency))
+            disk_stop = False
+            for wave in _chunks(batches, wave_size):
+                free_gb = shutil.disk_usage(raw_root).free / 1_000_000_000
+                if free_gb < disk_minimum:
+                    skipped_rows = [
+                        {
+                            "site_no": site_no,
+                            "year": year,
+                            "status": "skipped",
+                            "rows": 0,
+                            "attempted_at": utc_now(),
+                            "retries_configured": cfg.data.retries,
+                            "message": f"disk guard: {free_gb:.2f} GB < {disk_minimum:.2f} GB",
+                        }
+                        for batch in wave
+                        for site_no in batch
+                    ]
+                    _upsert_download_manifest(manifest_path, skipped_rows)
+                    progress["skipped"] += len(skipped_rows)
+                    disk_stop = True
+                    break
+                attempted_at = utc_now()
+                outcomes = await asyncio.gather(
+                    *(
+                        fetch_iv_batch(
+                            client,
+                            cfg.data.iv_service,
+                            batch,
+                            list(cfg.params.values()),
+                            f"{year}-01-01",
+                            f"{year}-12-31",
+                            retries=cfg.data.retries,
+                        )
+                        for batch in wave
+                    ),
+                    return_exceptions=True,
+                )
+                for batch, outcome in zip(wave, outcomes, strict=True):
+                    if isinstance(outcome, BaseException):
+                        error = str(outcome)
+                        failed_rows = [
+                            {
+                                "site_no": site_no,
+                                "year": year,
+                                "status": "failed",
+                                "request_sites": "|".join(batch),
+                                "attempted_at": attempted_at,
+                                "retries_configured": cfg.data.retries,
+                                "error": error,
+                            }
+                            for site_no in batch
+                        ]
+                        _append_failed_requests(failed_path, failed_rows)
+                        _upsert_download_manifest(
+                            manifest_path,
+                            [
+                                {
+                                    "site_no": row["site_no"],
+                                    "year": year,
+                                    "status": "failed",
+                                    "rows": 0,
+                                    "attempted_at": attempted_at,
+                                    "retries_configured": cfg.data.retries,
+                                    "message": error,
+                                }
+                                for row in failed_rows
+                            ],
+                        )
+                        progress["failed"] += len(batch)
+                        continue
+                    result = outcome
                     append_jsonl(
-                        errors,
+                        results_dir / "data_provenance.jsonl",
                         {
                             "stage": "training_audit_download",
                             "year": year,
                             "sites": batch,
-                            "error": str(exc),
-                            "at": utc_now(),
+                            "url": result.url,
+                            "retrieved_at": result.retrieved_at,
+                            "sha256": result.sha256,
+                            "n_rows": result.n_rows,
+                            "missing_sites": list(result.missing_sites),
                         },
                     )
-                    continue
-                append_jsonl(
-                    provenance,
-                    {
-                        "stage": "training_audit_download",
-                        "year": year,
-                        "sites": batch,
-                        "url": result.url,
-                        "retrieved_at": result.retrieved_at,
-                        "sha256": result.sha256,
-                        "n_rows": result.n_rows,
-                        "missing_sites": list(result.missing_sites),
-                    },
-                )
-                for site_no in batch:
-                    directory = ensure_dir(raw_root / site_no)
-                    part = result.frame[result.frame["site_no"].map(_site) == site_no].copy()
-                    if not part.empty:
-                        write_parquet(part, directory / f"{year}.parquet")
-                    write_json(
-                        directory / f"{year}.complete.json",
-                        {
+                    completed_rows = []
+                    for site_no in batch:
+                        directory = ensure_dir(raw_root / site_no)
+                        raw_path = directory / f"{year}.parquet"
+                        part = result.frame[result.frame["site_no"].map(_site) == site_no].copy()
+                        status = "no_data" if part.empty else "success"
+                        raw_sha256 = ""
+                        raw_pruned = False
+                        if not part.empty:
+                            write_parquet(part, raw_path)
+                            # Verification precedes both the complete marker and optional pruning.
+                            verified = read_parquet(raw_path)
+                            if len(verified) != len(part):
+                                raise RuntimeError(f"raw verification failed for {site_no}-{year}")
+                            raw_sha256 = sha256_file(raw_path)
+                            if prune:
+                                raw_path.unlink()
+                                raw_pruned = True
+                        metadata = {
                             "site_no": site_no,
                             "year": year,
+                            "status": status,
                             "n_rows": len(part),
+                            "raw_sha256": raw_sha256,
+                            "raw_pruned": raw_pruned,
                             "request_sha256": result.sha256,
                             "completed_at": utc_now(),
-                        },
-                    )
-                    progress["site_years_completed"] += 1
-                progress["requests"] += 1
-                progress["rows"] += result.n_rows
-    progress.update({"sites_selected": len(sites), "years": years, "finished_at": utc_now()})
-    write_json(cfg.results_dir / "download_summary.json", progress)
+                        }
+                        write_json(directory / f"{year}.complete.json", metadata)
+                        completed_rows.append(
+                            {
+                                "site_no": site_no,
+                                "year": year,
+                                "status": status,
+                                "rows": len(part),
+                                "raw_relative_path": str(raw_path),
+                                "raw_sha256": raw_sha256,
+                                "request_sha256": result.sha256,
+                                "request_url": result.url,
+                                "attempted_at": attempted_at,
+                                "completed_at": metadata["completed_at"],
+                                "retries_configured": cfg.data.retries,
+                                "message": "new verified raw pruned" if raw_pruned else "",
+                            }
+                        )
+                        progress[status if status == "no_data" else "site_years_completed"] += 1
+                    _upsert_download_manifest(manifest_path, completed_rows)
+                    progress["requests"] += 1
+                    progress["rows"] += result.n_rows
+                if on_progress is not None:
+                    on_progress({"year": year, **progress})
+            if disk_stop:
+                # Stop cleanly: markers for everything already fetched stay valid, so
+                # rerunning the same command after freeing space resumes here.
+                progress["disk_stop_year"] = year
+                break
+    progress.update(
+        {
+            "candidate_pool_window_overlap": candidate_pool_size,
+            "sites_selected": len(sites),
+            "years": years,
+            "batch_sites": batch_size,
+            "resume": resume,
+            "cache_only": cache_only,
+            "min_free_disk_gb": disk_minimum,
+            "prune_new_verified_raw": prune,
+            "finished_at": utc_now(),
+        }
+    )
+    write_json(results_dir / "download_summary.json", progress)
     return progress
 
 
 def download_training(
-    cfg, *, refresh: bool = False, site_limit: int | None = None, years: list[int] | None = None
+    cfg,
+    *,
+    refresh: bool = False,
+    resume: bool = True,
+    cache_only: bool = False,
+    site_limit: int | None = None,
+    site_offset: int = 0,
+    site_numbers: list[str] | None = None,
+    years: list[int] | None = None,
+    batch_sites: int | None = None,
+    raw_root: Path | None = None,
+    results_dir: Path | None = None,
+    min_free_disk_gb: float | None = None,
+    prune_new_verified_raw: bool | None = None,
+    on_progress: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     return asyncio.run(
-        _download_training_async(cfg, refresh=refresh, site_limit=site_limit, years=years)
+        _download_training_async(
+            cfg,
+            refresh=refresh,
+            resume=resume,
+            cache_only=cache_only,
+            site_limit=site_limit,
+            site_offset=site_offset,
+            site_numbers=site_numbers,
+            years=years,
+            batch_sites=batch_sites,
+            raw_root=raw_root,
+            results_dir=results_dir,
+            min_free_disk_gb=min_free_disk_gb,
+            prune_new_verified_raw=prune_new_verified_raw,
+            on_progress=on_progress,
+        )
     )
 
 
@@ -383,12 +694,49 @@ def _cadence_by_year(part: pd.DataFrame) -> dict[int, float]:
     return result
 
 
-def _qualifier_class(text: Any) -> str:
-    value = "" if pd.isna(text) else str(text).upper()
-    if "A" in value:
-        return "approved"
-    if "P" in value:
-        return "provisional"
+def _qualifier_tokens(value: Any) -> frozenset[str]:
+    """Parse USGS qualifiers without substring matching.
+
+    WaterML supplies a list, but older cached frames may contain delimited
+    strings or the historical compact form ``Ae``. Only compact strings made
+    entirely from the known one-character A/P/e tokens are split; words such
+    as ``ICE`` therefore remain one token and cannot accidentally approve or
+    reject an observation.
+    """
+    if value is None or (not isinstance(value, (list, tuple, set)) and pd.isna(value)):
+        return frozenset()
+    if isinstance(value, (list, tuple, set, frozenset)):
+        tokens: set[str] = set()
+        for item in value:
+            tokens.update(_qualifier_tokens(item))
+        return frozenset(tokens)
+    text = str(value).strip()
+    if not text:
+        return frozenset()
+    if text.startswith("["):
+        try:
+            decoded = json.loads(text)
+        except json.JSONDecodeError:
+            decoded = None
+        if isinstance(decoded, list):
+            return _qualifier_tokens(decoded)
+    pieces = [item for item in re.split(r"[,|;\s]+", text) if item]
+    if len(pieces) == 1 and re.fullmatch(r"[APe]+", text):
+        pieces = list(text)
+    normalized = {"e" if item.lower() == "e" else item.upper() for item in pieces}
+    return frozenset(normalized)
+
+
+def _qualifier_class(value: Any, cfg=None) -> str:
+    tokens = _qualifier_tokens(value)
+    qualifier_rules = _audit(cfg).get("qualifier_tokens", {}) if cfg is not None else {}
+    approved = str(qualifier_rules.get("approved", "A")).upper()
+    estimated = str(qualifier_rules.get("estimated", "e")).lower()
+    rejected = {str(item).upper() for item in qualifier_rules.get("rejected", ["P"])}
+    if tokens & rejected:
+        return "rejected"
+    if approved in tokens:
+        return "approved_estimated" if estimated in tokens else "approved"
     return "other"
 
 
@@ -397,45 +745,74 @@ def _hourly_param(part: pd.DataFrame, prefix: str, cfg) -> tuple[pd.DataFrame, d
     cadence = _cadence_by_year(part)
     value_range = rules["q_valid_range"] if prefix == "q" else rules["sc_valid_range_us_cm"]
     part = part.copy()
-    part["qual_class"] = part["qualifiers"].map(_qualifier_class)
+    part["qual_tokens"] = part["qualifiers"].map(_qualifier_tokens)
+    part["qual_class"] = part["qualifiers"].map(lambda value: _qualifier_class(value, cfg))
     part["range_ok"] = part["value"].between(value_range[0], value_range[1], inclusive="both")
-    part["approved_ok"] = part["range_ok"] & part["qual_class"].eq("approved")
-    accepted = {str(x).upper() for x in rules["accepted_nonapproved_qualifiers"]}
-    part["sensitivity_ok"] = part["range_ok"] & (
-        part["qual_class"].eq("approved")
-        | part["qualifiers"].fillna("").str.upper().map(lambda x: any(q in x for q in accepted))
+    if prefix == "sc":
+        part["range_ok"] &= part["value"].gt(0)
+    part["approved_ok"] = part["range_ok"] & part["qual_class"].isin(
+        ["approved", "approved_estimated"]
     )
+    part["estimated_ok"] = part["approved_ok"] & part["qual_class"].eq("approved_estimated")
+    # Retained for output compatibility. Provisional P is rejected in every
+    # mask; the sensitivity column currently equals the approved mask.
+    part["sensitivity_ok"] = part["approved_ok"]
     part["hour"] = part["time"].dt.floor("h")
 
-    def summarize(group: pd.DataFrame) -> pd.Series:
-        approved = group.loc[group["approved_ok"], "value"]
-        sensitivity = group.loc[group["sensitivity_ok"], "value"]
-        return pd.Series(
-            {
-                f"{prefix}_value": approved.mean(),
-                f"{prefix}_median": approved.median(),
-                f"{prefix}_std": approved.std(ddof=0),
-                f"{prefix}_min": approved.min(),
-                f"{prefix}_max": approved.max(),
-                f"{prefix}_native_samples": len(group),
-                f"{prefix}_unique_samples": group["time"].nunique(),
-                f"{prefix}_approved_samples": int(group["approved_ok"].sum()),
-                f"{prefix}_sensitivity_samples": int(group["sensitivity_ok"].sum()),
-                f"{prefix}_value_sensitivity": sensitivity.mean(),
-                f"{prefix}_quality_flags": "|".join(
-                    sorted(set(group["qualifiers"].fillna("").astype(str)))
-                ),
-                f"{prefix}_duplicate_timestamps": int(len(group) - group["time"].nunique()),
-                f"{prefix}_negative_samples": int((group["value"] < 0).sum()),
-                f"{prefix}_range_failure_samples": int(
-                    (~group["range_ok"] & group["value"].notna()).sum()
-                ),
-            }
-        )
-
-    grouped = part.groupby("hour", sort=True).apply(summarize, include_groups=False)
-    grouped.index.name = "time"
-    return grouped, cadence
+    # Vectorised group-by aggregations instead of a Python function per hour:
+    # the national run aggregates ~1,000 station-decades, where a per-hour
+    # ``apply`` dominates wall clock.  Column semantics are unchanged.
+    grouped = part.groupby("hour", sort=True)
+    approved = part.loc[part["approved_ok"]].groupby("hour", sort=True)["value"]
+    estimated = part.loc[part["estimated_ok"]].groupby("hour", sort=True)["time"]
+    sensitivity = part.loc[part["sensitivity_ok"]].groupby("hour", sort=True)["value"]
+    sensitivity_time = part.loc[part["sensitivity_ok"]].groupby("hour", sort=True)["time"]
+    approved_time = part.loc[part["approved_ok"]].groupby("hour", sort=True)["time"]
+    flags = (
+        part[["hour", "qualifiers"]]
+        .assign(text=part["qualifiers"].fillna("").astype(str))
+        .drop(columns=["qualifiers"])
+        .drop_duplicates()
+        .sort_values(["hour", "text"])
+        .groupby("hour", sort=True)["text"]
+        .agg("|".join)
+    )
+    summary = pd.DataFrame(
+        {
+            f"{prefix}_value": approved.mean(),
+            f"{prefix}_median": approved.median(),
+            f"{prefix}_std": approved.std(ddof=0),
+            f"{prefix}_min": approved.min(),
+            f"{prefix}_max": approved.max(),
+            f"{prefix}_native_samples": grouped.size(),
+            f"{prefix}_unique_samples": grouped["time"].nunique(),
+            f"{prefix}_approved_samples": grouped["approved_ok"].sum(),
+            f"{prefix}_approved_unique_samples": approved_time.nunique(),
+            f"{prefix}_estimated_samples": grouped["estimated_ok"].sum(),
+            f"{prefix}_estimated_unique_samples": estimated.nunique(),
+            f"{prefix}_rejected_samples": part.assign(rejected=part["qual_class"].eq("rejected"))
+            .groupby("hour")["rejected"]
+            .sum(),
+            f"{prefix}_sensitivity_samples": grouped["sensitivity_ok"].sum(),
+            f"{prefix}_sensitivity_unique_samples": sensitivity_time.nunique(),
+            f"{prefix}_value_sensitivity": sensitivity.mean(),
+            f"{prefix}_quality_flags": flags,
+            f"{prefix}_duplicate_timestamps": grouped.size() - grouped["time"].nunique(),
+            f"{prefix}_negative_samples": part.assign(negative=part["value"] < 0)
+            .groupby("hour")["negative"]
+            .sum(),
+            f"{prefix}_nonpositive_samples": part.assign(nonpositive=part["value"] <= 0)
+            .groupby("hour")["nonpositive"]
+            .sum(),
+            f"{prefix}_range_failure_samples": part.assign(
+                failure=(~part["range_ok"]) & part["value"].notna()
+            )
+            .groupby("hour")["failure"]
+            .sum(),
+        }
+    )
+    summary.index.name = "time"
+    return summary, cadence
 
 
 def aggregate_site_hourly(frame: pd.DataFrame, cfg) -> pd.DataFrame:
@@ -469,14 +846,22 @@ def aggregate_site_hourly(frame: pd.DataFrame, cfg) -> pd.DataFrame:
             "native_samples",
             "unique_samples",
             "approved_samples",
+            "approved_unique_samples",
+            "estimated_samples",
+            "estimated_unique_samples",
+            "rejected_samples",
             "sensitivity_samples",
+            "sensitivity_unique_samples",
             "duplicate_timestamps",
             "negative_samples",
+            "nonpositive_samples",
             "range_failure_samples",
         ):
             column = f"{prefix}_{name}"
             if column not in hourly:
                 hourly[column] = 0
+            else:
+                hourly[column] = hourly[column].fillna(0)
         quality_column = f"{prefix}_quality_flags"
         if quality_column not in hourly:
             hourly[quality_column] = ""
@@ -485,20 +870,20 @@ def aggregate_site_hourly(frame: pd.DataFrame, cfg) -> pd.DataFrame:
         )
         hourly[f"{prefix}_expected_samples"] = expected
         hourly[f"{prefix}_hour_coverage"] = (
-            hourly.get(f"{prefix}_approved_samples", 0) / expected
+            hourly.get(f"{prefix}_approved_unique_samples", 0) / expected
         ).clip(upper=1)
         hourly[f"{prefix}_sensitivity_coverage"] = (
-            hourly.get(f"{prefix}_sensitivity_samples", 0) / expected
+            hourly.get(f"{prefix}_sensitivity_unique_samples", 0) / expected
         ).clip(upper=1)
-        hourly[f"{prefix}_valid"] = (
-            hourly[f"{prefix}_hour_coverage"]
-            .fillna(0)
-            .ge(float(_audit(cfg)["hourly_min_coverage"]))
+        minimum_coverage = float(
+            _audit(cfg).get(
+                "hourly_min_unique_timestamp_coverage",
+                _audit(cfg).get("hourly_min_coverage", 0.75),
+            )
         )
+        hourly[f"{prefix}_valid"] = hourly[f"{prefix}_hour_coverage"].fillna(0).ge(minimum_coverage)
         hourly[f"{prefix}_valid_sensitivity"] = (
-            hourly[f"{prefix}_sensitivity_coverage"]
-            .fillna(0)
-            .ge(float(_audit(cfg)["hourly_min_coverage"]))
+            hourly[f"{prefix}_sensitivity_coverage"].fillna(0).ge(minimum_coverage)
         )
         hourly[f"{prefix}_native_cadence_minutes"] = pd.Series(
             hourly.index.year, index=hourly.index
@@ -525,9 +910,31 @@ def aggregate_site_hourly(frame: pd.DataFrame, cfg) -> pd.DataFrame:
     return hourly.reset_index()
 
 
-def build_hourly(cfg, *, site_limit: int | None = None, refresh: bool = False) -> dict[str, Any]:
-    raw_root = cfg.data_dir / "raw" / "training_audit" / "iv"
-    out_root = ensure_dir(cfg.data_dir / "processed" / "training_audit" / "hourly")
+def _aggregate_one(job: tuple[str, str, str, Any]) -> tuple[str, str]:
+    """Worker for :func:`build_hourly`; module level so Windows spawn can import it."""
+    site_no, raw_root, out_root, cfg = job
+    files = sorted((Path(raw_root) / site_no).glob("*.parquet"))
+    if not files:
+        return site_no, "no_raw"
+    raw = pd.concat([read_parquet(path) for path in files], ignore_index=True)
+    hourly = aggregate_site_hourly(raw, cfg)
+    write_parquet(hourly, Path(out_root) / f"{site_no}.parquet")
+    return site_no, "written"
+
+
+def build_hourly(
+    cfg,
+    *,
+    site_limit: int | None = None,
+    refresh: bool = False,
+    raw_root: Path | None = None,
+    out_root: Path | None = None,
+    results_dir: Path | None = None,
+    workers: int = 1,
+    on_progress: Callable[[dict[str, Any]], None] | None = None,
+) -> dict[str, Any]:
+    raw_root = raw_root or cfg.data_dir / "raw" / "training_audit" / "iv"
+    out_root = ensure_dir(out_root or cfg.data_dir / "processed" / "training_audit" / "hourly")
     sites = (
         sorted(path.name for path in raw_root.iterdir() if path.is_dir())
         if raw_root.exists()
@@ -537,20 +944,128 @@ def build_hourly(cfg, *, site_limit: int | None = None, refresh: bool = False) -
         sites = sites[:site_limit]
     written = 0
     skipped = 0
+    todo: list[str] = []
     for site_no in sites:
         destination = out_root / f"{site_no}.parquet"
         if destination.exists() and not refresh:
             skipped += 1
             continue
-        files = sorted((raw_root / site_no).glob("*.parquet"))
-        if not files:
-            continue
-        raw = pd.concat([read_parquet(path) for path in files], ignore_index=True)
-        hourly = aggregate_site_hourly(raw, cfg)
-        write_parquet(hourly, destination)
-        written += 1
+        todo.append(site_no)
+    jobs = [(site_no, str(raw_root), str(out_root), cfg) for site_no in todo]
+
+    def consume(results) -> None:
+        nonlocal written
+        for site_no, status in results:
+            if status == "written":
+                written += 1
+                if on_progress is not None:
+                    on_progress({"written": written, "skipped": skipped, "site_no": site_no})
+
+    if workers > 1 and len(jobs) > 1:
+        with ProcessPoolExecutor(max_workers=workers) as pool:
+            consume(pool.map(_aggregate_one, jobs, chunksize=1))
+    else:
+        consume(_aggregate_one(job) for job in jobs)
     result = {"sites_written": written, "sites_skipped": skipped, "finished_at": utc_now()}
-    write_json(cfg.results_dir / "hourly_summary.json", result)
+    write_json(ensure_dir(results_dir or cfg.results_dir) / "hourly_summary.json", result)
+    return result
+
+
+def run_network_smoke(
+    cfg,
+    *,
+    cache_dir: Path,
+    force_network: bool = False,
+    year: int | None = None,
+    batch_sites: int = 5,
+    n_sites: int = 5,
+) -> dict[str, Any]:
+    """Exercise the production downloader and aggregator in an isolated cache."""
+    cache_dir = ensure_dir(cache_dir)
+    raw_root = ensure_dir(cache_dir / "raw")
+    hourly_root = ensure_dir(cache_dir / "hourly")
+    results_dir = ensure_dir(cache_dir / "results")
+    chosen_year = int(year or max(cfg.window.years))
+    catalog = read_parquet(cfg.data_dir / "interim" / "training_audit" / "catalog.parquet")
+    candidates = catalog[catalog["window_overlap"]].copy()
+    candidates["site_no"] = candidates["site_no"].map(_site)
+    preferred = ["01018035", "01095220", "01095375", "01095434", "01100568"]
+    chosen = [site for site in preferred if site in set(candidates["site_no"])]
+    if len(chosen) < n_sites:
+        candidates["smoke_records"] = candidates[["catalog_q_records", "catalog_sc_records"]].min(
+            axis=1
+        )
+        active = candidates[
+            pd.to_datetime(candidates["catalog_overlap_end"], errors="coerce")
+            >= pd.Timestamp(f"{chosen_year}-01-01")
+        ]
+        pool = active if not active.empty else candidates
+        ordered = pool.sort_values("smoke_records", ascending=False)["site_no"].tolist()
+        chosen = list(dict.fromkeys([*chosen, *ordered]))[:n_sites]
+    download = download_training(
+        cfg,
+        refresh=force_network,
+        resume=not force_network,
+        site_numbers=chosen,
+        years=[chosen_year],
+        batch_sites=batch_sites,
+        raw_root=raw_root,
+        results_dir=results_dir,
+    )
+    if force_network and int(download["requests"]) < 1:
+        raise RuntimeError("forced network smoke made zero requests")
+    hourly = build_hourly(
+        cfg,
+        refresh=True,
+        raw_root=raw_root,
+        out_root=hourly_root,
+        results_dir=results_dir,
+    )
+    checks: list[dict[str, Any]] = []
+    for site_no in chosen:
+        raw_files = sorted((raw_root / site_no).glob("*.parquet"))
+        hourly_file = hourly_root / f"{site_no}.parquet"
+        record: dict[str, Any] = {
+            "site_no": site_no,
+            "raw_file": raw_files[0].as_posix() if raw_files else "",
+            "raw_rows": 0,
+            "has_q": False,
+            "has_sc": False,
+            "qualifier_values": "",
+            "hourly_file": hourly_file.as_posix() if hourly_file.exists() else "",
+            "hourly_rows": 0,
+            "q_valid_hours": 0,
+            "sc_valid_hours": 0,
+            "paired_valid_hours": 0,
+        }
+        if raw_files:
+            raw = read_parquet(raw_files[0])
+            record["raw_rows"] = len(raw)
+            record["has_q"] = bool((raw["param_cd"] == cfg.params["streamflow"]).any())
+            record["has_sc"] = bool((raw["param_cd"] == cfg.params["specific_conductance"]).any())
+            record["qualifier_values"] = "|".join(
+                sorted(set(raw["qualifiers"].fillna("").astype(str)))[:20]
+            )
+        if hourly_file.exists():
+            frame = read_parquet(hourly_file)
+            record["hourly_rows"] = len(frame)
+            record["q_valid_hours"] = int(frame["q_valid"].sum())
+            record["sc_valid_hours"] = int(frame["sc_valid"].sum())
+            record["paired_valid_hours"] = int(frame["paired_valid"].sum())
+        checks.append(record)
+    result = {
+        "cache_dir": str(cache_dir),
+        "force_network": force_network,
+        "year": chosen_year,
+        "sites": chosen,
+        "download": download,
+        "hourly": hourly,
+        "checks": checks,
+        "network_requests_positive": int(download["requests"]) > 0,
+        "finished_at": utc_now(),
+    }
+    pd.DataFrame(checks).to_csv(results_dir / "smoke_checks.csv", index=False)
+    write_json(results_dir / "smoke_summary.json", result)
     return result
 
 
@@ -606,17 +1121,256 @@ def _coverage_records(hourly: pd.DataFrame, column: str) -> tuple[str, str, int]
 
 
 def _quality_distribution(hourly: pd.DataFrame, prefix: str) -> dict[str, float]:
-    flags = hourly[f"{prefix}_quality_flags"].fillna("").astype(str)
     total = int(hourly[f"{prefix}_native_samples"].fillna(0).sum())
     if total == 0:
-        return {"approved": 0.0, "provisional": 0.0, "other": 0.0}
+        return {"approved": 0.0, "estimated": 0.0, "rejected": 0.0, "other": 0.0}
     approved = int(hourly[f"{prefix}_approved_samples"].fillna(0).sum())
-    provisional_hours = flags.str.upper().str.contains("P", regex=False)
-    provisional = int(hourly.loc[provisional_hours, f"{prefix}_native_samples"].fillna(0).sum())
+    estimated_column = f"{prefix}_estimated_samples"
+    rejected_column = f"{prefix}_rejected_samples"
+    estimated = int(hourly.get(estimated_column, pd.Series(0, index=hourly.index)).fillna(0).sum())
+    rejected = int(hourly.get(rejected_column, pd.Series(0, index=hourly.index)).fillna(0).sum())
     return {
         "approved": approved / total,
-        "provisional": provisional / total,
-        "other": max(0.0, 1 - (approved + provisional) / total),
+        "estimated": estimated / total,
+        "rejected": rejected / total,
+        "other": max(0.0, 1 - (approved + rejected) / total),
+    }
+
+
+def _split_bounds(bounds) -> tuple[pd.Timestamp, pd.Timestamp]:
+    start, end = pd.Timestamp(bounds[0]), pd.Timestamp(bounds[1])
+    start = start.tz_localize("UTC") if start.tzinfo is None else start.tz_convert("UTC")
+    end = end.tz_localize("UTC") if end.tzinfo is None else end.tz_convert("UTC")
+    return start, end
+
+
+def _fixed_split_metrics(hourly: pd.DataFrame, cfg) -> dict[str, Any]:
+    rules = _audit(cfg)
+    minimum_day_hours = int(rules["valid_day_min_paired_hours"])
+    cold_days = int(rules["valid_year_min_valid_days"]["cold"])
+    warm_days = int(rules["valid_year_min_valid_days"]["warm"])
+    output: dict[str, Any] = {}
+    for split, bounds in rules["splits"].items():
+        start, end = _split_bounds(bounds)
+        part = hourly[hourly["time"].between(start, end, inclusive="both")].copy()
+        expected_hours = len(pd.date_range(start.floor("h"), end.floor("h"), freq="h"))
+        daily = part.assign(day=part["time"].dt.floor("D")).groupby("day")["paired_valid"].sum()
+        days = pd.date_range(start.floor("D"), end.floor("D"), freq="D")
+        daily = daily.reindex(days, fill_value=0)
+        valid_days = daily.ge(minimum_day_hours)
+        # Valid years are calendar years: cold = Jan-Mar + Dec, warm = Apr-Nov.
+        q_valid_by_day = (
+            part.assign(day=part["time"].dt.floor("D"))
+            .groupby("day")["q_valid"]
+            .sum()
+            .reindex(days, fill_value=0)
+        )
+        expected_by_day = pd.Series(24, index=days, dtype=float)
+        annual_valid_years = 0
+        annual_q_coverage: dict[str, dict[str, float]] = {}
+        split_cold_days = 0
+        split_warm_days = 0
+        for year, index in valid_days.groupby(valid_days.index.year).groups.items():
+            year_mask = valid_days.loc[index]
+            cold = year_mask[(year_mask.index.month <= 3) | (year_mask.index.month == 12)].sum()
+            warm = year_mask[(year_mask.index.month >= 4) & (year_mask.index.month <= 11)].sum()
+            split_cold_days += int(cold)
+            split_warm_days += int(warm)
+            is_valid = bool(cold >= cold_days and warm >= warm_days)
+            annual_valid_years += int(is_valid)
+            expected_year = float(expected_by_day.loc[index].sum())
+            covered = float(q_valid_by_day.loc[index].sum())
+            annual_q_coverage[str(year)] = {
+                "q_valid_hours": covered,
+                "expected_hours": expected_year,
+                "q_coverage": covered / expected_year if expected_year else 0.0,
+                "valid_days_cold": int(cold),
+                "valid_days_warm": int(warm),
+                "valid_year": is_valid,
+            }
+        for name in ("q_valid", "sc_valid", "paired_valid"):
+            count = int(part[name].fillna(False).sum()) if name in part else 0
+            output[f"{split}_{name}_hours"] = count
+            output[f"{split}_{name.replace('_valid', '')}_coverage"] = (
+                count / expected_hours if expected_hours else 0.0
+            )
+        output[f"{split}_expected_hours"] = expected_hours
+        output[f"{split}_valid_days"] = int(valid_days.sum())
+        output[f"{split}_valid_days_cold"] = split_cold_days
+        output[f"{split}_valid_days_warm"] = split_warm_days
+        output[f"{split}_valid_years"] = int(annual_valid_years)
+        output[f"{split}_valid_days_by_year_json"] = json.dumps(
+            {str(year): int(count) for year, count in daily.groupby(daily.index.year).sum().items()}
+        )
+        output[f"{split}_q_coverage_by_year_json"] = json.dumps(annual_q_coverage)
+    return output
+
+
+def _state_phase_metrics(hourly: pd.DataFrame, cfg) -> tuple[dict[str, float], dict[str, int]]:
+    rules = _audit(cfg)
+    quantile_levels = rules.get("flow_state_quantiles", [0.30, 0.70])
+    smooth_hours = int(rules.get("phase_smoothing_hours", 3))
+    qvalid = hourly["q_valid"].fillna(False)
+    paired = hourly["paired_valid"].fillna(False)
+    train_bounds = rules["splits"]["train"]
+    train_start, train_end = _split_bounds(train_bounds)
+    train_q = hourly.loc[
+        hourly["time"].between(train_start, train_end, inclusive="both") & qvalid,
+        "q_value",
+    ].dropna()
+    reference = train_q if not train_q.empty else hourly.loc[qvalid, "q_value"].dropna()
+    if reference.empty:
+        return {}, {}
+    low, high = reference.quantile(quantile_levels).tolist()
+    q = hourly["q_value"]
+    # Status is defined on the 3-hour median-smoothed flow, not raw hour-to-hour noise.
+    q_smooth = q.rolling(smooth_hours, center=True, min_periods=1).median()
+    state_masks = {
+        "low": q.le(low),
+        "mid": q.gt(low) & q.lt(high),
+        "high": q.ge(high),
+    }
+    dq = q_smooth.diff()
+    epsilon = float(rules.get("phase_change_fraction", 0.01)) * q_smooth.abs().clip(lower=1e-9)
+    phase_masks = {
+        "rising": dq.gt(epsilon),
+        "falling": dq.lt(-epsilon),
+        "stable": dq.abs().le(epsilon),
+    }
+    counts: dict[str, int] = {}
+    for split, bounds in rules["splits"].items():
+        split_start, split_end = _split_bounds(bounds)
+        split_mask = hourly["time"].between(split_start, split_end, inclusive="both")
+        for name, mask in state_masks.items():
+            counts[f"{split}_{name}_state_paired_hours"] = int((split_mask & paired & mask).sum())
+        for name, mask in phase_masks.items():
+            counts[f"{split}_{name}_phase_paired_hours"] = int((split_mask & paired & mask).sum())
+    for name, mask in state_masks.items():
+        counts[f"all_{name}_state_paired_hours"] = int((paired & mask).sum())
+    for name, mask in phase_masks.items():
+        counts[f"all_{name}_phase_paired_hours"] = int((paired & mask).sum())
+    counts["all_paired_hours"] = int(paired.sum())
+    return {"low": float(low), "high": float(high)}, counts
+
+
+def _years_q_coverage(metrics: dict[str, Any], split: str) -> list[float]:
+    raw = metrics.get(f"{split}_q_coverage_by_year_json", "{}")
+    try:
+        parsed = json.loads(raw) if isinstance(raw, str) else raw
+    except (TypeError, json.JSONDecodeError):
+        return []
+    return [float(item.get("q_coverage", 0)) for item in parsed.values()]
+
+
+def _tier_eligibility(metrics: dict[str, Any], cfg, tier: str) -> tuple[bool, list[str]]:
+    rule = _audit(cfg)["tiers"][tier]
+    reasons: list[str] = []
+    for split in ("train", "validation", "test"):
+        split_rule = rule.get(split, {})
+        minimum_years = int(split_rule.get("min_valid_years", 0))
+        if int(metrics.get(f"{split}_valid_years", 0)) < minimum_years:
+            reasons.append(f"{split}_valid_years")
+        minimum_hours = split_rule.get("min_paired_hours")
+        if minimum_hours is not None and int(metrics.get(f"{split}_paired_valid_hours", 0)) < int(
+            minimum_hours
+        ):
+            reasons.append(f"{split}_paired_hours")
+        threshold = split_rule.get("q_coverage_threshold")
+        minimum_cov_years = split_rule.get("min_years_q_coverage")
+        if threshold is not None and minimum_cov_years is not None:
+            qualifying = sum(
+                coverage >= float(threshold) for coverage in _years_q_coverage(metrics, split)
+            )
+            if qualifying < int(minimum_cov_years):
+                reasons.append(f"{split}_years_q_coverage")
+    minimum_state = int(rule.get("min_state_paired_hours", 0))
+    minimum_fraction = float(rule.get("min_state_fraction_of_paired", 0))
+    total_paired = max(1, int(metrics.get("all_paired_hours", 0)))
+    for state in ("low", "mid", "high"):
+        count = int(metrics.get(f"all_{state}_state_paired_hours", 0))
+        if count < minimum_state or count / total_paired < minimum_fraction:
+            reasons.append(f"{state}_state_coverage")
+    minimum_phase = int(rule.get("min_phase_paired_hours", 0))
+    for phase in ("rising", "falling"):
+        if int(metrics.get(f"all_{phase}_phase_paired_hours", 0)) < minimum_phase:
+            reasons.append(f"{phase}_phase_coverage")
+    return not reasons, reasons
+
+
+def _sc_anomaly_metrics(hourly: pd.DataFrame, cfg) -> dict[str, Any]:
+    """Diagnostic flags only.  None of these ever removes a station or a value."""
+    rules = _audit(cfg)
+    frame = hourly[["time", "sc_value", "sc_valid"]].copy()
+    frame["time"] = pd.to_datetime(frame["time"], utc=True)
+    grid = frame.set_index("time").sort_index()
+    values = grid["sc_value"].where(grid["sc_valid"].fillna(False).astype(bool))
+    # A full UTC hourly grid means diffs and centred windows are true hour steps.
+    same = values.diff().eq(0)
+    constant_runs = _runs(same)
+    constant_run = max(constant_runs) + 1 if constant_runs else 0
+
+    local_median = values.rolling(7, center=True, min_periods=3).median()
+    excursion = (values - local_median).abs()
+    recovery = (values.shift(-3) - values.shift(3)).abs()
+    spike_threshold = float(rules.get("sc_spike_absolute_us_cm", 500))
+    spikes = int(
+        (excursion.ge(spike_threshold) & recovery.le(0.1 * spike_threshold) & values.notna()).sum()
+    )
+
+    relative_diff = values.diff().abs() / values.shift().abs().clip(lower=1)
+    jumps = int(
+        (
+            values.diff().abs().ge(float(rules["sc_jump_absolute_us_cm"]))
+            & relative_diff.ge(float(rules["sc_jump_relative_fraction"]))
+        ).sum()
+    )
+
+    minimum_year_hours = int(rules.get("sc_year_min_valid_hours", 720))
+    annual = values.groupby(values.index.year)
+    medians = annual.median()[annual.count() >= minimum_year_hours].sort_index()
+    ratios = (medians / medians.shift().abs().clip(lower=1e-9)).dropna()
+    annual_ratio = float(ratios.max()) if len(ratios) else 1.0
+    if len(ratios):
+        annual_ratio = max(annual_ratio, float((1 / ratios).max()))
+
+    trend_years = int(len(medians))
+    trend_consistent = 0.0
+    trend_change = 0.0
+    if trend_years >= 2:
+        steps = medians.diff().dropna()
+        trend_consistent = float(max((steps > 0).mean(), (steps < 0).mean()))
+        base = float(medians.abs().median()) or 1.0
+        trend_change = abs(float(medians.iloc[-1] - medians.iloc[0])) / base
+
+    cadence_change = bool(
+        hourly.get("sc_native_cadence_minutes", pd.Series(dtype=float)).dropna().nunique() > 1
+    )
+
+    flags = {
+        "sc_constant_gt_30d": constant_run >= int(rules["sc_constant_run_hours"]),
+        "sc_isolated_spike": spikes >= int(rules.get("sc_spike_min_events", 3)),
+        "sc_interannual_median_shift": annual_ratio >= float(rules["sc_year_median_ratio"]),
+        "sc_long_term_monotonic_change": (
+            trend_years >= int(rules.get("sc_trend_min_years", 6))
+            and trend_consistent >= float(rules.get("sc_trend_sign_consistency", 0.9))
+            and trend_change >= float(rules.get("sc_trend_min_relative_change", 0.50))
+        ),
+        "sc_instrument_or_range_switch": cadence_change,
+    }
+    return {
+        "sc_constant_run_hours_max": int(constant_run),
+        "sc_isolated_spike_events": spikes,
+        "sc_jump_events": jumps,
+        "sc_interannual_median_ratio_max": annual_ratio,
+        "sc_annual_median_years_used": trend_years,
+        "sc_annual_median_sign_consistency": trend_consistent,
+        "sc_annual_median_relative_change": trend_change,
+        "sc_flags_json": json.dumps(
+            {name: bool(value) for name, value in flags.items()}, sort_keys=True
+        ),
+        "sc_anomaly_flags": "|".join(name for name, value in flags.items() if value),
+        "sc_anomaly_flag_any": any(flags.values()),
+        "sc_anomaly_flags_are_exclusionary": False,
     }
 
 
@@ -632,17 +1386,13 @@ def _station_metrics(hourly: pd.DataFrame, cfg) -> dict[str, Any]:
     q_year, q_season, _ = _coverage_records(hourly, "q_valid")
     sc_year, sc_season, _ = _coverage_records(hourly, "sc_valid")
     pair_year, pair_season, _ = _coverage_records(hourly, "paired_valid")
-    year_table = json.loads(pair_year)
+    split_metrics = _fixed_split_metrics(hourly, cfg)
+    state_quantiles, state_phase_counts = _state_phase_metrics(hourly, cfg)
     valid_years = sum(
-        item["coverage"] >= float(rules["valid_year_min_paired_coverage"])
-        for item in year_table.values()
+        int(split_metrics.get(f"{split}_valid_years", 0)) for split in rules["splits"]
     )
-    sc_values = hourly.loc[scvalid, "sc_value"].dropna()
-    diff = sc_values.diff().abs()
-    rel = diff / sc_values.shift().abs().clip(lower=1)
-    jump = (diff >= float(rules["sc_jump_absolute_us_cm"])) & (
-        rel >= float(rules["sc_jump_relative_fraction"])
-    )
+    anomaly = _sc_anomaly_metrics(hourly, cfg)
+    jumps = int(anomaly["sc_jump_events"])
     q = hourly.loc[qvalid, "q_value"].dropna()
     states = {}
     state_coverage = {}
@@ -668,7 +1418,7 @@ def _station_metrics(hourly: pd.DataFrame, cfg) -> dict[str, Any]:
             (scvalid & q_all.gt(quantiles[0.33]) & q_all.lt(quantiles[0.67])).sum()
         )
         state_coverage["high_flow"] = int((scvalid & q_all.ge(quantiles[0.67])).sum())
-    return {
+    result = {
         "actual_q_start": hourly.loc[qvalid, "time"].min(),
         "actual_q_end": hourly.loc[qvalid, "time"].max(),
         "actual_sc_start": hourly.loc[scvalid, "time"].min(),
@@ -718,8 +1468,8 @@ def _station_metrics(hourly: pd.DataFrame, cfg) -> dict[str, Any]:
             hourly["sc_range_failure_samples"].fillna(0).sum()
             / max(1, hourly["sc_native_samples"].fillna(0).sum())
         ),
-        "sc_jump_fraction": float(jump.mean()) if len(jump) else 0.0,
-        "sc_constant_suspect": max(_runs(sc_values.diff().fillna(np.inf).eq(0)), default=0)
+        "sc_jump_fraction": float(jumps / max(1, int(scvalid.sum()))),
+        "sc_constant_suspect": anomaly["sc_constant_run_hours_max"]
         >= int(rules["sc_constant_run_hours"]),
         "hydrologic_state_q_quantiles_json": json.dumps(states),
         "hydrologic_state_sc_coverage_json": json.dumps(state_coverage),
@@ -736,8 +1486,36 @@ def _station_metrics(hourly: pd.DataFrame, cfg) -> dict[str, Any]:
             hourly["q_native_cadence_minutes"].dropna().nunique() > 1
             or hourly["sc_native_cadence_minutes"].dropna().nunique() > 1
         ),
-        "wet_dry_definition": "station Q thirds; climatological drought products not downloaded",
+        "sc_estimated_sample_fraction": float(
+            hourly["sc_estimated_samples"].fillna(0).sum()
+            / max(1, hourly["sc_native_samples"].fillna(0).sum())
+        ),
+        "q_estimated_sample_fraction": float(
+            hourly["q_estimated_samples"].fillna(0).sum()
+            / max(1, hourly["q_native_samples"].fillna(0).sum())
+        ),
+        "wet_dry_definition": "training-period station Q thirds; no external drought label",
+        **split_metrics,
+        **state_phase_counts,
     }
+    # A station with no valid Q at all has no state/phase counts; every derived
+    # fraction then defaults to zero rather than failing the report.
+    total_paired = max(1, int(result.get("all_paired_hours", 0)))
+    for state in ("low", "mid", "high"):
+        result[f"all_{state}_state_paired_fraction"] = (
+            int(result.get(f"all_{state}_state_paired_hours", 0)) / total_paired
+        )
+    for phase in ("rising", "falling", "stable"):
+        result[f"all_{phase}_phase_paired_fraction"] = (
+            int(result.get(f"all_{phase}_phase_paired_hours", 0)) / total_paired
+        )
+    result.update(anomaly)
+    result["flow_state_train_quantiles_json"] = json.dumps(state_quantiles)
+    for tier in ("core", "extended"):
+        eligible, reasons = _tier_eligibility(result, cfg, tier)
+        result[f"{tier}_eligible"] = eligible
+        result[f"{tier}_failed_criteria"] = ";".join(reasons)
+    return result
 
 
 def _legacy_membership(root: Path) -> tuple[set[str], set[str]]:
@@ -753,21 +1531,6 @@ def _legacy_membership(root: Path) -> tuple[set[str], set[str]]:
     else:
         diagnostic = set()
     return legacy114, diagnostic
-
-
-def _tier(row: pd.Series, cfg) -> str:
-    rules = _audit(cfg)
-    if bool(row.get("diagnostic_quality", False)):
-        return "T4_diagnostic"
-    if row.get("paired_coverage", 0) >= float(rules["core_min_paired_coverage"]) and row.get(
-        "valid_years", 0
-    ) >= int(rules["core_min_valid_years"]):
-        return "T3_hourly_core"
-    if row.get("paired_valid_hours", 0) >= int(rules["partial_min_paired_hours"]):
-        return "T2_hourly_partial"
-    if row.get("paired_valid_hours", 0) > 0:
-        return "T1_overlap"
-    return "T0_catalog_only"
 
 
 def _manifest(hourly_dir: Path, cfg) -> pd.DataFrame:
@@ -798,264 +1561,11 @@ def _manifest(hourly_dir: Path, cfg) -> pd.DataFrame:
 
 
 def build_report(cfg) -> dict[str, Any]:
-    catalog = read_parquet(cfg.data_dir / "interim" / "training_audit" / "catalog.parquet")
-    hourly_dir = cfg.data_dir / "processed" / "training_audit" / "hourly"
-    metrics = []
-    if hourly_dir.exists():
-        for path in sorted(hourly_dir.glob("*.parquet")):
-            record = {"site_no": path.stem}
-            record.update(_station_metrics(read_parquet(path), cfg))
-            metrics.append(record)
-    metric_frame = pd.DataFrame(metrics)
-    if metric_frame.empty:
-        metric_frame = pd.DataFrame({"site_no": pd.Series(dtype=str)})
-    availability = catalog.merge(metric_frame, on="site_no", how="left")
-    numeric_defaults = [
-        "q_valid_hours",
-        "sc_valid_hours",
-        "paired_valid_hours",
-        "paired_valid_hours_sensitivity",
-        "paired_coverage",
-        "paired_coverage_sensitivity",
-        "valid_years",
-        "longest_continuous_paired_hours",
-        "longest_missing_paired_hours",
-    ]
-    for column in numeric_defaults:
-        if column not in availability:
-            availability[column] = 0
-        availability[column] = availability[column].fillna(0)
-    availability["actual_overlap"] = availability["paired_valid_hours"] > 0
-    availability["hourly_usable"] = availability["paired_valid_hours"] >= int(
-        _audit(cfg)["partial_min_paired_hours"]
-    )
-    legacy114, diagnostic = _legacy_membership(cfg.root)
-    availability["legacy_114_member"] = availability["site_no"].isin(legacy114)
-    availability["legacy_diagnostic_data_sufficient_member"] = availability["site_no"].isin(
-        diagnostic
-    )
-    availability["diagnostic_quality"] = availability["actual_overlap"] & availability[
-        "site_no"
-    ].isin(diagnostic)
-    availability["training_tier"] = availability.apply(lambda row: _tier(row, cfg), axis=1)
-    failures = []
-    for row in availability.itertuples(index=False):
-        reasons = []
-        if not row.catalog_q:
-            reasons.append("catalog_q_missing")
-        if not row.catalog_sc:
-            reasons.append("catalog_sc_missing")
-        if row.catalog_paired and not row.window_overlap:
-            reasons.append("no_catalog_overlap_in_window")
-        if row.window_overlap and not row.actual_overlap:
-            reasons.append("not_downloaded_or_no_actual_paired_hour")
-        if row.actual_overlap and not row.hourly_usable:
-            reasons.append("paired_hours_below_partial_threshold")
-        if not row.forcing_ready:
-            reasons.append(str(row.forcing_missing_reason) or "forcing_not_ready")
-        failures.append(";".join(reasons))
-    availability["all_failed_conditions"] = failures
-    availability["dam_count"] = availability["NDAMS_2009"]
-    availability["dam_density"] = availability["DDENS_2009"]
-    availability["gages2_class"] = availability["CLASS"]
-    availability["nested_basin_flag"] = availability.duplicated("huc8", keep=False)
-    availability["spatial_dependence_rule"] = (
-        "same HUC8 is a flag only; nesting requires boundary analysis"
-    )
+    """Assemble the national availability table, tiers, funnel and report.
 
-    results = ensure_dir(cfg.results_dir)
-    availability.to_csv(results / "station_availability.csv", index=False)
-    write_parquet(availability, results / "station_availability.parquet")
-    manifest = _manifest(hourly_dir, cfg) if hourly_dir.exists() else pd.DataFrame()
-    manifest.to_csv(results / "hourly_files_manifest.csv", index=False)
+    Imported lazily: :mod:`national_report` reuses the station metrics defined
+    here, so a module-level import would be circular.
+    """
+    from .national_report import build_report as _build_report
 
-    union = pd.Series(True, index=availability.index)
-    layers = [
-        ("catalog_q", availability["catalog_q"], "catalog_union", union),
-        ("catalog_sc", availability["catalog_sc"], "catalog_union", union),
-        ("catalog_paired", availability["catalog_paired"], "catalog_union", union),
-        (
-            "window_overlap",
-            availability["window_overlap"],
-            "catalog_paired",
-            availability["catalog_paired"],
-        ),
-        (
-            "actual_overlap",
-            availability["actual_overlap"],
-            "window_overlap",
-            availability["window_overlap"],
-        ),
-        (
-            "hourly_usable",
-            availability["hourly_usable"],
-            "actual_overlap",
-            availability["actual_overlap"],
-        ),
-        (
-            "forcing_ready",
-            availability["hourly_usable"] & availability["forcing_ready"],
-            "hourly_usable",
-            availability["hourly_usable"],
-        ),
-        (
-            "diagnostic_quality",
-            availability["diagnostic_quality"],
-            "actual_overlap",
-            availability["actual_overlap"],
-        ),
-    ]
-    funnel_rows = []
-    for layer, mask, parent_layer, parent_mask in layers:
-        current = set(availability.loc[mask.fillna(False), "site_no"])
-        parent = set(availability.loc[parent_mask.fillna(False), "site_no"])
-        dropped = parent - current
-        reason_counts: Counter[str] = Counter()
-        for text in availability.loc[
-            availability["site_no"].isin(dropped), "all_failed_conditions"
-        ]:
-            reason_counts.update(item for item in str(text).split(";") if item)
-        funnel_rows.append(
-            {
-                "layer": layer,
-                "relative_to": parent_layer,
-                "station_count": len(current),
-                "dropped_from_parent": len(dropped),
-                "drop_reasons_json": json.dumps(reason_counts, sort_keys=True),
-            }
-        )
-    funnel = pd.DataFrame(funnel_rows)
-    funnel.to_csv(results / "audit_funnel.csv", index=False)
-
-    rules = _audit(cfg)
-    sensitivity = []
-    for coverage in rules["sensitivity_coverages"]:
-        for years in rules["sensitivity_years"]:
-            sensitivity.append(
-                {
-                    "paired_coverage_threshold": coverage,
-                    "minimum_valid_years": years,
-                    "station_count": int(
-                        (
-                            (availability["paired_coverage"] >= coverage)
-                            & (availability["valid_years"] >= years)
-                        ).sum()
-                    ),
-                }
-            )
-    pd.DataFrame(sensitivity).to_csv(results / "threshold_sensitivity.csv", index=False)
-    download_summary_path = results / "download_summary.json"
-    download_execution = (
-        json.loads(download_summary_path.read_text(encoding="utf-8"))
-        if download_summary_path.exists()
-        else {}
-    )
-    summary = {
-        "generated_at": utc_now(),
-        "config_sha256": _config_hash(cfg),
-        "git": git_revision(cfg.root),
-        "scope": "CONUS states configured; 2015-2024; IV Q=00060 and SC=00095",
-        "counts": dict(zip(funnel["layer"], funnel["station_count"], strict=True)),
-        "training_tiers": availability["training_tier"].value_counts().to_dict(),
-        "downloaded_hourly_files": len(manifest),
-        "local_download_execution": download_execution,
-        "legacy_114_found_in_new_catalog": int(availability["legacy_114_member"].sum()),
-        "legacy_diagnostic_data_sufficient_found": int(
-            availability["legacy_diagnostic_data_sufficient_member"].sum()
-        ),
-        "limitations": [
-            "actual-overlap and hourly tiers only reflect station files downloaded locally",
-            "basin boundaries and nationwide forcings were not downloaded by this stage",
-            "same-HUC flags do not prove nested catchments or correlation",
-        ],
-    }
-    provenance_path = results / "data_provenance.jsonl"
-    errors_path = results / "errors.jsonl"
-    provenance_lines = (
-        [line for line in provenance_path.read_text(encoding="utf-8").splitlines() if line]
-        if provenance_path.exists()
-        else []
-    )
-    error_lines = (
-        [line for line in errors_path.read_text(encoding="utf-8").splitlines() if line]
-        if errors_path.exists()
-        else []
-    )
-    write_json(
-        results / "provenance_summary.json",
-        {
-            "catalog_state_files": len(list((cfg.data_dir / "raw" / "catalog").glob("*.rdb.gz"))),
-            "iv_requests_recorded": len(provenance_lines),
-            "errors_recorded": len(error_lines),
-            "configured_retries_per_request": cfg.data.retries,
-            "configured_timeout_seconds": cfg.data.request_timeout_s,
-            "code_version": git_revision(cfg.root),
-        },
-    )
-    write_json(results / "audit_summary.json", summary)
-    _write_audit_report(results / "AUDIT_REPORT.md", summary, funnel, availability)
-    return summary
-
-
-def _write_audit_report(
-    path: Path, summary: dict, funnel: pd.DataFrame, availability: pd.DataFrame
-) -> None:
-    def markdown(frame: pd.DataFrame) -> str:
-        columns = [str(column) for column in frame.columns]
-        rows = ["| " + " | ".join(columns) + " |", "| " + " | ".join(["---"] * len(columns)) + " |"]
-        rows.extend(
-            "| " + " | ".join(str(value) for value in row) + " |"
-            for row in frame.itertuples(index=False, name=None)
-        )
-        return "\n".join(rows)
-
-    table = markdown(funnel)
-    tier_frame = (
-        availability["training_tier"]
-        .value_counts()
-        .rename_axis("tier")
-        .reset_index(name="stations")
-    )
-    tiers = markdown(tier_frame)
-    legacy_count = summary["legacy_114_found_in_new_catalog"]
-    diagnostic_count = summary["legacy_diagnostic_data_sufficient_found"]
-    execution = summary.get("local_download_execution", {})
-    execution_text = (
-        f"{execution.get('sites_selected', 0)} sites; years {execution.get('years', [])}"
-    )
-    text = f"""# Training-data audit report
-
-Generated: {summary["generated_at"]}
-
-This audit starts from the full configured state catalogs. It does **not** use
-area, GAGES-II membership, disturbance, three complete years, 80% paired
-coverage, or hysteresis geometry as pre-catalog exclusion rules.
-
-## Audit funnel
-
-{table}
-
-`window_overlap` is catalog evidence only. `actual_overlap` requires at least
-one paired valid UTC hour from downloaded observations. Therefore incomplete
-remote execution lowers the latter count and is not interpreted as absence.
-The committed smoke-run scope was {execution_text}.
-
-## Training tiers
-
-{tiers}
-
-## Relationship to the earlier cohorts
-
-- Earlier 114-station candidate members present in the new catalog: {legacy_count}.
-- Earlier event-data-sufficient diagnostic members present: {diagnostic_count}.
-- These memberships are annotations, never the new population ceiling.
-
-## Current limitations
-
-{chr(10).join(f"- {item}" for item in summary["limitations"])}
-
-Approved observations define the primary masks. Provisional observations are
-retained in sensitivity columns. No cross-hour interpolation or forward fill
-is performed.
-"""
-    path.write_text(text, encoding="utf-8")
+    return _build_report(cfg)

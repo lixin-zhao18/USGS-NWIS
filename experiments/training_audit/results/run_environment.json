@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-10-27T08:53:42+00:00",
+  "generated_at": "2026-10-28T01:42:16+00:00",
   "runtime": {
-    "python": "3.14.7",
+    "python": "3.13.2",
     "platform": "Windows-11-10.0.26200-SP0",
     "pandas": "3.1.0"
   },
   "git": {
-    "commit": "a6c499b614ffb49249ff982ade9719388ee69f4d",
+    "commit": "39443b24931f2328dccb28961f746b45625b3e64",
     "branch": "feat/training-data-audit",
     "dirty": true
   },
-  "config_sha256": "44dce1c892b94b84c4fd43882759c75eed4f1f3a46217f8c26129df3d00179ef"
+  "config_sha256": "f00db8266319ece6a0a973716392b5acaf3c80d62240552ce65ee87b17e51b35"
 }

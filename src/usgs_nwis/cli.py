@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from pathlib import Path
 
 import typer
@@ -21,6 +22,7 @@ from .training_audit import (
     build_hourly,
     build_training_catalog,
     download_training,
+    run_network_smoke,
 )
 from .training_audit import (
     build_report as build_training_audit_report,
@@ -57,16 +59,78 @@ def training_download_command(
     config: Path = typer.Option(Path("configs/training_audit.yaml")),
     refresh: bool = typer.Option(False, help="Re-download completed site-years."),
     sites_limit: int | None = typer.Option(None, help="Limit sites for a smoke run."),
+    site_offset: int = typer.Option(0, help="Skip this many sorted candidate sites."),
     years: str | None = typer.Option(None, help="Inclusive range, e.g. 2023-2024."),
+    batch_sites: int | None = typer.Option(None, help="Sites per USGS request batch."),
+    cache_only: bool = typer.Option(False, help="Only reuse verified cache; no network."),
+    no_resume: bool = typer.Option(False, help="Ignore completion markers."),
+    min_free_disk_gb: float | None = typer.Option(None, help="Stop a batch below this free space."),
+    prune_new_raw: bool = typer.Option(
+        False, help="Delete only newly downloaded raw files after verified hourly output."
+    ),
 ) -> None:
     """Download raw observations while preserving all USGS quality qualifiers."""
     chosen_years = None
     if years:
         start, end = (int(value) for value in years.split("-"))
         chosen_years = list(range(start, end + 1))
+    started = time.monotonic()
+
+    def report(snapshot: dict) -> None:
+        elapsed = time.monotonic() - started
+        done = (
+            snapshot["cached"]
+            + snapshot["site_years_completed"]
+            + snapshot["no_data"]
+            + snapshot["failed"]
+            + snapshot["skipped"]
+        )
+        rate = done / elapsed * 3600 if elapsed > 0 else 0.0
+        typer.echo(
+            f"[{elapsed / 60:7.1f} min] year={snapshot['year']} done={done} "
+            f"(new={snapshot['site_years_completed']} cached={snapshot['cached']} "
+            f"no_data={snapshot['no_data']} failed={snapshot['failed']} "
+            f"skipped={snapshot['skipped']}) requests={snapshot['requests']} "
+            f"rows={snapshot['rows']} rate={rate:.0f}/h",
+            err=True,
+        )
+
     typer.echo(
         download_training(
-            _config(config), refresh=refresh, site_limit=sites_limit, years=chosen_years
+            _config(config),
+            refresh=refresh,
+            resume=not no_resume,
+            cache_only=cache_only,
+            site_limit=sites_limit,
+            site_offset=site_offset,
+            years=chosen_years,
+            batch_sites=batch_sites,
+            min_free_disk_gb=min_free_disk_gb,
+            prune_new_verified_raw=True if prune_new_raw else None,
+            on_progress=report,
+        )
+    )
+
+
+@training_audit_app.command("smoke")
+def training_smoke_command(
+    config: Path = typer.Option(Path("configs/training_audit.yaml")),
+    cache_dir: Path = typer.Option(Path(".cache/training_audit_smoke")),
+    year: int | None = typer.Option(None),
+    sites: int = typer.Option(5, help="Number of smoke sites."),
+    force_network: bool = typer.Option(
+        False, help="Ignore cache and require at least one real request."
+    ),
+) -> None:
+    """Run an isolated real-network smoke test without touching the main cache."""
+    typer.echo(
+        run_network_smoke(
+            _config(config),
+            cache_dir=cache_dir,
+            force_network=force_network,
+            year=year,
+            n_sites=sites,
+            batch_sites=sites,
         )
     )
 
@@ -76,9 +140,29 @@ def training_hourly_command(
     config: Path = typer.Option(Path("configs/training_audit.yaml")),
     refresh: bool = typer.Option(False),
     sites_limit: int | None = typer.Option(None),
+    workers: int = typer.Option(1, help="Parallel per-station aggregation processes."),
 ) -> None:
     """Create per-station UTC-hourly values and explicit quality masks."""
-    typer.echo(build_hourly(_config(config), site_limit=sites_limit, refresh=refresh))
+    started = time.monotonic()
+
+    def report(snapshot: dict) -> None:
+        elapsed = time.monotonic() - started
+        rate = snapshot["written"] / elapsed * 3600 if elapsed > 0 else 0.0
+        typer.echo(
+            f"[{elapsed / 60:7.1f} min] hourly written={snapshot['written']} "
+            f"skipped={snapshot['skipped']} last={snapshot['site_no']} rate={rate:.0f}/h",
+            err=True,
+        )
+
+    typer.echo(
+        build_hourly(
+            _config(config),
+            site_limit=sites_limit,
+            refresh=refresh,
+            workers=workers,
+            on_progress=report,
+        )
+    )
 
 
 @training_audit_app.command("report")
@@ -97,12 +181,8 @@ def catalog_command(
     """Build the candidate catalog and join GAGES-II attributes."""
     cfg = _config(config)
     frame = build_candidates(cfg, refresh_catalog=refresh)
-    typer.echo(
-        f"catalog sites: {len(frame)} | candidate_ok: {int(frame['candidate_ok'].sum())}"
-    )
-    typer.echo(
-        frame[frame["candidate_ok"]]["stratum"].value_counts().to_string()
-    )
+    typer.echo(f"catalog sites: {len(frame)} | candidate_ok: {int(frame['candidate_ok'].sum())}")
+    typer.echo(frame[frame["candidate_ok"]]["stratum"].value_counts().to_string())
 
 
 @app.command("download")
@@ -172,8 +252,7 @@ def forcing_command(
     events_path = cfg.results_dir / "a_class_events.csv"
     events.to_csv(events_path, index=False)
     typer.echo(
-        f"A-class events: {len(events)} ({events['site_no'].nunique()} stations) "
-        f"-> {events_path}"
+        f"A-class events: {len(events)} ({events['site_no'].nunique()} stations) -> {events_path}"
     )
     if source == "aorc":
         chosen = AORC_VARIABLES if variables == "all" else CORE_VARIABLES
