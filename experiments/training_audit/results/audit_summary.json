@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-10-28T08:53:04+00:00",
+  "config_sha256": "8df1497a5043f650b363dde7e69eac139646d215d4524e64d3c25cb376648322",
+  "git": {
+    "commit": "39443b24931f2328dccb28961f746b45625b3e64",
+    "branch": "feat/training-data-audit",
+    "dirty": true
+  },
+  "scope": "CONUS states configured; 2015-2024; IV Q=00060 and SC=00095",
+  "stations_in_catalog": 13767,
+  "candidate_pool_window_overlap": 1122,
+  "core_stations": 322,
+  "extended_stations": 385,
+  "download_status_counts": {
+    "not_attempted": 12645,
+    "downloaded": 1121,
+    "no_data": 1
+  },
+  "site_year_download_counts": {
+    "success": 9833,
+    "no_data": 1387
+  },
+  "funnel": {
+    "catalog_union": 13767,
+    "catalog_paired": 1266,
+    "window_overlap": 1122,
+    "not_tidal_or_ocean": 1111,
+    "downloaded": 1111,
+    "has_paired_hours": 1075,
+    "has_valid_year": 843,
+    "extended_eligible": 385,
+    "core_eligible": 322
+  },
+  "screening_rules": {
+    "splits": {
+      "train": [
+        "2015-01-01T00:00:00Z",
+        "2019-12-31T23:59:59Z"
+      ],
+      "validation": [
+        "2020-01-01T00:00:00Z",
+        "2021-12-31T23:59:59Z"
+      ],
+      "test": [
+        "2022-01-01T00:00:00Z",
+        "2024-12-31T23:59:59Z"
+      ]
+    },
+    "valid_day_min_paired_hours": 12,
+    "valid_year_min_valid_days": {
+      "cold": 60,
+      "warm": 60
+    },
+    "core": {
+      "train": {
+        "min_valid_years": 3,
+        "min_paired_hours": 10000,
+        "min_years_q_coverage": 3,
+        "q_coverage_threshold": 0.8
+      },
+      "validation": {
+        "min_valid_years": 1,
+        "min_years_q_coverage": 1,
+        "q_coverage_threshold": 0.7
+      },
+      "test": {
+        "min_valid_years": 2,
+        "min_years_q_coverage": 2,
+        "q_coverage_threshold": 0.7
+      },
+      "min_state_paired_hours": 200,
+      "min_state_fraction_of_paired": 0.1,
+      "min_phase_paired_hours": 200
+    },
+    "extended": {
+      "train": {
+        "min_valid_years": 3,
+        "min_paired_hours": 5000
+      },
+      "validation": {
+        "min_valid_years": 1
+      },
+      "test": {
+        "min_valid_years": 1
+      }
+    },
+    "flow_state_quantiles": [
+      0.3,
+      0.7
+    ]
+  },
+  "local_download_execution": {
+    "requests": 9,
+    "rows": 4496088,
+    "site_years_completed": 87,
+    "cached": 11130,
+    "no_data": 3,
+    "failed": 0,
+    "skipped": 0,
+    "candidate_pool_window_overlap": 1122,
+    "sites_selected": 1122,
+    "years": [
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "batch_sites": 10,
+    "resume": true,
+    "cache_only": false,
+    "min_free_disk_gb": 20.0,
+    "prune_new_verified_raw": false,
+    "finished_at": "2026-10-28T07:23:40+00:00"
+  },
+  "limitations": [
+    "no basin boundary polygons were used; boundary and nesting flags are HUC8 proxies",
+    "no point-source or road-salt datasets were joined; both are reported as unavailable",
+    "tidal/ocean exclusion uses station-name keywords only",
+    "raw IV Parquet and national hourly Parquet are not committed"
+  ]
+}

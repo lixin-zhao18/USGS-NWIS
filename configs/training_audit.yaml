@@ -1,0 +1,157 @@
+experiment_id: training_audit
+seed: 20261027
+
+window:
+  start: '2015-01-01T00:00:00Z'
+  end: '2024-12-31T23:59:59Z'
+
+data_sources:
+  site_service: 'https://waterservices.usgs.gov/nwis/site/'
+  iv_service: 'https://nwis.waterservices.usgs.gov/nwis/iv/'
+  gages2_item: 'https://www.sciencebase.gov/catalog/item/631405bbd34e36012efa304a'
+  gages2_file: 'https://www.sciencebase.gov/catalog/file/get/631405bbd34e36012efa304a?f=__disk__01%2F0a%2Fd2%2F010ad2fb628d42c764b81596fda93f0e86be478c'
+  states: [AL, AZ, AR, CA, CO, CT, DE, DC, FL, GA, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, WV, WI, WY]
+  batch_sites: 5
+  concurrency: 3
+  request_timeout_s: 300
+  retries: 3
+
+parameters:
+  streamflow: '00060'
+  specific_conductance: '00095'
+
+# These legacy screening values remain available to old modules but are not used
+# to define the training-audit population.
+candidate:
+  area_km2: [10, 1000]
+  preferred_area_km2: [10, 200]
+  max_dev_pct: 20
+  max_dam_density: 5
+  exclude_name_patterns: [TIDAL, ESTUARY, BAY, SOUND, INLET, DELTA, RESERVOIR, ' DAM', CANAL, DIVERSION, POWER, TREATMENT, WWTP, SEWAGE, IRRIGATION]
+
+quality:
+  max_cadence_minutes: 60
+  min_qualifying_years: 3
+  min_paired_completeness: 0.80
+  approved_only_primary: true
+  pairing_tolerance_fraction: 0.5
+  min_sc_median_us_cm: 10
+  max_sc_median_us_cm: 10000
+  max_negative_fraction: 0.01
+
+events:
+  min_count_per_station: 50
+  rolling_baseline_hours: 72
+  min_peak_distance_hours: 24
+  min_event_hours: 6
+  max_event_hours: 336
+  min_limb_points: 4
+  min_event_sc_completeness: 0.80
+  min_event_q_completeness: 0.90
+  peak_prominence_log10: 0.2
+  recession_fraction: 0.1
+
+hysteresis:
+  grid_points: 101
+  min_loop_events: 20
+  min_limb_points: 6
+  max_interp_gap_steps: 4
+  min_sc_amplitude_us_cm: 2.0
+  min_sc_amplitude_fraction: 0.05
+  min_q_range_fraction: 0.10
+  ambiguous_area_threshold: 0.01
+  min_direction_fraction: 0.60
+  min_median_area: 0.02
+  min_station_pass_fraction: 0.60
+  min_limb_monotonic_fraction: 0.80
+  reversal_tolerance_fraction: 0.02
+  min_sc_recovery: 0.50
+  min_sc_min_lag_fraction: -0.10
+  max_sc_min_lag_fraction: 0.50
+  max_secondary_peak_ratio: 0.85
+  min_sc_shape_monotonic: 0.80
+  sc_shape_tolerance_fraction: 0.05
+
+strata:
+  snow_pct_min: 20
+  aridity_max: 1.0
+  order: [semiarid_flashy, snow_mixed, humid_rainfall]
+
+selection:
+  target_total: 40
+  strata: {humid_rainfall: 20, snow_mixed: 10, semiarid_flashy: 10}
+  discovery: {humid_rainfall: 15, snow_mixed: 8, semiarid_flashy: 7}
+  validation: {humid_rainfall: 5, snow_mixed: 2, semiarid_flashy: 3}
+  reallocation_order: [humid_rainfall, snow_mixed, semiarid_flashy]
+  max_per_huc8: 2
+  rank_weights: {reference: 100, preferred_area: 30, low_disturbance: 20, low_dev: 20, low_dams: 10, completeness: 20, events: 10, jitter: 5}
+
+audit:
+  accepted_nonapproved_qualifiers: [P]
+  hourly_min_coverage: 0.75
+  q_valid_range: [0, 10000000]
+  sc_valid_range_us_cm: [0, 100000]
+  gap_threshold_hours: [6, 12, 24, 72, 168]
+  partial_min_paired_hours: 168
+  core_min_paired_coverage: 0.40
+  core_min_valid_years: 2
+  valid_year_min_paired_coverage: 0.20
+  sensitivity_coverages: [0.20, 0.40, 0.60, 0.80]
+  sensitivity_years: [1, 2, 3, 5]
+  sc_jump_absolute_us_cm: 500
+  sc_jump_relative_fraction: 0.50
+  sc_constant_run_hours: 72
+  sensor_regime_cadence_ratio: 2.0
+  conus_bounds: {lat_min: 24.0, lat_max: 50.0, lon_min: -125.0, lon_max: -66.0}
+
+# Training suitability is independent of the legacy round-1 quality/event rules
+# and of diagnostic anomaly flags. Catalog `window_overlap` remains the frozen
+# nationwide candidate-pool definition.
+screening:
+  qualifier_tokens:
+    approved: A
+    estimated: e
+    rejected: [P]
+  hourly_min_unique_timestamp_coverage: 0.75
+  q_valid_range: [0, 10000000]
+  sc_valid_range_us_cm: [0, 100000]
+  valid_day_min_paired_hours: 12
+  valid_year_min_valid_days:
+    cold: 60
+    warm: 60
+  splits:
+    train: ['2015-01-01T00:00:00Z', '2019-12-31T23:59:59Z']
+    validation: ['2020-01-01T00:00:00Z', '2021-12-31T23:59:59Z']
+    test: ['2022-01-01T00:00:00Z', '2024-12-31T23:59:59Z']
+  tiers:
+    core:
+      train: {min_valid_years: 3, min_paired_hours: 10000, min_years_q_coverage: 3, q_coverage_threshold: 0.80}
+      validation: {min_valid_years: 1, min_years_q_coverage: 1, q_coverage_threshold: 0.70}
+      test: {min_valid_years: 2, min_years_q_coverage: 2, q_coverage_threshold: 0.70}
+      min_state_paired_hours: 200
+      min_state_fraction_of_paired: 0.10
+      min_phase_paired_hours: 200
+    extended:
+      train: {min_valid_years: 3, min_paired_hours: 5000}
+      validation: {min_valid_years: 1}
+      test: {min_valid_years: 1}
+  flow_state_quantiles: [0.30, 0.70]
+  phase_smoothing_hours: 3
+  phase_change_fraction: 0.01
+  gap_threshold_hours: [6, 12, 24, 72, 168]
+  partial_min_paired_hours: 168
+  sensitivity_coverages: [0.20, 0.40, 0.60, 0.80]
+  sensitivity_years: [1, 2, 3, 5]
+  sc_jump_absolute_us_cm: 500
+  sc_jump_relative_fraction: 0.50
+  sc_constant_run_hours: 720
+  sc_spike_absolute_us_cm: 500
+  sc_spike_min_events: 3
+  sc_year_median_ratio: 1.5
+  sc_year_min_valid_hours: 720
+  sc_trend_min_years: 6
+  sc_trend_sign_consistency: 0.9
+  sc_trend_min_relative_change: 0.50
+  min_free_disk_gb: 20
+  prune_new_verified_raw: false
+  conus_bounds: {lat_min: 24.0, lat_max: 50.0, lon_min: -125.0, lon_max: -66.0}

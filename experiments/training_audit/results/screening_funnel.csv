@@ -1,0 +1,10 @@
+step,relative_to,station_count,dropped_from_parent,drop_reasons_json
+catalog_union,,13767,0,[]
+catalog_paired,catalog_union,1266,12501,"[[""not_catalog_paired"", 12501]]"
+window_overlap,catalog_paired,1122,144,"[[""no_catalog_overlap_in_window"", 144]]"
+not_tidal_or_ocean,window_overlap,1111,11,"[[""tidal_or_ocean_influenced"", 11]]"
+downloaded,not_tidal_or_ocean,1111,0,[]
+has_paired_hours,downloaded,1075,36,"[[""no_paired_valid_hour"", 36]]"
+has_valid_year,has_paired_hours,843,232,"[[""no_valid_year"", 232]]"
+extended_eligible,has_valid_year,385,460,"[[""train_valid_years"", 398], [""train_paired_hours"", 218], [""validation_valid_years"", 215], [""test_valid_years"", 139]]"
+core_eligible,extended_eligible,322,63,"[[""train_years_q_coverage"", 35], [""test_years_q_coverage"", 34], [""validation_years_q_coverage"", 29], [""test_valid_years"", 21], [""falling_phase_coverage"", 4], [""low_state_coverage"", 3], [""mid_state_coverage"", 1]]"
